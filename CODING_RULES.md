@@ -19,6 +19,7 @@ This document defines the lifecycle that all contributors must follow. It applie
 - Follow established coding style and architecture conventions.
 
 ## 5. Run and Pass All Tests
+- If the project uses Node tooling, run `npm install` to ensure dependencies are present.
 - Execute all available test suites until they succeed.
 - Fix any failing tests before proceeding.
 
