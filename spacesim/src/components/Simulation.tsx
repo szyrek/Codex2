@@ -60,7 +60,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
 
   const up = (pos: Vec2) => {
     if (!dragStart) return;
-    const velocity = throwVelocity(dragStart, pos);
+    const velocity = throwVelocity(dragStart, pos, sim.view.zoom);
     const label = uniqueName(spawnParams.label, sim.bodies.map(b=>b.data.label));
     sim.addBody(dragStart, velocity, { ...spawnParams, label });
     setDragStart(null);

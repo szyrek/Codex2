@@ -10,11 +10,13 @@ export function uniqueName(base: string, existing: string[]): string {
   return candidate;
 }
 
-export function throwVelocity(start: Vec2, end: Vec2) {
+export function throwVelocity(start: Vec2, end: Vec2, zoom = 1) {
   const drag = Vec2.sub(end, start);
-  const speed = drag.length();
-  if (speed < 5) return Vec2();
-  return drag.mul(0.01 * speed / (speed + 50));
+  const dist = drag.length();
+  const px = dist * zoom;
+  if (px <= 3) return Vec2();
+  const scale = 0.01 * px * px / (px + 50) / (dist || 1);
+  return drag.mul(scale);
 }
 
 export type OrbitType = 'crash' | 'stable' | 'escape';
