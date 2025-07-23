@@ -12,5 +12,6 @@ Create a folder here for each significant feature. Document:
 - [Pause and Reset Controls](pause-reset/README.md)
 - [Body Editor](body-editor/README.md)
 - [Highlight selected body](select-highlight/README.md)
+- [Orbit overlays](orbit-overlay/README.md)
 
 Each user-facing feature includes an accompanying end-to-end test referenced in its documentation.
