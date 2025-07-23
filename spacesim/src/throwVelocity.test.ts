@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Vec2 } from 'planck-js';
+import Vec2 from './vec2';
 import { throwVelocity } from './utils';
 
 describe('throwVelocity', () => {

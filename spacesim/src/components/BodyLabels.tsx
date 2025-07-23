@@ -6,7 +6,7 @@ export default function BodyLabels({ sim }: Props) {
   return (
     <>
       {sim.bodies.map((b) => {
-        const pos = sim.worldToScreen(b.body.getPosition());
+        const pos = sim.worldToScreen(b.body.translation());
         const dpr = window.devicePixelRatio || 1;
         const screenX = pos.x / dpr;
         const screenY = pos.y / dpr;

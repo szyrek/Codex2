@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { Simulation } from './simulation';
-import { Vec2 } from 'planck-js';
+import Vec2 from './vec2';
 
 function setupSim() {
   const sim = new Simulation();
