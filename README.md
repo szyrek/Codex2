@@ -10,10 +10,6 @@ A detailed workflow for all contributors is defined in [`practices/CODING_RULES.
 
 This file is part of the initial project scaffolding and will evolve as the project grows.
 
-## Example
-
-See [example/](example/) for a minimal TypeScript web app demonstrating the workflow in action. It provides build scripts, tests and documentation for a complete unit of work.
-
 ## Features
 
 Implemented features are documented under the [feature/](feature/) directory. Each entry links to the commits and has an accompanying end-to-end test.
