@@ -16,7 +16,7 @@ import type planck from 'planck-js';
 import type { EventBus } from '../core/eventBus';
 import { RenderPayload } from './types';
 import { predictOrbitType, throwVelocity } from '../utils';
-import { simulateOrbit } from './overlayRenderer';
+import { simulateOrbit } from '../orbit';
 import { G } from '../physics';
 
 export class ThreeRenderer {
