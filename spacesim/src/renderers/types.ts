@@ -1,9 +1,9 @@
-import type { Vec2 } from '../vec';
-import type { Body } from '../physics';
+import type planck from 'planck-js';
+import type { Vec2 } from 'planck-js';
 import type { BodyData } from '../physics';
 
 export interface RenderableBody {
-  body: Body;
+  body: planck.Body;
   data: BodyData;
 }
 

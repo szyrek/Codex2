@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { render } from 'preact';
 import BodyLabels from './BodyLabels';
-import { Vec2 } from '../vec';
+import { Vec2 } from 'planck-js';
 
 const body = {
-  body: { position: Vec2(5, 6) },
+  body: { getPosition: () => Vec2(5, 6) },
   data: { label: 'b', mass:1, radius:2, color: '#fff' }
 };
 

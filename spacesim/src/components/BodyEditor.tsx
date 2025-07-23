@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'preact/hooks';
 import { Simulation } from '../simulation';
-import { Vec2 } from '../vec';
+import { Vec2 } from 'planck-js';
 import type { BodyData } from '../physics';
 
 interface Props {
@@ -20,16 +20,16 @@ interface BodyState extends BodyData {
 export default function BodyEditor({ sim, body, onDeselect, frame }: Props) {
   const [state, setState] = useState<BodyState | null>(() => {
     if (!body) return null;
-    const pos = body.body.position;
-    const vel = body.body.velocity;
+    const pos = body.body.getPosition();
+    const vel = body.body.getLinearVelocity();
     return { ...body.data, posX: pos.x, posY: pos.y, velX: vel.x, velY: vel.y };
   });
   const [edited, setEdited] = useState(false);
   useEffect(() => {
     if (!body) return setState(null);
     if (edited) return;
-    const pos = body.body.position;
-    const vel = body.body.velocity;
+    const pos = body.body.getPosition();
+    const vel = body.body.getLinearVelocity();
     setState({
       ...body.data,
       posX: pos.x,
