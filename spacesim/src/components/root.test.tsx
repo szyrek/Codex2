@@ -6,6 +6,7 @@ import * as hooks from 'preact/hooks';
 vi.mock('../simulation', () => ({
   Simulation: class {
     speed = 1;
+    time = 0;
     bodies = [];
     view = { zoom: 1, center: { x: 0, y: 0 } };
     onRender() { return () => {}; }
