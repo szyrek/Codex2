@@ -5,6 +5,7 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:4173'
   },
+  workers: 1,
   webServer: {
     command: 'npx vite --port 4173',
     port: 4173,
