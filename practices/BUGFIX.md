@@ -18,5 +18,6 @@ Follow these steps whenever you address a defect:
 4. **Document the Fix**
    - In the bug's folder, provide a clear changelog and reference to this guide and other practice docs.
    - Cross-reference previous bugfixes if the issue relates to them.
+   - If the fix affects the UI, consult [UI Design Best Practices](UI.md) to ensure consistency.
 
 > These practices are mandatory for both human developers and agents. Do not change them without explicit approval.
