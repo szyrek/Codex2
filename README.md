@@ -22,3 +22,7 @@ commit. Run it locally with:
 ```bash
 node check-docs.js
 ```
+
+## Features
+
+Implemented features are documented under the [feature/](feature/) directory. Each entry links to the commits and has an accompanying end-to-end test.
