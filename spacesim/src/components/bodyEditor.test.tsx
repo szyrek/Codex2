@@ -4,7 +4,7 @@ import BodyEditor from './BodyEditor';
 
 const makeBody = (label: string) => ({
   data: { label, mass: 1, radius: 1, color: '#fff' },
-  body: { position: { x: 0, y: 0 }, velocity: { x: 0, y: 0 } } as any
+  body: { getPosition: () => ({ x: 0, y: 0 }), getLinearVelocity: () => ({ x: 0, y: 0 }) } as any
 });
 
 const sim = {
@@ -34,7 +34,7 @@ describe('BodyEditor', () => {
     const labels = Array.from(container.querySelectorAll('label'));
     const posX = labels.find(l => l.textContent?.startsWith('Pos X'))!.querySelector('input') as HTMLInputElement;
     expect(posX.value).toBe('0');
-    (body.body as any).position = { x: 2, y: 0 };
+    (body.body as any).getPosition = () => ({ x: 2, y: 0 });
     render(<BodyEditor sim={sim} body={body} onDeselect={() => {}} frame={1} />, container);
     await new Promise(r => setTimeout(r));
     const labels2 = Array.from(container.querySelectorAll('label'));
