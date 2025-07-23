@@ -27,9 +27,13 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
   const [dragStart, setDragStart] = useState<Vec2 | null>(null);
   const [frame, setFrame] = useState(0);
   const [speed, setSpeed] = useState(sim.speed);
+  const [time, setTime] = useState(sim.time);
 
   useEffect(() => {
-    const off = sim.onRender(() => setFrame(f => f + 1));
+    const off = sim.onRender(() => {
+      setFrame(f => f + 1);
+      setTime(sim.time);
+    });
     return () => off();
   }, [sim]);
 
@@ -106,6 +110,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
         <div style={{ display:'flex', justifyContent:'center' }}>
           <button onClick={()=>pan(0,20)}>↓</button>
         </div>
+        <div className="sim-time" style={{marginTop:'0.25rem'}}>Time {time.toFixed(1)}s</div>
       </div>
       <BodySpawner sim={sim} disabled={!!selected || !!dragStart} params={spawnParams} onChange={setSpawnParams} />
       <BodyEditor sim={sim} body={selected} onDeselect={()=>setSelected(null)} frame={frame} />

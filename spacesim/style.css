@@ -164,3 +164,8 @@ canvas {
   white-space: nowrap;
   text-shadow: 0 0 4px #0f0;
 }
+
+.sim-time {
+  text-align: center;
+  color: #0ff;
+}

@@ -8,6 +8,7 @@ const sim = {
   stop: () => {},
   loadScenario: () => {},
   speed: 1,
+  time: 0,
   bodies: [],
   view: { zoom: 1, center: { x: 0, y: 0 } },
   findBody: () => null,
@@ -32,5 +33,25 @@ describe('SimulationComponent', () => {
     render(<SimulationComponent sim={sim} />, container)
     await new Promise(r => setTimeout(r, 20))
     expect((window as any).sim).toBe(sim)
+  })
+
+  it('shows simulation time from sim', async () => {
+    let cb: () => void = () => {}
+    const testSim = {
+      ...sim,
+      time: 0,
+      onRender: (fn: () => void) => { cb = fn; return () => {} }
+    }
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+    render(<SimulationComponent sim={testSim as any} />, container)
+    await new Promise(r => setTimeout(r, 20))
+    let display = container.querySelector('.sim-time') as HTMLElement
+    expect(display.textContent).toBe('Time 0.0s')
+    testSim.time = 1.5
+    cb()
+    await new Promise(r => setTimeout(r, 20))
+    display = container.querySelector('.sim-time') as HTMLElement
+    expect(display.textContent).toBe('Time 1.5s')
   })
 })

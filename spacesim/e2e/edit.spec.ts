@@ -23,7 +23,9 @@ test('edit body label', async ({ page }) => {
   await page.mouse.click(box.x + 50, box.y + 50);
 
   const nameInput = page.locator('label:has-text("Name") input');
+  await nameInput.click();
   await nameInput.fill('Edited');
+  await expect(nameInput).toHaveValue('Edited');
   await page.getByRole('button', { name: 'Apply' }).click();
 
   const label = await page.evaluate(() => window.sim.bodies[0].data.label);

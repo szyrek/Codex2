@@ -27,4 +27,13 @@ describe('Simulation scenarios', () => {
     const arg = stepSpy.mock.calls[0][0];
     expect(arg).toBeCloseTo(1);
   });
+
+  it('tracks elapsed time', () => {
+    const sim = new Simulation();
+    sim['step'](0.25 as any);
+    expect(sim.time).toBeCloseTo(0.25);
+    sim.speedUp();
+    sim['step'](0.25 as any);
+    expect(sim.time).toBeCloseTo(0.75);
+  });
 });
