@@ -84,4 +84,22 @@ describe('Sandbox gravity', () => {
     expect(body.data.label).toBe('b');
     expect(body.data.color).toBe('blue');
   });
+
+  it('updates body position', () => {
+    const sb = new PhysicsEngine();
+    const body = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: 'a' });
+    sb.updateBody(body, { position: Vec2(5, 6) });
+    const pos = body.body.getPosition();
+    expect(pos.x).toBeCloseTo(5);
+    expect(pos.y).toBeCloseTo(6);
+  });
+
+  it('updates body velocity', () => {
+    const sb = new PhysicsEngine();
+    const body = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: 'a' });
+    sb.updateBody(body, { velocity: Vec2(3, 4) });
+    const vel = body.body.getLinearVelocity();
+    expect(vel.x).toBeCloseTo(3);
+    expect(vel.y).toBeCloseTo(4);
+  });
 });

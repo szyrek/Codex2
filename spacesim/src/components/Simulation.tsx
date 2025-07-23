@@ -21,7 +21,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
   const [selected, setSelected] = useState<ReturnType<Simulation['addBody']> | null>(null);
   const [spawnParams, setSpawnParams] = useState({ mass:1, radius:5, color:'#ffffff', label:'body' });
   const [dragStart, setDragStart] = useState<Vec2 | null>(null);
-  const [, setFrame] = useState(0);
+  const [frame, setFrame] = useState(0);
 
   useEffect(() => {
     const off = sim.onRender(() => setFrame(f => f + 1));
@@ -73,7 +73,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
         <button onClick={reset}>Reset</button>
       </div>
       <BodySpawner sim={sim} disabled={!!selected || !!dragStart} params={spawnParams} onChange={setSpawnParams} />
-      <BodyEditor sim={sim} body={selected} onDeselect={()=>setSelected(null)} />
+      <BodyEditor sim={sim} body={selected} onDeselect={()=>setSelected(null)} frame={frame} />
       <BodyList sim={sim} selected={selected} onSelect={b=>setSelected(b)} />
     </div>
   );
