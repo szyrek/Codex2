@@ -7,8 +7,9 @@
     "build": "npm test && vite build",
     "preview": "vite preview",
     "test": "vitest run --coverage",
+    "pretest:e2e": "playwright install --with-deps",
     "test:e2e": "playwright test",
-    "test:perf": "vitest bench --run --config vitest.performance.config.ts"
+    "test:perf": "vitest bench --run --config vitest.performance.config.ts --outputJson performance/latest.json && node performance/compare.js"
   },
   "type": "module",
   "devDependencies": {
