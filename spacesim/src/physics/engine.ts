@@ -1,4 +1,7 @@
-import * as RAPIER from '@dimforge/rapier2d-compat';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const RAPIER: typeof import('@dimforge/rapier2d-compat') = require('@dimforge/rapier2d-compat');
 import Vec2, { Vector } from '../vec2';
 
 export interface BodyData {
