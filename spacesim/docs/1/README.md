@@ -10,7 +10,7 @@ A detailed workflow for all contributors is defined in [`practices/CODING_RULES.
 
 This file is part of the initial project scaffolding and will evolve as the project grows.
 
- ## Features
+## Features
 
 Implemented features are documented under the [feature/](feature/) directory. Each entry links to the commits and has an accompanying end-to-end test.
 
