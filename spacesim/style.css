@@ -123,6 +123,15 @@ input[type="color"] {
   box-sizing: border-box;
 }
 
+.hud-buttons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
 button {
   background: #111;
   color: #0f0;
