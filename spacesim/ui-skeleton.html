@@ -46,6 +46,23 @@
       background: radial-gradient(circle, #000 60%, #111);
       position: relative;
     }
+    button {
+      background: linear-gradient(#444, #111);
+      color: #0ff;
+      border: 1px solid #0ff;
+      padding: 0.25em 0.5em;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(0,255,255,0.4);
+    }
+    input {
+      background: #000;
+      color: #0f0;
+      border: 1px solid #0ff;
+      padding: 0.25em;
+      font-family: inherit;
+    }
+
     #sim-canvas {
       width: 100%;
       height: 100%;
@@ -78,7 +95,10 @@
     <section class="canvas-wrapper">
       <canvas id="sim-canvas"></canvas>
     </section>
-    <aside class="control-deck">Mockup of ship/system controls</aside>
+    <aside class="control-deck">
+      <button>Fire</button>
+      <input placeholder="Command" />
+    </aside>
   </main>
   <footer class="status-footer">Status bar / diagnostics</footer>
 </body>
