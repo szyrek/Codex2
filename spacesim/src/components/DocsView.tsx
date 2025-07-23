@@ -43,8 +43,8 @@ export default function DocsView() {
   const load = (file: string) => loadFile(major, file);
 
   return (
-    <div style={{position:'absolute', inset:0, display:'flex', color:'#fff'}}>
-      <div style={{width:'220px', padding:'1rem', boxSizing:'border-box', overflowY:'auto', marginTop:'60px'}}>
+    <div className="docs-container" style={{position:'absolute', inset:0, display:'flex'}}>
+      <div className="panel" style={{width:'220px', padding:'1rem', boxSizing:'border-box', overflowY:'auto', marginTop:'60px'}}>
         <div style={{marginBottom:'1rem'}}>
           <label>
             Version:
@@ -59,7 +59,7 @@ export default function DocsView() {
           ))}
         </ul>
       </div>
-      <div style={{flex:1, padding:'1rem', overflowY:'auto', marginTop:'60px'}}>
+      <div className="docs-content" style={{flex:1, padding:'1rem', overflowY:'auto', marginTop:'60px'}}>
         <div dangerouslySetInnerHTML={{__html: content}} />
       </div>
     </div>

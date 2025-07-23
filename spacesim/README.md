@@ -32,3 +32,14 @@ The build script runs the test suite first and fails if unit test coverage drops
 `npm run test:perf` measures physics and renderer performance. The benchmarks are manual only and help track how many bodies we can simulate or draw at acceptable frame rates.
 
 See [../practices](../practices) for overall development guidelines.
+
+## Retro UI
+
+The application now includes a built‑in retro theme styled after classic
+CRT interfaces. Panels and buttons glow in neon green and cyan to mimic an
+80s command deck. Inputs match the palette with black backgrounds and neon
+borders while buttons have a metallic gradient sheen. The file
+`ui-skeleton.html` remains as a standalone reference demonstrating the
+basic layout and can be opened directly in a browser. If Vite reports a
+CSS parsing error, ensure all blocks in `style.css` end with a closing
+brace.
