@@ -78,9 +78,9 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
   const resetSpeed = () => { sim.resetSpeed(); setSpeed(sim.speed); };
 
   return (
-    <div style={{ position:'relative', width:'100%', height:'100%' }}>
+    <div className="sim-container" style={{ position:'relative', width:'100%', height:'100%' }}>
       <CanvasView sim={sim} onMouseDown={down} onMouseMove={move} onMouseUp={up} />
-      <div style={{ position:'absolute', top:'10px', right:'10px', display:'flex', flexDirection:'column', gap:'0.25rem' }}>
+      <div className="panel" style={{ position:'absolute', top:'10px', right:'10px', display:'flex', flexDirection:'column', gap:'0.25rem' }}>
         <div style={{ display:'flex', gap:'0.25rem' }}>
           <button onClick={toggleRun}>{running ? 'Pause' : 'Start'}</button>
           <button onClick={reset}>Reset</button>

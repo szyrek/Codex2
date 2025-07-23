@@ -14,7 +14,7 @@ export default function BodySpawner({ sim, disabled, params, onChange }: Props) 
   if (disabled) return null;
 
   return (
-    <div style={{ position: 'absolute', top: '60px', left: '10px', display: 'flex', gap: '0.5rem' }}>
+    <div className="panel" style={{ position: 'absolute', top: '60px', left: '10px', display: 'flex', gap: '0.5rem' }}>
       <label>Name <input value={label} onInput={e=>onChange({ ...params, label: (e.target as HTMLInputElement).value })} /></label>
       <label>Mass <input type="number" step="0.1" value={mass} onInput={e=>onChange({ ...params, mass: parseFloat((e.target as HTMLInputElement).value) })} /></label>
       <label>Radius <input type="number" step="1" value={radius} onInput={e=>onChange({ ...params, radius: parseFloat((e.target as HTMLInputElement).value) })} /></label>
