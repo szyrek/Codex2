@@ -2,7 +2,7 @@
 
 A simple 2D physics sandbox illustrating basic orbital mechanics. The project uses TypeScript and Planck.js to simulate gravity between bodies. The canvas fills the browser window and resizes automatically.
 
-You can spawn planets by dragging on the canvas and entering a name and mass. Existing bodies may be selected to edit their parameters. Controls allow pausing/resuming the simulation and resetting all bodies.
+You can spawn planets by dragging on the canvas. Click without moving to create a stationary body. The UI allows setting the name, mass, radius (km) and color of the new body. Names are automatically numbered to remain unique. While dragging a new planet the simulation pauses so you can adjust the throw vector which is visualised with a coloured arrow. Green indicates a bound orbit, blue an escape trajectory and red a very low velocity that will likely crash. Selecting an existing body displays an edit panel and pauses throwing. Bodies merge on contact when one is more than three times heavier, otherwise they bounce.
 
 ## Setup
 ```bash
