@@ -9,6 +9,11 @@ export default function Root() {
   return (
     <div className="app-root" style={{display:'flex', flexDirection:'column'}}>
       <header className="hud-bar">
+        <img
+          src={`${import.meta.env.BASE_URL}images/logo.png`}
+          alt="Spacesim logo"
+          className="app-logo"
+        />
         <div className="hud-buttons">
           <button onClick={() => setTab('sandbox')}>Sandbox</button>
           <button onClick={() => setTab('scenario')}>Scenario</button>
