@@ -85,31 +85,16 @@ export class PhysicsEngine {
 
   private applyGravity() {
     for (let i = 0; i < this.bodies.length; i++) {
-      const child = this.bodies[i];
-      let parent: { body: planck.Body; data: BodyData } | undefined;
-      let bestPull = 0;
-      for (let j = 0; j < this.bodies.length; j++) {
-        if (i === j) continue;
-        const candidate = this.bodies[j];
-        if (candidate.data.mass < child.data.mass) continue;
-        const rVec = Vec2.sub(candidate.body.getPosition(), child.body.getPosition());
-        const distSq = rVec.lengthSquared();
-        if (distSq === 0) continue;
-        const pull = candidate.data.mass / distSq;
-        if (pull > bestPull) {
-          bestPull = pull;
-          parent = candidate;
-        }
-      }
-      if (parent) {
-        const posChild = child.body.getPosition();
-        const posParent = parent.body.getPosition();
-        const r = Vec2.sub(posParent, posChild);
+      for (let j = i + 1; j < this.bodies.length; j++) {
+        const a = this.bodies[i];
+        const b = this.bodies[j];
+        const r = Vec2.sub(b.body.getPosition(), a.body.getPosition());
         const distSq = r.lengthSquared();
         if (distSq === 0) continue;
-        const forceMag = (G * child.data.mass * parent.data.mass) / distSq;
+        const forceMag = (G * a.data.mass * b.data.mass) / distSq;
         const force = r.mul(forceMag / Math.sqrt(distSq));
-        child.body.applyForceToCenter(force, true);
+        a.body.applyForceToCenter(force, true);
+        b.body.applyForceToCenter(force.clone().mul(-1), true);
       }
     }
   }
