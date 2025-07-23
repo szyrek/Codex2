@@ -78,7 +78,8 @@ export class Simulation {
     if (!this.canvas) return p.clone();
     return Vec2(
       (p.x - this._view.center.x) * this._view.zoom + this.canvas.width / 2,
-      (p.y - this._view.center.y) * this._view.zoom + this.canvas.height / 2,
+      this.canvas.height / 2 -
+        (p.y - this._view.center.y) * this._view.zoom,
     );
   }
 
@@ -86,7 +87,7 @@ export class Simulation {
     if (!this.canvas) return p.clone();
     return Vec2(
       (p.x - this.canvas.width / 2) / this._view.zoom + this._view.center.x,
-      (p.y - this.canvas.height / 2) / this._view.zoom + this._view.center.y,
+      (this.canvas.height / 2 - p.y) / this._view.zoom + this._view.center.y,
     );
   }
 

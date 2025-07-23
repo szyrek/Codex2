@@ -23,6 +23,14 @@ describe('view transforms', () => {
     expect(round.y).toBeCloseTo(world.y);
   });
 
+  it('maps positive world y upward on screen', () => {
+    const sim = setupSim();
+    const screen = sim.worldToScreen(Vec2(0, 10));
+    expect(screen.y).toBeLessThan(100);
+    const round = sim.screenToWorld(screen);
+    expect(round.y).toBeCloseTo(10);
+  });
+
   it('centers on body and resets zoom', () => {
     const sim = setupSim();
     const body = sim.addBody(Vec2(5, 5), Vec2(), { mass:1, radius:1, color:'#fff', label:'b' });
