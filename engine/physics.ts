@@ -34,7 +34,7 @@ function applyOrbitalGravity() {
   }
 }
 
-export function stepPhysics(_dt: number) {
+export function stepPhysics(dt: number) {
   applyOrbitalGravity();
-  world.step();
+  world.step(dt);
 }
