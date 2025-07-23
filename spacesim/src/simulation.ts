@@ -20,7 +20,8 @@ interface Events {
 }
 
 export class Simulation {
-  private engine = new PhysicsEngine();
+  // use multiple substeps to keep orbits stable
+  private engine = new PhysicsEngine(5);
   private bus: EventBus<Events> = createEventBus<Events>();
   private loop = new GameLoop(this.bus, 1 / 25);
   private renderer?: ThreeRenderer;
