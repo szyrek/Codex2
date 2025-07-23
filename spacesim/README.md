@@ -14,6 +14,9 @@ Bodies also render dotted orbit trails based on their current trajectory. The tr
 ```bash
 npm install
 ```
+The repository includes an `.npmrc` file that disables automatic Playwright
+browser downloads so installation works even without internet access. Install
+browsers manually with `npx playwright install` when needed.
 
 ## Commands
 ```bash
