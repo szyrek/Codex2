@@ -17,9 +17,11 @@ export const G = 1; // gravitational constant (arbitrary units)
 export class PhysicsEngine {
   private world: World;
   public bodies: { body: planck.Body; data: BodyData }[] = [];
+  private subSteps: number;
 
-  constructor() {
+  constructor(subSteps = 1) {
     this.world = new planck.World({ gravity: Vec2(0, 0) });
+    this.subSteps = subSteps;
   }
 
   addBody(position: Vec2, velocity: Vec2, data: BodyData) {
@@ -91,10 +93,11 @@ export class PhysicsEngine {
         const r = Vec2.sub(b.body.getPosition(), a.body.getPosition());
         const distSq = r.lengthSquared();
         if (distSq === 0) continue;
+        const dist = Math.sqrt(distSq);
         const forceMag = (G * a.data.mass * b.data.mass) / distSq;
-        const force = r.mul(forceMag / Math.sqrt(distSq));
+        const force = r.clone().mul(forceMag / dist);
         a.body.applyForceToCenter(force, true);
-        b.body.applyForceToCenter(force.clone().mul(-1), true);
+        b.body.applyForceToCenter(force.clone().neg(), true);
       }
     }
   }
@@ -160,8 +163,11 @@ export class PhysicsEngine {
   }
 
   step(dt: number) {
-    this.applyGravity();
-    this.world.step(dt);
+    const subDt = dt / this.subSteps;
+    for (let i = 0; i < this.subSteps; i++) {
+      this.applyGravity();
+      this.world.step(subDt);
+    }
     this.resolveCollisions();
   }
 

@@ -16,7 +16,7 @@ function systemEnergy(a: { body: any; data: any }, b: { body: any; data: any }) 
 
 describe('energy conservation', () => {
   it('keeps total energy roughly constant', () => {
-    const engine = new PhysicsEngine();
+    const engine = new PhysicsEngine(5);
     const sun = engine.addBody(Vec2(0, 0), Vec2(), { mass: 1000, radius: 10, color: 'yellow', label: 'Sun' });
     const earth = engine.addBody(Vec2(100, 0), Vec2(0, 3), { mass: 1, radius: 4, color: 'blue', label: 'Earth' });
     const initial = systemEnergy(earth, sun);
