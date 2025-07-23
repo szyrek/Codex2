@@ -65,7 +65,13 @@ export class ThreeRenderer {
   }
 
   private updateOrbits(bodies: RenderPayload['bodies']) {
-    if (!bodies.length) return;
+    if (!bodies.length) {
+      for (const line of this.orbitLines.values()) {
+        this.scene.remove(line);
+      }
+      this.orbitLines.clear();
+      return;
+    }
     const central = bodies.reduce((a, b) =>
       b.data.mass > a.data.mass ? b : a,
     bodies[0]);

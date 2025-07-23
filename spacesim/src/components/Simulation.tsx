@@ -3,6 +3,7 @@ import CanvasView from './CanvasView';
 import BodyList from './BodyList';
 import BodyEditor from './BodyEditor';
 import BodySpawner from './BodySpawner';
+import BodyLabels from './BodyLabels';
 import { Simulation, type ScenarioEvent } from '../simulation';
 import { Vec2 } from 'planck-js';
 import { uniqueName, throwVelocity } from '../utils';
@@ -105,6 +106,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
       <BodySpawner sim={sim} disabled={!!selected || !!dragStart} params={spawnParams} onChange={setSpawnParams} />
       <BodyEditor sim={sim} body={selected} onDeselect={()=>setSelected(null)} frame={frame} />
       <BodyList sim={sim} selected={selected} onSelect={b=>setSelected(b)} />
+      <BodyLabels sim={sim} frame={frame} />
     </div>
   );
 }

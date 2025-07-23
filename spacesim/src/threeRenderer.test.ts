@@ -56,4 +56,18 @@ describe('ThreeRenderer', () => {
     const drag = (renderer as any).dragLine;
     expect(drag.material.color).toBe('blue');
   });
+
+  it('clears orbit lines when no bodies', () => {
+    const canvas = { width: 200, height: 200 } as HTMLCanvasElement;
+    const bus = createEventBus<any>();
+    const renderer = new ThreeRenderer(canvas, bus);
+    const engine = new PhysicsEngine();
+    engine.addBody(Vec2(0, 0), Vec2(), { mass:1, radius:1, color:'yellow', label:'c' });
+    const vel = throwVelocity(Vec2(10,0), Vec2(10,50));
+    engine.addBody(Vec2(10,0), vel, { mass:1, radius:1, color:'white', label:'s' });
+    bus.emit('render', { bodies: engine.bodies });
+    expect((renderer as any).orbitLines.size).toBe(1);
+    bus.emit('render', { bodies: [] });
+    expect((renderer as any).orbitLines.size).toBe(0);
+  });
 });

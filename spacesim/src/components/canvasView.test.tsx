@@ -17,4 +17,24 @@ describe('CanvasView', () => {
     expect(pos.x).toBeCloseTo(5);
     expect(pos.y).toBeCloseTo(5);
   });
+
+  it('scales coordinates with devicePixelRatio', () => {
+    const click = vi.fn();
+    const screenToWorld = vi.fn((v: Vec2) => v);
+    const sim = { setCanvas: vi.fn(), screenToWorld } as any;
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    const orig = window.devicePixelRatio;
+    Object.defineProperty(window, 'devicePixelRatio', { value: 2, configurable: true });
+    render(<CanvasView sim={sim} onClick={click} />, container);
+    const canvas = container.querySelector('canvas')!;
+    Object.defineProperty(canvas, 'clientWidth', { value: 100 });
+    Object.defineProperty(canvas, 'clientHeight', { value: 100 });
+    canvas.getBoundingClientRect = () => ({ left: 0, top: 0, width:100, height:100 } as any);
+    canvas.dispatchEvent(new MouseEvent('click', { clientX:10, clientY:15 }));
+    const arg = screenToWorld.mock.calls[0][0] as ReturnType<typeof Vec2>;
+    expect(arg.x).toBeCloseTo(20);
+    expect(arg.y).toBeCloseTo(30);
+    Object.defineProperty(window, 'devicePixelRatio', { value: orig });
+  });
 });
