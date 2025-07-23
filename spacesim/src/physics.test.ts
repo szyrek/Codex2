@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { Sandbox } from './sandbox';
+import { PhysicsEngine } from './physics';
 import { Vec2 } from 'planck-js';
 
 describe('Sandbox gravity', () => {
   it('attracts bodies toward each other', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: '' });
     sb.addBody(Vec2(10, 0), Vec2(), { mass: 1, radius: 1, color: 'blue', label: '' });
 
@@ -15,14 +15,14 @@ describe('Sandbox gravity', () => {
   });
 
   it('clears bodies on reset', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: '' });
     sb.reset();
     expect(sb.bodies.length).toBe(0);
   });
 
   it('updates body mass', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     const start = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: '' });
     if (start) sb.updateBody(start, { mass: 2 });
     const fixture = start?.body.getFixtureList();
@@ -30,7 +30,7 @@ describe('Sandbox gravity', () => {
   });
 
   it('updates body radius', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     const start = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: '' });
     if (start) sb.updateBody(start, { radius: 2 });
     const fixture = start?.body.getFixtureList();
@@ -39,21 +39,21 @@ describe('Sandbox gravity', () => {
   });
 
   it('finds a body by position', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     sb.addBody(Vec2(5, 5), Vec2(), { mass: 1, radius: 2, color: 'red', label: '' });
     const found = sb.findBody(Vec2(6, 5));
     expect(found).toBeDefined();
   });
 
   it('returns undefined when no body at position', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     sb.addBody(Vec2(5, 5), Vec2(), { mass: 1, radius: 2, color: 'red', label: '' });
     const found = sb.findBody(Vec2(50, 50));
     expect(found).toBeUndefined();
   });
 
   it('merges smaller body on collision with massive one', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     const big = sb.addBody(Vec2(0, 0), Vec2(), { mass: 3, radius: 1, color: 'red', label: '' });
     const small = sb.addBody(Vec2(0.5, 0), Vec2(), { mass: 1, radius: 1, color: 'blue', label: '' });
     sb.step(0);
@@ -62,7 +62,7 @@ describe('Sandbox gravity', () => {
   });
 
   it('bounces similar masses', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     const a = sb.addBody(Vec2(-0.5, 0), Vec2(1, 0), { mass: 1, radius: 1, color: 'red', label: '' });
     const b = sb.addBody(Vec2(0.5, 0), Vec2(-1, 0), { mass: 1, radius: 1, color: 'blue', label: '' });
     sb.step(0);
@@ -71,14 +71,14 @@ describe('Sandbox gravity', () => {
   });
 
   it('removes bodies correctly', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     const body = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: 'a' });
     sb.removeBody(body);
     expect(sb.bodies.length).toBe(0);
   });
 
   it('updates label and color', () => {
-    const sb = new Sandbox();
+    const sb = new PhysicsEngine();
     const body = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: 'a' });
     sb.updateBody(body, { label: 'b', color: 'blue' });
     expect(body.data.label).toBe('b');
