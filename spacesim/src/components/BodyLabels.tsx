@@ -7,13 +7,16 @@ export default function BodyLabels({ sim }: Props) {
     <>
       {sim.bodies.map((b) => {
         const pos = sim.worldToScreen(b.body.getPosition());
+        const dpr = window.devicePixelRatio || 1;
+        const screenX = pos.x / dpr;
+        const screenY = pos.y / dpr;
         return (
           <div
             key={b.data.label}
             style={{
               position: 'absolute',
-              left: `${pos.x + b.data.radius + 2}px`,
-              top: `${pos.y - 10}px`,
+              left: `${screenX + b.data.radius + 2}px`,
+              top: `${screenY - 10}px`,
               pointerEvents: 'none',
               color: '#fff',
               fontSize: '12px',
