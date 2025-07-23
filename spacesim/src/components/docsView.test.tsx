@@ -29,4 +29,18 @@ describe('DocsView', () => {
     expect(fetchMock.mock.calls[2][0]).toBe(`${base}docs/1/README.md`);
     expect(container.innerHTML).toContain('<h1>Hello</h1>');
   });
+  it('handles invalid manifest gracefully', async () => {
+    const responses = [
+      { json: () => Promise.resolve({ major: 1 }) },
+      { json: () => Promise.reject(new SyntaxError('invalid')) }
+    ];
+    const fetchMock = vi.fn(() => Promise.resolve(responses.shift()!));
+    global.fetch = fetchMock as any;
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    render(<DocsView />, container);
+    await new Promise(r => setTimeout(r, 20));
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(container.querySelectorAll('li').length).toBe(0);
+  });
 });
