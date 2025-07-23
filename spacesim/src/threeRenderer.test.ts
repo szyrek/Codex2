@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { ThreeRenderer } from './renderers/threeRenderer';
 import { createEventBus } from './core/eventBus';
 import { PhysicsEngine } from './physics';
-import { Vec2 } from 'planck-js';
+import { Vec2 } from './vec';
 import { throwVelocity } from './utils';
 
 vi.mock('three', () => {
@@ -16,8 +16,19 @@ vi.mock('three', () => {
   class BufferGeometry { points:any[]=[]; setFromPoints(p:any[]){ this.points=p; return this; } dispose(){} }
   class Mesh { position={x:0,y:0,z:0,set(x:number,y:number,z:number){this.x=x;this.y=y;this.z=z;}}; constructor(public g:any,public m:any){} }
   class Line { geometry:any; material:any; constructor(g:any,m:any){ this.geometry=g; this.material=m; } computeLineDistances(){} }
+  class Vector2 { constructor(public x:number,public y:number){}
+    clone(){ return new Vector2(this.x,this.y); }
+    add(v:Vector2){ this.x+=v.x; this.y+=v.y; return this; }
+    sub(v:Vector2){ this.x-=v.x; this.y-=v.y; return this; }
+    multiplyScalar(s:number){ this.x*=s; this.y*=s; return this; }
+    length(){ return Math.sqrt(this.x*this.x+this.y*this.y); }
+    lengthSq(){ return this.x*this.x+this.y*this.y; }
+    distanceTo(v:Vector2){ return Math.sqrt((this.x-v.x)**2+(this.y-v.y)**2); }
+    distanceToSquared(v:Vector2){ return (this.x-v.x)**2+(this.y-v.y)**2; }
+    dot(v:Vector2){ return this.x*v.x+this.y*v.y; }
+  }
   class Vector3 { constructor(public x:number,public y:number,public z:number){} }
-  return { Scene, WebGLRenderer, OrthographicCamera, SphereGeometry, MeshBasicMaterial, Mesh, LineBasicMaterial, LineDashedMaterial, BufferGeometry, Line, Vector3 };
+  return { Scene, WebGLRenderer, OrthographicCamera, SphereGeometry, MeshBasicMaterial, Mesh, LineBasicMaterial, LineDashedMaterial, BufferGeometry, Line, Vector2, Vector3 };
 });
 
 describe('ThreeRenderer', () => {

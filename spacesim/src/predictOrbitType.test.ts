@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Vec2 } from 'planck-js';
+import { Vec2 } from './vec';
 import { predictOrbitType, throwVelocity } from './utils';
 import { G } from './physics';
 

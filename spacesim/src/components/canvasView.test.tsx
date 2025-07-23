@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render } from 'preact';
 import CanvasView from './CanvasView';
-import { Vec2 } from 'planck-js';
+import { Vec2 } from '../vec';
 
 describe('CanvasView', () => {
   it('reports click coordinates relative to canvas', () => {

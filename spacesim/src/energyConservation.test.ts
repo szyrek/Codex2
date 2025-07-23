@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { PhysicsEngine, G } from './physics';
-import { Vec2 } from 'planck-js';
+import { Vec2 } from './vec';
 
 function systemEnergy(a: { body: any; data: any }, b: { body: any; data: any }) {
-  const posA = a.body.getPosition();
-  const posB = b.body.getPosition();
-  const velA = a.body.getLinearVelocity();
-  const velB = b.body.getLinearVelocity();
+  const posA = a.body.position;
+  const posB = b.body.position;
+  const velA = a.body.velocity;
+  const velB = b.body.velocity;
   const r = posA.clone().sub(posB).length();
   const keA = 0.5 * a.data.mass * velA.lengthSquared();
   const keB = 0.5 * b.data.mass * velB.lengthSquared();

@@ -12,9 +12,9 @@ import {
   Vector3,
   Color,
 } from 'three';
-import type planck from 'planck-js';
 import type { EventBus } from '../core/eventBus';
 import { RenderPayload } from './types';
+import type { Vec2 } from '../vec';
 import { predictOrbitType, throwVelocity } from '../utils';
 import { simulateOrbit } from '../orbit';
 import { G } from '../physics';
@@ -23,8 +23,8 @@ export class ThreeRenderer {
   private scene = new Scene();
   private camera: OrthographicCamera;
   private renderer: WebGLRenderer;
-  private bodyMeshes = new Map<planck.Body, Mesh>();
-  private orbitLines = new Map<planck.Body, Line>();
+  private bodyMeshes = new Map<any, Mesh>();
+  private orbitLines = new Map<any, Line>();
   private dragLine?: Line;
 
   constructor(private canvas: HTMLCanvasElement, bus: EventBus<{ render: RenderPayload }>) {
@@ -54,7 +54,7 @@ export class ThreeRenderer {
         this.scene.add(mesh);
         this.bodyMeshes.set(body, mesh);
       }
-      const pos = body.getPosition();
+      const pos = body.position;
       mesh.position.set(pos.x, pos.y, 0);
     }
     for (const [b, mesh] of Array.from(this.bodyMeshes.entries())) {
@@ -76,7 +76,7 @@ export class ThreeRenderer {
     const central = bodies.reduce((a, b) =>
       b.data.mass > a.data.mass ? b : a,
     bodies[0]);
-    const cPos = central.body.getPosition();
+    const cPos = central.body.position;
 
     const active = new Set(bodies.map((b) => b.body));
     for (const [b, line] of Array.from(this.orbitLines.entries())) {
@@ -88,8 +88,8 @@ export class ThreeRenderer {
 
     for (const b of bodies) {
       if (b === central) continue;
-      const pos = b.body.getPosition();
-      const vel = b.body.getLinearVelocity();
+      const pos = b.body.position;
+      const vel = b.body.velocity;
       const type = predictOrbitType(
         pos,
         vel,
@@ -130,12 +130,12 @@ export class ThreeRenderer {
     }
   }
 
-  private updateDragLine(bodies: RenderPayload['bodies'], line?: { start: planck.Vec2; end: planck.Vec2 }) {
+  private updateDragLine(bodies: RenderPayload['bodies'], line?: { start: Vec2; end: Vec2 }) {
     if (!bodies.length) return;
     const central = bodies.reduce((a, b) =>
       b.data.mass > a.data.mass ? b : a,
     bodies[0]);
-    const cPos = central.body.getPosition();
+    const cPos = central.body.position;
     if (!line) {
       if (this.dragLine) {
         this.scene.remove(this.dragLine);
