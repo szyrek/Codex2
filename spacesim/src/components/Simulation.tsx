@@ -16,7 +16,10 @@ interface Props {
 export default function SimulationComponent({ scenario, sim: ext }: Props) {
   const [sim] = useState(() => ext ?? new Simulation());
   useEffect(() => {
-    (window as any).sim = sim;
+    if (import.meta.env.DEV) {
+      (window as any).sim = sim;
+      return () => { delete (window as any).sim; };
+    }
   }, [sim]);
   const [running, setRunning] = useState(true);
   const [selected, setSelected] = useState<ReturnType<Simulation['addBody']> | null>(null);
