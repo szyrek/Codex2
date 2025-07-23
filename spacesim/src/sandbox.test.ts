@@ -45,6 +45,13 @@ describe('Sandbox gravity', () => {
     expect(found).toBeDefined();
   });
 
+  it('returns undefined when no body at position', () => {
+    const sb = new Sandbox();
+    sb.addBody(Vec2(5, 5), Vec2(), { mass: 1, radius: 2, color: 'red', label: '' });
+    const found = sb.findBody(Vec2(50, 50));
+    expect(found).toBeUndefined();
+  });
+
   it('merges smaller body on collision with massive one', () => {
     const sb = new Sandbox();
     const big = sb.addBody(Vec2(0, 0), Vec2(), { mass: 3, radius: 1, color: 'red', label: '' });
@@ -61,5 +68,20 @@ describe('Sandbox gravity', () => {
     sb.step(0);
     expect(a.body.getLinearVelocity().x).toBeLessThan(0);
     expect(b.body.getLinearVelocity().x).toBeGreaterThan(0);
+  });
+
+  it('removes bodies correctly', () => {
+    const sb = new Sandbox();
+    const body = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: 'a' });
+    sb.removeBody(body);
+    expect(sb.bodies.length).toBe(0);
+  });
+
+  it('updates label and color', () => {
+    const sb = new Sandbox();
+    const body = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: 'a' });
+    sb.updateBody(body, { label: 'b', color: 'blue' });
+    expect(body.data.label).toBe('b');
+    expect(body.data.color).toBe('blue');
   });
 });
