@@ -2,9 +2,7 @@ import { Vec2 } from 'planck-js';
 import { createEventBus, EventBus } from './core/eventBus';
 import { GameLoop } from './core/gameLoop';
 import { PhysicsEngine, BodyData, BodyUpdate } from './physics';
-import { CompositeRenderer } from './renderers/compositeRenderer';
-import { BodyRenderer } from './renderers/bodyRenderer';
-import { OverlayRenderer } from './renderers/overlayRenderer';
+import { ThreeRenderer } from './renderers/threeRenderer';
 import { RenderPayload } from './renderers/types';
 
 export interface ScenarioEvent {
@@ -25,7 +23,7 @@ export class Simulation {
   private engine = new PhysicsEngine();
   private bus: EventBus<Events> = createEventBus<Events>();
   private loop = new GameLoop(this.bus);
-  private renderer?: CompositeRenderer;
+  private renderer?: ThreeRenderer;
   private time = 0;
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
@@ -44,11 +42,7 @@ export class Simulation {
 
   setCanvas(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
-    const ctx = canvas.getContext('2d')!;
-    this.renderer = new CompositeRenderer(ctx, this.bus, [
-      new BodyRenderer(ctx),
-      new OverlayRenderer(ctx),
-    ]);
+    this.renderer = new ThreeRenderer(canvas, this.bus);
   }
 
   start() {
