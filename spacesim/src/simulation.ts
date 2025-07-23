@@ -4,6 +4,7 @@ import { GameLoop } from './core/gameLoop';
 import { PhysicsEngine, BodyData, BodyUpdate } from './physics';
 import { ThreeRenderer } from './renderers/threeRenderer';
 import { RenderPayload } from './renderers/types';
+import { METERS_PER_PIXEL } from './spaceTransform';
 
 export interface ScenarioEvent {
   time: number;
@@ -77,18 +78,19 @@ export class Simulation {
 
   worldToScreen(p: Vec2) {
     if (!this.canvas) return p.clone();
+    const { width, height } = this.canvas;
     return Vec2(
-      (p.x - this._view.center.x) * this._view.zoom + this.canvas.width / 2,
-      this.canvas.height / 2 -
-        (p.y - this._view.center.y) * this._view.zoom,
+      ((p.x - this._view.center.x) / METERS_PER_PIXEL) * this._view.zoom + width / 2,
+      height / 2 - ((p.y - this._view.center.y) / METERS_PER_PIXEL) * this._view.zoom,
     );
   }
 
   screenToWorld(p: Vec2) {
     if (!this.canvas) return p.clone();
+    const { width, height } = this.canvas;
     return Vec2(
-      (p.x - this.canvas.width / 2) / this._view.zoom + this._view.center.x,
-      (this.canvas.height / 2 - p.y) / this._view.zoom + this._view.center.y,
+      ((p.x - width / 2) / this._view.zoom) * METERS_PER_PIXEL + this._view.center.x,
+      ((height / 2 - p.y) / this._view.zoom) * METERS_PER_PIXEL + this._view.center.y,
     );
   }
 
