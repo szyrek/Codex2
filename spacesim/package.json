@@ -1,0 +1,22 @@
+{
+  "name": "spacesim",
+  "version": "0.1.0",
+  "description": "2D orbital mechanics sandbox",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run --environment jsdom"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.5",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "planck-js": "^0.3.0"
+  }
+}
