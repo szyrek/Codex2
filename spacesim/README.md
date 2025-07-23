@@ -6,7 +6,7 @@ Bodies are spawned by dragging on the canvas while the spawner panel is visible.
 
 Clicking an existing body opens an editor panel. The editor now shows live position and velocity values which can be edited alongside mass, radius and color. Scenarios (predefined sequences of events) can be loaded from the Scenario tab; a simple Solar System example is included. The top-right of the screen contains **Pause** and **Reset** buttons to control the simulation.
 
-The simulation is built from small modules connected through a simple event bus powered by **mitt**. `GameLoop` ticks using RxJS intervals and the `PhysicsEngine` handles Planck.js dynamics. A single `ThreeRenderer` listens for render events and draws bodies, orbit trails and the drag line using Three.js.
+The simulation is built from small modules connected through a simple event bus powered by **mitt**. `GameLoop` ticks using RxJS intervals and the `PhysicsEngine` handles Planck.js dynamics. The engine now divides each time step into several sub-steps to keep orbits stable. A single `ThreeRenderer` listens for render events and draws bodies, orbit trails and the drag line using Three.js.
 
 Bodies also render dotted orbit trails based on their current trajectory. The trail uses the body's color unless it is escaping (blue) or on a collision course (red).
 
