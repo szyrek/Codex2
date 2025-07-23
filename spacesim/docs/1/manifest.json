@@ -5,7 +5,10 @@
     "bugfix/README.md",
     "bugfix/body-editor-refresh/README.md",
     "bugfix/click-coord-offset/README.md",
+<<<<<<< HEAD:spacesim/docs/1/manifest.json
+=======
     "bugfix/label-position-offset/README.md",
+>>>>>>> main:docs/1/manifest.json
     "bugfix/overlay-color/README.md",
     "bugfix/three-renderer-fixes/README.md",
     "example/AGENTS.md",

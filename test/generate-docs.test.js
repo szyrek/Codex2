@@ -7,7 +7,7 @@ function run(cmd){
   execSync(cmd, {stdio:'inherit'});
 }
 
-const docsDir = path.join(__dirname, '..', 'docs');
+const docsDir = path.join(__dirname, '..', 'spacesim', 'docs');
 
 function cleanup(){
   if(fs.existsSync(docsDir)) fs.rmSync(docsDir, {recursive:true, force:true});
