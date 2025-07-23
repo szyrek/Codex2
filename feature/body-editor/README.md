@@ -8,4 +8,7 @@ Clicking an existing body opens a panel to inspect and edit its data.
 - The editor stays open after applying and closes when you click elsewhere.
 - `Simulation` emits a `bodyUpdate` event whenever changes are applied.
 - Implemented in `spacesim`.
-- End-to-end coverage: `spacesim/e2e/edit.spec.ts`.
+
+## Tests
+- `spacesim/e2e/edit.spec.ts`
+- `spacesim/src/physics.test.ts`

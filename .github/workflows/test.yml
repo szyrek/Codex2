@@ -6,6 +6,16 @@ on:
   pull_request:
 
 jobs:
+  root:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
+      - run: node test/new-record.test.js && node test/generate-docs.test.js
+
   example:
     runs-on: ubuntu-latest
     defaults:
@@ -31,3 +41,5 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npm test
+      - run: npx playwright install --with-deps
+      - run: npm run test:e2e
