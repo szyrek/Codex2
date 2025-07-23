@@ -21,6 +21,7 @@ This document defines the lifecycle that all contributors must follow. It applie
 ## 5. Implement the Functionality
 - Write just enough code to satisfy the tests.
 - Follow established coding style and architecture conventions.
+- If your changes touch the UI, adhere to [UI Design Best Practices](UI.md).
 
 ## 6. Run and Pass All Tests
 - If the project uses Node tooling, run `npm install` to ensure dependencies are present.
