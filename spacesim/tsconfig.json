@@ -6,6 +6,8 @@
     "moduleResolution": "bundler",
     "rootDir": "src",
     "outDir": "dist",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

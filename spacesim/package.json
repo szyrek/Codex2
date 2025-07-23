@@ -18,6 +18,10 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "planck-js": "^0.3.0"
+    "@preact/preset-vite": "^2.10.2",
+    "mitt": "^3.0.1",
+    "planck-js": "^0.3.0",
+    "preact": "^10.26.9",
+    "rxjs": "^7.8.1"
   }
 }
