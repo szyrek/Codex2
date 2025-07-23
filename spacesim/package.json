@@ -4,7 +4,7 @@
   "description": "2D orbital mechanics sandbox",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm test && vite build",
     "preview": "vite preview",
     "test": "vitest run --coverage",
     "test:e2e": "playwright test"
