@@ -24,7 +24,7 @@ interface Events {
 export class Simulation {
   private engine = new PhysicsEngine();
   private bus: EventBus<Events> = createEventBus<Events>();
-  private loop = new GameLoop(this.bus);
+  private loop = new GameLoop(this.bus, 1 / 25);
   private renderer?: CompositeRenderer;
   private time = 0;
   private scenario?: ScenarioEvent[];
@@ -33,6 +33,16 @@ export class Simulation {
   private _view = { center: Vec2(), zoom: 1 };
 
   private overlay?: { start: Vec2; end: Vec2 } | null;
+
+  private speedIndex = 0; // 0 -> x1
+
+  get speed() { return 2 ** this.speedIndex; }
+
+  speedUp() { if (this.speedIndex < 6) this.speedIndex++; }
+
+  slowDown() { if (this.speedIndex > 0) this.speedIndex--; }
+
+  resetSpeed() { this.speedIndex = 0; }
 
   onRender(handler: (p: RenderPayload) => void) {
     this.bus.on('render', handler);
@@ -101,7 +111,8 @@ export class Simulation {
   }
 
   private step(dt: number) {
-    this.time += dt;
+    const scaled = dt * this.speed;
+    this.time += scaled;
     if (this.scenario) {
       while (this.scenario.length && this.scenario[0].time <= this.time) {
         const ev = this.scenario.shift()!;
@@ -110,7 +121,7 @@ export class Simulation {
         }
       }
     }
-    this.engine.step(dt);
+    this.engine.step(scaled);
     this.bus.emit('render', {
       bodies: this.engine.bodies,
       throwLine: this.overlay || undefined,
