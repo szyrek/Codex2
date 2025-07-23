@@ -14,6 +14,7 @@ Create a folder here for each significant feature. Document:
 - [Highlight selected body](select-highlight/README.md)
 - [Orbit overlays](orbit-overlay/README.md)
 - [Simulation Speed Control](speed-control/README.md)
+- [Simulation Clock](simulation-time/README.md)
 - [3D Renderer](three-renderer/README.md)
 - [Zoom, Pan and Center View](zoom-pan/README.md)
 - [Performance Tests](performance-tests/README.md)

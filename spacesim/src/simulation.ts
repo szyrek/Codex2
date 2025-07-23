@@ -24,7 +24,8 @@ export class Simulation {
   private bus: EventBus<Events> = createEventBus<Events>();
   private loop = new GameLoop(this.bus, 1 / 25);
   private renderer?: ThreeRenderer;
-  private time = 0;
+  private _time = 0;
+  get time() { return this._time; }
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
 
@@ -101,15 +102,15 @@ export class Simulation {
 
   reset() {
     this.engine.reset();
-    this.time = 0;
+    this._time = 0;
     this.overlay = null;
   }
 
   private step(dt: number) {
     const scaled = dt * this.speed;
-    this.time += scaled;
+    this._time += scaled;
     if (this.scenario) {
-      while (this.scenario.length && this.scenario[0].time <= this.time) {
+      while (this.scenario.length && this.scenario[0].time <= this._time) {
         const ev = this.scenario.shift()!;
         if (ev.action === 'addBody') {
           this.engine.addBody(ev.position, ev.velocity, ev.data);

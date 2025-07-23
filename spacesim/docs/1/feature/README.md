@@ -14,9 +14,11 @@ Create a folder here for each significant feature. Document:
 - [Highlight selected body](select-highlight/README.md)
 - [Orbit overlays](orbit-overlay/README.md)
 - [Simulation Speed Control](speed-control/README.md)
+- [Simulation Clock](simulation-time/README.md)
 - [3D Renderer](three-renderer/README.md)
 - [Zoom, Pan and Center View](zoom-pan/README.md)
 - [Performance Tests](performance-tests/README.md)
+- [Performance History](perf-history/README.md)
 - [Scenario View](scenario-view/README.md)
 
 Each user-facing feature includes an accompanying end-to-end test referenced in its documentation.
