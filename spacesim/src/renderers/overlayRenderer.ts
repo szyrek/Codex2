@@ -1,26 +1,31 @@
 import * as THREE from 'three';
 import { RenderPayload } from './types';
-import { throwVelocity, predictOrbitType } from '../utils';
+import { throwVelocity, predictOrbitType, type OrbitType } from '../utils';
 import { G } from '../physics';
 import { Vec2 } from 'planck-js';
 
-function simulateOrbit(
+export const ESCAPE_RADIUS = 100;
+
+export function simulateOrbit(
   pos: Vec2,
   vel: Vec2,
   central: Vec2,
   mass: number,
   radius: number,
-  steps = 180,
-  dt = 0.1
+  type: OrbitType,
+  dt = 0.1,
+  steps = 360
 ) {
   const pts: THREE.Vector3[] = [];
+
   let p = pos.clone();
   let v = vel.clone();
-  for (let i = 0; i < steps; i++) {
-    const r = p.clone().sub(central);
-    const distSq = r.lengthSquared();
-    if (distSq <= radius * radius) break;
-    const acc = r.clone().mul((-G * mass) / Math.pow(distSq, 1.5));
+  for (let i = 0; i < 5000; i++) {
+    const rVec = p.clone().sub(central);
+    const dist = rVec.length();
+    if (type === 'crash' && dist <= radius) break;
+    if (type === 'escape' && dist >= ESCAPE_RADIUS) break;
+    const acc = rVec.clone().mul((-mu) / Math.pow(dist, 3));
     v = v.clone().add(acc.mul(dt));
     p = p.clone().add(v.clone().mul(dt));
     pts.push(new THREE.Vector3(p.x, p.y, 0));
@@ -68,7 +73,8 @@ export class OverlayRenderer {
         vel,
         cPos,
         central.data.mass,
-        central.data.radius
+        central.data.radius,
+        type
       );
       if (pts.length) {
         const geom = new THREE.BufferGeometry().setFromPoints([

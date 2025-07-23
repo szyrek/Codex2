@@ -21,7 +21,8 @@ export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onM
   }, [sim]);
   const toVec = (e: MouseEvent) => {
     const rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
-    return Vec2(e.clientX - rect.left, e.clientY - rect.top);
+    const p = Vec2(e.clientX - rect.left, e.clientY - rect.top);
+    return sim.screenToWorld(p);
   };
   const handleClick = (e: MouseEvent) => {
     if (onClick) onClick(toVec(e));
