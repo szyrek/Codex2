@@ -1,6 +1,6 @@
 # Project Overview
 
-Welcome to Codex2! This repository is scaffolded using **documentation-driven development**. Every directory in this project must include a `README.md` and an `AGENTS.md` file. These documents ensure that both human developers and AI coding agents understand the structure, intent, and rules of the codebase.
+Welcome to Codex2! This repository is scaffolded using **documentation-driven development**. Folders include `README.md` and `AGENTS.md` files whenever they provide context that isn't already covered by parent documentation. These documents ensure that both human developers and AI coding agents understand the structure, intent, and rules of the codebase.
 
 - `README.md` explains the purpose of the code within its folder and links to any additional documentation.
 - `AGENTS.md` provides AI-specific guidance for contributing safely and consistently.
