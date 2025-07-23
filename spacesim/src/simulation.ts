@@ -99,7 +99,6 @@ export class Simulation {
     this.reset();
     this.scenario = [...events].sort((a,b)=>a.time-b.time);
   }
-
   setOverlay(line: { start: Vec2; end: Vec2 } | null) {
     this.overlay = line;
   }
