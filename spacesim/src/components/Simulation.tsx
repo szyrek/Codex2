@@ -74,7 +74,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
       </div>
       <BodySpawner sim={sim} disabled={!!selected || !!dragStart} params={spawnParams} onChange={setSpawnParams} />
       <BodyEditor sim={sim} body={selected} onDeselect={()=>setSelected(null)} />
-      <BodyList sim={sim} onSelect={b=>setSelected(b)} />
+      <BodyList sim={sim} selected={selected} onSelect={b=>setSelected(b)} />
     </div>
   );
 }

@@ -18,3 +18,14 @@ feature or bugfix folder, mention it so future debugging can trace the commit
 easily.
 
 For the wider workflow see [CODING_RULES.md](CODING_RULES.md).
+
+## Setup
+
+Install dependencies at the repository root and enable the Git hook:
+
+```bash
+npm install
+cp githooks/commit-msg .git/hooks/
+```
+
+The hook uses `commitlint` to ensure every commit message follows these rules.
