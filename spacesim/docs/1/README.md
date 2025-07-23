@@ -22,4 +22,4 @@ Implemented features are documented under the [feature/](feature/) directory. Ea
 
 All Markdown files in the repository can be compiled into a browsable set of docs.
 Run `npm run docs` at the repository root to regenerate them. The output appears
-under `docs/<major>` based on the package version.
+under `spacesim/docs/<major>` based on the package version.

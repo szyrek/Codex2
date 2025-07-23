@@ -5,7 +5,7 @@ const path = require('path');
 const root = path.resolve(__dirname, '..');
 const pkg = require(path.join(root, 'package.json'));
 const [major, minor, patch] = pkg.version.split('.').map(n => parseInt(n, 10));
-const docsRoot = path.join(root, 'docs');
+const docsRoot = path.join(root, 'spacesim', 'docs');
 const majorDir = path.join(docsRoot, String(major));
 const stampPath = path.join(majorDir, 'generated.json');
 
