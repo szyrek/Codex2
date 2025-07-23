@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "test": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "test:perf": "vitest bench --run --config vitest.performance.config.ts"
+    "test:perf": "vitest bench --run --config vitest.performance.config.ts --outputJson performance/latest.json && node performance/compare.js"
   },
   "type": "module",
   "devDependencies": {
