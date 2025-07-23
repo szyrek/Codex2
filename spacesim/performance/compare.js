@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const dir = __dirname;
+const dir = path.dirname(fileURLToPath(import.meta.url));
 const latestPath = path.join(dir, 'latest.json');
 const baselinePath = path.join(dir, 'results.json');
 

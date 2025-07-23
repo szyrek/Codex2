@@ -4,7 +4,7 @@ const {execSync} = require('child_process');
 const assert = require('assert');
 
 function run(cmd){
-  return execSync(cmd, {encoding: 'utf8'});
+  return execSync(cmd + ' 2>&1', {encoding: 'utf8'});
 }
 
 const perfDir = path.join(__dirname, '..', 'spacesim', 'performance');
