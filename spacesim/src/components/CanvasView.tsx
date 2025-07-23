@@ -40,6 +40,7 @@ export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onM
   return (
     <canvas
       ref={ref}
+      className="sim-canvas"
       onClick={handleClick}
       onMouseDown={handleDown}
       onMouseMove={handleMove}
