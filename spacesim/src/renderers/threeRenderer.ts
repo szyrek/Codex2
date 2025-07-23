@@ -29,7 +29,8 @@ export class ThreeRenderer {
 
   constructor(private canvas: HTMLCanvasElement, bus: EventBus<{ render: RenderPayload }>) {
     this.renderer = new WebGLRenderer({ canvas });
-    this.renderer.setSize(canvas.width, canvas.height);
+    // keep canvas style dimensions so pointer mapping stays correct
+    this.renderer.setSize(canvas.width, canvas.height, false);
     this.camera = new OrthographicCamera(
       canvas.width / -2,
       canvas.width / 2,
