@@ -29,6 +29,13 @@ export class Simulation {
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
 
+  private overlay?: { start: Vec2; end: Vec2 } | null;
+
+  onRender(handler: (p: RenderPayload) => void) {
+    this.bus.on('render', handler);
+    return () => this.bus.off('render', handler);
+  }
+
   constructor(canvas?: HTMLCanvasElement) {
     if (canvas) this.setCanvas(canvas);
     this.bus.on('tick', (dt) => this.step(dt));
@@ -54,6 +61,7 @@ export class Simulation {
   reset() {
     this.engine.reset();
     this.time = 0;
+    this.overlay = null;
   }
 
   private step(dt: number) {
@@ -67,7 +75,7 @@ export class Simulation {
       }
     }
     this.engine.step(dt);
-    this.bus.emit('render', { bodies: this.engine.bodies });
+    this.bus.emit('render', { bodies: this.engine.bodies, throwLine: this.overlay || undefined });
   }
 
   get bodies() { return this.engine.bodies; }
@@ -92,4 +100,9 @@ export class Simulation {
     this.reset();
     this.scenario = [...events].sort((a,b)=>a.time-b.time);
   }
+  
+  setOverlay(line: { start: Vec2; end: Vec2 } | null) {
+    this.overlay = line;
+  }
+
 }
