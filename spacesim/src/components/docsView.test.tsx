@@ -9,7 +9,7 @@ afterEach(() => {
 });
 
 describe('DocsView', () => {
-  it('loads README on mount', async () => {
+  it('loads README on mount using relative paths', async () => {
     const responses = [
       { json: () => Promise.resolve({ major: 1 }) },
       { json: () => Promise.resolve({ files: ['README.md'] }) },
@@ -23,6 +23,9 @@ describe('DocsView', () => {
     render(<DocsView />, container);
     await new Promise(r => setTimeout(r, 20));
     expect(fetchMock).toHaveBeenCalled();
+    expect(fetchMock.mock.calls[0][0]).toBe('docs/version.json');
+    expect(fetchMock.mock.calls[1][0]).toBe('docs/1/manifest.json');
+    expect(fetchMock.mock.calls[2][0]).toBe('docs/1/README.md');
     expect(container.innerHTML).toContain('<h1>Hello</h1>');
   });
 });
