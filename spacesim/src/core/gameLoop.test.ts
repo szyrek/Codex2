@@ -15,4 +15,22 @@ describe('GameLoop', () => {
     expect(handler).toHaveBeenCalledTimes(3);
     vi.useRealTimers();
   });
+
+  it('propagates long real time between ticks', async () => {
+    vi.useRealTimers();
+    const bus = createEventBus<{ tick: number }>();
+    const dts: number[] = [];
+    const loop = new GameLoop(bus, 0.05);
+    bus.on('tick', (dt) => {
+      dts.push(dt);
+      if (dts.length === 2) loop.stop();
+    });
+    loop.start();
+    await new Promise((r) => setTimeout(r, 70));
+    const stop = Date.now();
+    while (Date.now() - stop < 200) {}
+    await new Promise((r) => setTimeout(r, 70));
+    expect(dts[0]).toBeCloseTo(0.05, 2);
+    expect(dts[1]).toBeGreaterThan(0.2);
+  });
 });

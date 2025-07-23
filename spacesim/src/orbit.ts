@@ -1,4 +1,4 @@
-import { Vec2 } from './vec';
+import { Vec2 } from 'planck-js';
 import { G } from './physics';
 import type { OrbitType } from './utils';
 
@@ -49,9 +49,9 @@ export function simulateOrbit(
     const dist = rVec.length();
     if (type === 'crash' && dist <= radius) break;
     if (type === 'escape' && dist >= ESCAPE_RADIUS) break;
-    const acc = rVec.clone().multiplyScalar((-mu) / Math.pow(dist, 3));
-    v = v.clone().add(acc.multiplyScalar(dt));
-    p = p.clone().add(v.clone().multiplyScalar(dt));
+    const acc = rVec.clone().mul((-mu) / Math.pow(dist, 3));
+    v = v.clone().add(acc.mul(dt));
+    p = p.clone().add(v.clone().mul(dt));
     pts.push(p.clone());
   }
   return pts;
