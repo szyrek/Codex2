@@ -18,6 +18,7 @@ npm run dev      # start development server
 npm run build    # create production build
 npm run preview  # preview the build
 npm test         # run unit tests
+npm run test:e2e  # run browser tests with Playwright
 ```
 
 The entry page `index.html` mounts `src/main.tsx`. Core physics logic lives in `src/physics/`, the Preact components in `src/components/` and scenarios in `src/scenarios/`.
