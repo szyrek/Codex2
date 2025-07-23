@@ -30,6 +30,8 @@ export class Simulation {
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
 
+  private _view = { center: Vec2(), zoom: 1 };
+
   private overlay?: { start: Vec2; end: Vec2 } | null;
 
   onRender(handler: (p: RenderPayload) => void) {
@@ -49,6 +51,39 @@ export class Simulation {
       new BodyRenderer(ctx),
       new OverlayRenderer(ctx),
     ]);
+  }
+
+  get view() { return this._view; }
+
+  setZoom(z: number) { this._view.zoom = z; }
+
+  zoom(factor: number) { this._view.zoom *= factor; }
+
+  pan(dx: number, dy: number) {
+    this._view.center = this._view.center.clone().add(Vec2(dx, dy));
+  }
+
+  resetView() { this._view = { center: Vec2(), zoom: 1 }; }
+
+  centerOn(body: ReturnType<PhysicsEngine['addBody']>) {
+    this._view.center = body.body.getPosition().clone();
+    this._view.zoom = 1;
+  }
+
+  worldToScreen(p: Vec2) {
+    if (!this.canvas) return p.clone();
+    return Vec2(
+      (p.x - this._view.center.x) * this._view.zoom + this.canvas.width / 2,
+      (p.y - this._view.center.y) * this._view.zoom + this.canvas.height / 2,
+    );
+  }
+
+  screenToWorld(p: Vec2) {
+    if (!this.canvas) return p.clone();
+    return Vec2(
+      (p.x - this.canvas.width / 2) / this._view.zoom + this._view.center.x,
+      (p.y - this.canvas.height / 2) / this._view.zoom + this._view.center.y,
+    );
   }
 
   start() {
@@ -76,7 +111,11 @@ export class Simulation {
       }
     }
     this.engine.step(dt);
-    this.bus.emit('render', { bodies: this.engine.bodies, throwLine: this.overlay || undefined });
+    this.bus.emit('render', {
+      bodies: this.engine.bodies,
+      throwLine: this.overlay || undefined,
+      view: this._view,
+    });
   }
 
   get bodies() { return this.engine.bodies; }
