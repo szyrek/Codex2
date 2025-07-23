@@ -4,15 +4,18 @@
   "description": "2D orbital mechanics sandbox",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm test && vite build",
     "preview": "vite preview",
-    "test": "vitest run --environment jsdom"
+    "test": "vitest run --coverage",
+    "test:e2e": "playwright test"
   },
   "type": "module",
   "devDependencies": {
+    "@playwright/test": "^1.54.1",
     "@types/node": "^24.1.0",
     "@vitest/coverage-v8": "^3.2.4",
     "jsdom": "^26.1.0",
+    "playwright": "^1.54.1",
     "typescript": "^5.8.3",
     "vite": "^7.0.5",
     "vitest": "^3.2.4"

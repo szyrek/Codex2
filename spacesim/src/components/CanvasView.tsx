@@ -7,18 +7,34 @@ interface Props {
   onClick?: (pos: Vec2) => void;
 }
 
-export default function CanvasView({ sim, onClick }: Props) {
+
+export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onMouseUp }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     if (!ref.current) return;
-    sim.setCanvas(ref.current);
-    sim.start();
-    return () => sim.stop();
+    const canvas = ref.current;
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    sim.setCanvas(canvas);
   }, [sim]);
-  const handleClick = (e: MouseEvent) => {
-    if (!onClick) return;
+  const toVec = (e: MouseEvent) => {
     const rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
-    onClick(Vec2(e.clientX - rect.left, e.clientY - rect.top));
+    return Vec2(e.clientX - rect.left, e.clientY - rect.top);
   };
-  return <canvas ref={ref} onClick={handleClick as any} style={{ width: '100%', height: '100%' }} />;
+  const handleClick = (e: MouseEvent) => {
+    if (onClick) onClick(toVec(e));
+  };
+  const handleDown = (e: MouseEvent) => onMouseDown?.(toVec(e));
+  const handleMove = (e: MouseEvent) => onMouseMove?.(toVec(e));
+  const handleUp = (e: MouseEvent) => onMouseUp?.(toVec(e));
+  return (
+    <canvas
+      ref={ref}
+      onClick={handleClick as any}
+      onMouseDown={handleDown as any}
+      onMouseMove={handleMove as any}
+      onMouseUp={handleUp as any}
+      style={{ width: '100%', height: '100%' }}
+    />
+  );
 }
