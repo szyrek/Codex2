@@ -18,9 +18,13 @@ npm run preview  # preview the build
 npm test         # run unit tests once
 ```
 
+`npm run build` executes the tests first and fails if coverage is below **90%**.
+
 ## File Structure
 - `index.html` – entry page
 - `src/` – TypeScript source
 - `assets/` – image asset
 
 This project is intentionally simple to focus on the workflow example.
+
+See [../practices](../practices) for repository-wide development practices.
