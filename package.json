@@ -4,7 +4,7 @@
   "description": "Welcome to Codex2! This repository is scaffolded using **documentation-driven development**. Directories include `README.md` and `AGENTS.md` only when they add context beyond what parent folders describe. These documents help both human developers and AI coding agents understand the structure, intent, and rules of the codebase.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test/generate-docs.test.js && node test/new-record.test.js && node scripts/generate-docs.js && npm --prefix spacesim test && npm --prefix spacesim run test:e2e && npm --prefix spacesim run test:perf",
     "lint:commit": "commitlint --edit",
     "docs": "node scripts/generate-docs.js"
   },
