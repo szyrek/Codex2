@@ -1,7 +1,7 @@
 import { Vec2 } from 'planck-js';
 import { createEventBus, EventBus } from './core/eventBus';
 import { GameLoop } from './core/gameLoop';
-import { PhysicsEngine, BodyData } from './physics';
+import { PhysicsEngine, BodyData, BodyUpdate } from './physics';
 import { CompositeRenderer } from './renderers/compositeRenderer';
 import { BodyRenderer } from './renderers/bodyRenderer';
 import { OverlayRenderer } from './renderers/overlayRenderer';
@@ -18,6 +18,7 @@ export interface ScenarioEvent {
 interface Events {
   tick: number;
   render: RenderPayload;
+  bodyUpdate: { body: ReturnType<PhysicsEngine['addBody']>; updates: BodyUpdate };
 }
 
 export class Simulation {
@@ -88,8 +89,9 @@ export class Simulation {
     return this.engine.findBody(pos);
   }
 
-  updateBody(b: ReturnType<PhysicsEngine['addBody']>, d: Partial<BodyData>) {
+  updateBody(b: ReturnType<PhysicsEngine['addBody']>, d: BodyUpdate) {
     this.engine.updateBody(b, d);
+    this.bus.emit('bodyUpdate', { body: b, updates: d });
   }
 
   removeBody(b: ReturnType<PhysicsEngine['addBody']>) {

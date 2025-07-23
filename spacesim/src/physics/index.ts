@@ -1,1 +1,1 @@
-export { PhysicsEngine, type BodyData, G } from './engine';
+export { PhysicsEngine, type BodyData, type BodyUpdate, G } from './engine';

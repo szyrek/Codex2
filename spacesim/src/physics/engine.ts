@@ -7,6 +7,11 @@ export interface BodyData {
   label: string;
 }
 
+export interface BodyUpdate extends Partial<BodyData> {
+  position?: Vec2;
+  velocity?: Vec2;
+}
+
 export const G = 1; // gravitational constant (arbitrary units)
 
 export class PhysicsEngine {
@@ -47,7 +52,10 @@ export class PhysicsEngine {
     );
   }
 
-  updateBody(target: { body: planck.Body; data: BodyData }, updates: Partial<BodyData>) {
+  updateBody(
+    target: { body: planck.Body; data: BodyData },
+    updates: Partial<BodyData> & { position?: Vec2; velocity?: Vec2 }
+  ) {
     if (updates.mass !== undefined) {
       const fixture = target.body.getFixtureList();
       if (fixture) {
@@ -67,6 +75,12 @@ export class PhysicsEngine {
     }
     if (updates.label !== undefined) target.data.label = updates.label;
     if (updates.color !== undefined) target.data.color = updates.color;
+    if (updates.position) {
+      target.body.setPosition(updates.position);
+    }
+    if (updates.velocity) {
+      target.body.setLinearVelocity(updates.velocity);
+    }
   }
 
   private applyGravity() {
