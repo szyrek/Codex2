@@ -12,3 +12,13 @@ This file is part of the initial project scaffolding and will evolve as the proj
 ## Example
 
 See [example/](example/) for a minimal TypeScript web app demonstrating the workflow in action. It provides build scripts, tests and documentation for a complete unit of work.
+
+## Documentation Checks
+
+The script `check-docs.js` verifies that every directory contains both a
+`README.md` and an `AGENTS.md`. Continuous integration runs this check on each
+commit. Run it locally with:
+
+```bash
+node check-docs.js
+```
