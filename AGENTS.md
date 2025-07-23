@@ -1,5 +1,10 @@
 # Guidance for AI Coding Agents
 
+## Quick Reference
+The condensed rules are stored in `FAST_GUIDANCE.md`. Use that file when asked to
+"be brief". It summarizes the workflow so you can recall it quickly. Review the
+full documentation if anything is unclear or when the docs change.
+
 Welcome, coding agent! Follow these instructions whenever you work in this repository:
 
 1. **Read Documentation First**
