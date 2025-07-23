@@ -1,4 +1,4 @@
-import Vec2, { Vector } from './vec2';
+import { Vec2 } from "planck-js";
 export function uniqueName(base: string, existing: string[]): string {
   if (!existing.includes(base)) return base;
   let i = 1;
@@ -10,15 +10,11 @@ export function uniqueName(base: string, existing: string[]): string {
   return candidate;
 }
 
-export function throwVelocity(start: Vector, end: Vector, zoom = 1) {
+export function throwVelocity(start: Vec2, end: Vec2) {
   const drag = Vec2.sub(end, start);
-  const dist = drag.length();
-  const px = dist * zoom;
-  if (px <= 3) return Vec2();
-  // Increased base factor from 0.01 to 0.04 to allow much
-  // stronger throws while keeping short drags stationary.
-  const scale = 0.04 * px * px / (px + 50) / (dist || 1);
-  return drag.mul(scale);
+  const speed = drag.length();
+  if (speed < 5) return Vec2();
+  return drag.mul(0.01 * speed / (speed + 50));
 }
 
 export function randomColor() {
@@ -26,7 +22,12 @@ export function randomColor() {
   return `#${n.toString(16).padStart(6, '0')}`;
 }
 
-export interface SpawnParams { mass: number; radius: number; color: string; label: string }
+export interface SpawnParams {
+  mass: number;
+  radius: number;
+  color: string;
+  label: string;
+}
 
 export function nextSpawnParams(current: SpawnParams): SpawnParams {
   if (current.label === 'Sun') {
@@ -38,9 +39,9 @@ export function nextSpawnParams(current: SpawnParams): SpawnParams {
 export type OrbitType = 'crash' | 'stable' | 'escape';
 
 export function predictOrbitType(
-  position: Vector,
-  velocity: Vector,
-  centralPos: Vector,
+  position: Vec2,
+  velocity: Vec2,
+  centralPos: Vec2,
   centralMass: number,
   centralRadius: number,
   Gconst: number

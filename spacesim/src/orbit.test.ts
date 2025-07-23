@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { PhysicsEngine, G } from './physics';
-import Vec2 from './vec2';
+import { Vec2 } from 'planck-js';
 import { simulateOrbit, ESCAPE_RADIUS } from './orbit';
 import { throwVelocity, predictOrbitType } from './utils';
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'preact/hooks';
 import { Simulation } from '../simulation';
-import Vec2 from '../vec2';
+import { Vec2 } from 'planck-js';
 import type { BodyData } from '../physics';
 
 interface Props {
@@ -20,16 +20,16 @@ interface BodyState extends BodyData {
 export default function BodyEditor({ sim, body, onDeselect, frame }: Props) {
   const [state, setState] = useState<BodyState | null>(() => {
     if (!body) return null;
-    const pos = body.body.translation();
-    const vel = body.body.linvel();
+    const pos = body.body.getPosition();
+    const vel = body.body.getLinearVelocity();
     return { ...body.data, posX: pos.x, posY: pos.y, velX: vel.x, velY: vel.y };
   });
   const [edited, setEdited] = useState(false);
   useEffect(() => {
     if (!body) return setState(null);
     if (edited) return;
-    const pos = body.body.translation();
-    const vel = body.body.linvel();
+    const pos = body.body.getPosition();
+    const vel = body.body.getLinearVelocity();
     setState({
       ...body.data,
       posX: pos.x,
@@ -55,7 +55,7 @@ export default function BodyEditor({ sim, body, onDeselect, frame }: Props) {
     onDeselect();
   };
   return (
-    <div className="panel" style={{ position: 'absolute', top: '140px', left: '10px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+    <div style={{ position: 'absolute', top: '140px', left: '10px', background: '#2228', padding: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
       <label>Name <input value={state.label} onInput={e => { setEdited(true); setState({ ...state, label: (e.target as HTMLInputElement).value }); }} /></label>
       <label>Mass <input type="number" step="0.1" value={state.mass} onInput={e => { setEdited(true); setState({ ...state, mass: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>
       <label>Radius <input type="number" step="1" value={state.radius} onInput={e => { setEdited(true); setState({ ...state, radius: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>

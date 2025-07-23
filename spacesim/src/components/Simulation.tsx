@@ -5,7 +5,7 @@ import BodyEditor from './BodyEditor';
 import BodySpawner from './BodySpawner';
 import BodyLabels from './BodyLabels';
 import { Simulation, type ScenarioEvent } from '../simulation';
-import Vec2 from '../vec2';
+import { Vec2 } from 'planck-js';
 import { uniqueName, throwVelocity, nextSpawnParams } from '../utils';
 
 interface Props {

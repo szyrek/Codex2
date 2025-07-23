@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { ThreeRenderer } from './renderers/threeRenderer';
 import { createEventBus } from './core/eventBus';
 import { PhysicsEngine } from './physics';
-import Vec2 from './vec2';
+import { Vec2 } from 'planck-js';
 import { throwVelocity } from './utils';
 
 vi.mock('three', () => {
