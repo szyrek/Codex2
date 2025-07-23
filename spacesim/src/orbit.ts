@@ -1,13 +1,13 @@
-import Vec2, { Vector } from './vec2';
+import { Vec2 } from 'planck-js';
 import { G } from './physics';
 import type { OrbitType } from './utils';
 
 export const ESCAPE_RADIUS = 100;
 
 export function simulateOrbit(
-  pos: Vector,
-  vel: Vector,
-  central: Vector,
+  pos: Vec2,
+  vel: Vec2,
+  central: Vec2,
   mass: number,
   radius: number,
   type: OrbitType,

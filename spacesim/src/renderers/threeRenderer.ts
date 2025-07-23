@@ -12,8 +12,7 @@ import {
   Vector3,
   Color,
 } from 'three';
-import type { RigidBody } from '@dimforge/rapier2d-compat';
-import type { Vector } from '../vec2';
+import type planck from 'planck-js';
 import type { EventBus } from '../core/eventBus';
 import { RenderPayload } from './types';
 import { predictOrbitType, throwVelocity } from '../utils';
@@ -24,8 +23,8 @@ export class ThreeRenderer {
   private scene = new Scene();
   private camera: OrthographicCamera;
   private renderer: WebGLRenderer;
-  private bodyMeshes = new Map<RigidBody, Mesh>();
-  private orbitLines = new Map<RigidBody, Line>();
+  private bodyMeshes = new Map<planck.Body, Mesh>();
+  private orbitLines = new Map<planck.Body, Line>();
   private dragLine?: Line;
 
   constructor(private canvas: HTMLCanvasElement, bus: EventBus<{ render: RenderPayload }>) {
@@ -55,7 +54,7 @@ export class ThreeRenderer {
         this.scene.add(mesh);
         this.bodyMeshes.set(body, mesh);
       }
-      const pos = body.translation();
+      const pos = body.getPosition();
       mesh.position.set(pos.x, pos.y, 0);
     }
     for (const [b, mesh] of Array.from(this.bodyMeshes.entries())) {
@@ -77,7 +76,7 @@ export class ThreeRenderer {
     const central = bodies.reduce((a, b) =>
       b.data.mass > a.data.mass ? b : a,
     bodies[0]);
-    const cPos = central.body.translation();
+    const cPos = central.body.getPosition();
 
     const active = new Set(bodies.map((b) => b.body));
     for (const [b, line] of Array.from(this.orbitLines.entries())) {
@@ -89,8 +88,8 @@ export class ThreeRenderer {
 
     for (const b of bodies) {
       if (b === central) continue;
-      const pos = b.body.translation();
-      const vel = b.body.linvel();
+      const pos = b.body.getPosition();
+      const vel = b.body.getLinearVelocity();
       const type = predictOrbitType(
         pos,
         vel,
@@ -131,12 +130,12 @@ export class ThreeRenderer {
     }
   }
 
-  private updateDragLine(bodies: RenderPayload['bodies'], line?: { start: Vector; end: Vector }) {
+  private updateDragLine(bodies: RenderPayload['bodies'], line?: { start: planck.Vec2; end: planck.Vec2 }) {
     if (!bodies.length) return;
     const central = bodies.reduce((a, b) =>
       b.data.mass > a.data.mass ? b : a,
     bodies[0]);
-    const cPos = central.body.translation();
+    const cPos = central.body.getPosition();
     if (!line) {
       if (this.dragLine) {
         this.scene.remove(this.dragLine);
@@ -144,7 +143,7 @@ export class ThreeRenderer {
       }
       return;
     }
-    const vel = throwVelocity(line.start, line.end, this.camera.zoom);
+    const vel = throwVelocity(line.start, line.end);
     const type = predictOrbitType(line.start, vel, cPos, central.data.mass, central.data.radius, G);
     const color = type === 'escape' ? 'blue' : type === 'crash' ? 'red' : 'green';
     const geom = new BufferGeometry().setFromPoints([

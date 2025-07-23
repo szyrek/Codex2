@@ -1,10 +1,9 @@
-import Vec2 from './vec2';
+import { Vec2 } from 'planck-js';
 import { createEventBus, EventBus } from './core/eventBus';
 import { GameLoop } from './core/gameLoop';
 import { PhysicsEngine, BodyData, BodyUpdate } from './physics';
 import { ThreeRenderer } from './renderers/threeRenderer';
 import { RenderPayload } from './renderers/types';
-import { METERS_PER_PIXEL } from './spaceTransform';
 
 export interface ScenarioEvent {
   time: number;
@@ -25,17 +24,13 @@ export class Simulation {
   private bus: EventBus<Events> = createEventBus<Events>();
   private loop = new GameLoop(this.bus);
   private renderer?: ThreeRenderer;
-  private _time = 0;
-  get time() { return this._time; }
+  private time = 0;
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
 
   private _view = { center: Vec2(), zoom: 1 };
 
   private overlay?: { start: Vec2; end: Vec2 } | null;
-
-  private accumulator = 0;
-  private readonly fixedDt = 1 / 60;
 
   private speedIndex = 0; // 0 -> x1
 
@@ -75,25 +70,24 @@ export class Simulation {
   resetView() { this._view = { center: Vec2(), zoom: 1 }; }
 
   centerOn(body: ReturnType<PhysicsEngine['addBody']>) {
-    this._view.center = body.body.translation().clone();
+    this._view.center = body.body.getPosition().clone();
     this._view.zoom = 1;
   }
 
   worldToScreen(p: Vec2) {
     if (!this.canvas) return p.clone();
-    const { width, height } = this.canvas;
     return Vec2(
-      ((p.x - this._view.center.x) / METERS_PER_PIXEL) * this._view.zoom + width / 2,
-      height / 2 - ((p.y - this._view.center.y) / METERS_PER_PIXEL) * this._view.zoom,
+      (p.x - this._view.center.x) * this._view.zoom + this.canvas.width / 2,
+      this.canvas.height / 2 -
+        (p.y - this._view.center.y) * this._view.zoom,
     );
   }
 
   screenToWorld(p: Vec2) {
     if (!this.canvas) return p.clone();
-    const { width, height } = this.canvas;
     return Vec2(
-      ((p.x - width / 2) / this._view.zoom) * METERS_PER_PIXEL + this._view.center.x,
-      ((height / 2 - p.y) / this._view.zoom) * METERS_PER_PIXEL + this._view.center.y,
+      (p.x - this.canvas.width / 2) / this._view.zoom + this._view.center.x,
+      (this.canvas.height / 2 - p.y) / this._view.zoom + this._view.center.y,
     );
   }
 
@@ -107,26 +101,22 @@ export class Simulation {
 
   reset() {
     this.engine.reset();
-    this._time = 0;
+    this.time = 0;
     this.overlay = null;
   }
 
   private step(dt: number) {
     const scaled = dt * this.speed;
-    this.accumulator += Math.min(scaled, 0.1);
-    while (this.accumulator >= this.fixedDt) {
-      this._time += this.fixedDt;
-      if (this.scenario) {
-        while (this.scenario.length && this.scenario[0].time <= this._time) {
-          const ev = this.scenario.shift()!;
-          if (ev.action === 'addBody') {
-            this.engine.addBody(ev.position, ev.velocity, ev.data);
-          }
+    this.time += scaled;
+    if (this.scenario) {
+      while (this.scenario.length && this.scenario[0].time <= this.time) {
+        const ev = this.scenario.shift()!;
+        if (ev.action === 'addBody') {
+          this.engine.addBody(ev.position, ev.velocity, ev.data);
         }
       }
-      this.engine.step(this.fixedDt);
-      this.accumulator -= this.fixedDt;
     }
+    this.engine.step(scaled);
     this.bus.emit('render', {
       bodies: this.engine.bodies,
       throwLine: this.overlay || undefined,

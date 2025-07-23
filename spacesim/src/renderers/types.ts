@@ -1,14 +1,14 @@
-import type { RigidBody } from '@dimforge/rapier2d-compat';
-import type { Vector } from '../vec2';
+import type planck from 'planck-js';
+import type { Vec2 } from 'planck-js';
 import type { BodyData } from '../physics';
 
 export interface RenderableBody {
-  body: RigidBody;
+  body: planck.Body;
   data: BodyData;
 }
 
 export interface RenderPayload {
   bodies: RenderableBody[];
-  throwLine?: { start: Vector; end: Vector };
-  view?: { center: Vector; zoom: number };
+  throwLine?: { start: Vec2; end: Vec2 };
+  view?: { center: Vec2; zoom: number };
 }

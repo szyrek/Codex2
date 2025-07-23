@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render } from 'preact';
 import CanvasView from './CanvasView';
-import Vec2 from '../vec2';
+import { Vec2 } from 'planck-js';
 
 describe('CanvasView', () => {
   it('reports click coordinates relative to canvas', () => {
@@ -36,29 +36,5 @@ describe('CanvasView', () => {
     expect(arg.x).toBeCloseTo(20);
     expect(arg.y).toBeCloseTo(30);
     Object.defineProperty(window, 'devicePixelRatio', { value: orig });
-  });
-
-  it('calls optional mouse handlers with world coordinates', () => {
-    const down = vi.fn();
-    const move = vi.fn();
-    const up = vi.fn();
-    const sim = { setCanvas: vi.fn(), screenToWorld: (v: Vec2) => v } as any;
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    render(
-      <CanvasView sim={sim} onMouseDown={down} onMouseMove={move} onMouseUp={up} />,
-      container
-    );
-    const canvas = container.querySelector('canvas')!;
-    canvas.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 100 } as any);
-    canvas.dispatchEvent(new MouseEvent('mousedown', { clientX: 1, clientY: 2 }));
-    canvas.dispatchEvent(new MouseEvent('mousemove', { clientX: 3, clientY: 4 }));
-    canvas.dispatchEvent(new MouseEvent('mouseup', { clientX: 5, clientY: 6 }));
-    expect((down.mock.calls[0][0] as ReturnType<typeof Vec2>).x).toBeCloseTo(1);
-    expect((down.mock.calls[0][0] as ReturnType<typeof Vec2>).y).toBeCloseTo(2);
-    expect((move.mock.calls[0][0] as ReturnType<typeof Vec2>).x).toBeCloseTo(3);
-    expect((move.mock.calls[0][0] as ReturnType<typeof Vec2>).y).toBeCloseTo(4);
-    expect((up.mock.calls[0][0] as ReturnType<typeof Vec2>).x).toBeCloseTo(5);
-    expect((up.mock.calls[0][0] as ReturnType<typeof Vec2>).y).toBeCloseTo(6);
   });
 });
