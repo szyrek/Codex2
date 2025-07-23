@@ -16,14 +16,14 @@ describe('GameLoop', () => {
     vi.useRealTimers();
   });
 
-  it('propagates long real time between ticks', async () => {
+  it('accumulates time and emits fixed steps', async () => {
     vi.useRealTimers();
     const bus = createEventBus<{ tick: number }>();
     const dts: number[] = [];
     const loop = new GameLoop(bus, 0.05);
     bus.on('tick', (dt) => {
       dts.push(dt);
-      if (dts.length === 2) loop.stop();
+      if (dts.length >= 4) loop.stop();
     });
     loop.start();
     await new Promise((r) => setTimeout(r, 70));
@@ -31,6 +31,7 @@ describe('GameLoop', () => {
     while (Date.now() - stop < 200) {}
     await new Promise((r) => setTimeout(r, 70));
     expect(dts[0]).toBeCloseTo(0.05, 2);
-    expect(dts[1]).toBeGreaterThan(0.2);
+    for (const dt of dts) expect(dt).toBeCloseTo(0.05, 2);
+    expect(dts.length).toBeGreaterThan(2);
   });
 });
