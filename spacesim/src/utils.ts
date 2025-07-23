@@ -15,7 +15,9 @@ export function throwVelocity(start: Vector, end: Vector, zoom = 1) {
   const dist = drag.length();
   const px = dist * zoom;
   if (px <= 3) return Vec2();
-  const scale = 0.01 * px * px / (px + 50) / (dist || 1);
+  // Increased base factor from 0.01 to 0.04 to allow much
+  // stronger throws while keeping short drags stationary.
+  const scale = 0.04 * px * px / (px + 50) / (dist || 1);
   return drag.mul(scale);
 }
 
