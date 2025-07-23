@@ -1,7 +1,7 @@
 {
   "name": "codex2",
   "version": "1.0.0",
-  "description": "Welcome to Codex2! This repository is scaffolded using **documentation-driven development**. Folders contain `README.md` and `AGENTS.md` files whenever local information is not already covered by parent documentation. These documents ensure that both human developers and AI coding agents understand the structure, intent, and rules of the codebase.",
+  "description": "Welcome to Codex2! This repository is scaffolded using **documentation-driven development**. Directories include `README.md` and `AGENTS.md` only when they add context beyond what parent folders describe. These documents help both human developers and AI coding agents understand the structure, intent, and rules of the codebase.",
   "main": "index.js",
   "directories": {
     "example": "example"
