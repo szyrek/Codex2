@@ -102,4 +102,14 @@ describe('Sandbox gravity', () => {
     expect(vel.x).toBeCloseTo(3);
     expect(vel.y).toBeCloseTo(4);
   });
+
+  it('maintains zero velocity when masses are zero', () => {
+    const sb = new PhysicsEngine();
+    sb.addBody(Vec2(0, 0), Vec2(), { mass: 0, radius: 1, color: 'red', label: 'a' });
+    sb.addBody(Vec2(5, 0), Vec2(), { mass: 0, radius: 1, color: 'blue', label: 'b' });
+    sb.step(1 / 60);
+    const [a, b] = sb.bodies;
+    expect(a.body.getLinearVelocity().length()).toBe(0);
+    expect(b.body.getLinearVelocity().length()).toBe(0);
+  });
 });

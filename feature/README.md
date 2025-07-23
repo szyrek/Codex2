@@ -11,6 +11,7 @@ Create a folder here for each significant feature. Document:
 - [Drag to Spawn Bodies](drag-spawn/README.md)
 - [Pause and Reset Controls](pause-reset/README.md)
 - [Body Editor](body-editor/README.md)
+- [Sun default spawn](sun-default-spawn/README.md)
 - [Highlight selected body](select-highlight/README.md)
 - [Orbit overlays](orbit-overlay/README.md)
 - [Simulation Speed Control](speed-control/README.md)
@@ -20,5 +21,6 @@ Create a folder here for each significant feature. Document:
 - [Performance Tests](performance-tests/README.md)
 - [Performance History](perf-history/README.md)
 - [Scenario View](scenario-view/README.md)
+- [Scenario Selection](scenario-select/README.md)
 
 Each user-facing feature includes an accompanying end-to-end test referenced in its documentation.
