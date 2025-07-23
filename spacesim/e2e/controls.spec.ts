@@ -29,3 +29,22 @@ test('pause and reset controls', async ({ page }) => {
   count = await page.evaluate(() => window.sim.bodies.length);
   expect(count).toBe(0);
 });
+
+test('speed controls update label', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Pause' }).waitFor();
+  const faster = page.getByRole('button', { name: '>>>' });
+  const slower = page.getByRole('button', { name: '<<<' });
+  const display = page.getByRole('button', { name: /^x/ });
+  await display.waitFor();
+  await expect(display).toHaveText('x1');
+  await faster.click();
+  await expect(display).toHaveText('x2');
+  await slower.click();
+  await expect(display).toHaveText('x1');
+  await faster.click();
+  await faster.click();
+  await expect(display).toHaveText('x4');
+  await display.click();
+  await expect(display).toHaveText('x1');
+});

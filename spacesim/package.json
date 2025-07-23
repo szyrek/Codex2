@@ -7,7 +7,8 @@
     "build": "npm test && vite build",
     "preview": "vite preview",
     "test": "vitest run --coverage",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:perf": "vitest bench --run --config vitest.performance.config.ts"
   },
   "type": "module",
   "devDependencies": {
@@ -18,13 +19,16 @@
     "playwright": "^1.54.1",
     "typescript": "^5.8.3",
     "vite": "^7.0.5",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "vite-plugin-static-copy": "^3.1.1"
   },
   "dependencies": {
     "@preact/preset-vite": "^2.10.2",
     "mitt": "^3.0.1",
     "planck-js": "^0.3.0",
     "preact": "^10.26.9",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "marked": "^9.1.2",
+    "three": "^0.178.0"
   }
 }

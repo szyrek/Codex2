@@ -13,5 +13,7 @@ Create a folder here for each significant feature. Document:
 - [Body Editor](body-editor/README.md)
 - [Highlight selected body](select-highlight/README.md)
 - [Orbit overlays](orbit-overlay/README.md)
+- [Simulation Speed Control](speed-control/README.md)
+- [Three.js Renderer](three-renderer/README.md)
 
 Each user-facing feature includes an accompanying end-to-end test referenced in its documentation.

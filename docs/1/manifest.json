@@ -1,0 +1,31 @@
+{
+  "files": [
+    "AGENTS.md",
+    "README.md",
+    "bugfix/README.md",
+    "bugfix/body-editor-refresh/README.md",
+    "bugfix/overlay-color/README.md",
+    "example/AGENTS.md",
+    "example/README.md",
+    "feature/README.md",
+    "feature/body-editor/README.md",
+    "feature/drag-spawn/README.md",
+    "feature/orbit-overlay/README.md",
+    "feature/pause-reset/README.md",
+    "feature/performance-tests/README.md",
+    "feature/select-highlight/README.md",
+    "feature/speed-control/README.md",
+    "feature/zoom-pan/README.md",
+    "githooks/README.md",
+    "practices/BUGFIX.md",
+    "practices/CODING_RULES.md",
+    "practices/COMMIT_MESSAGE.md",
+    "practices/FEATURE.md",
+    "practices/README.md",
+    "practices/REFACTORING.md",
+    "practices/TESTING.md",
+    "practices/UI.md",
+    "spacesim/AGENTS.md",
+    "spacesim/README.md"
+  ]
+}
