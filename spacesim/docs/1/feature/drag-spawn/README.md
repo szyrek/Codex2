@@ -7,4 +7,7 @@ Dragging on the canvas spawns a new body. The drag distance and direction determ
 - The body is created on mouse release using the parameters from the spawner panel and a unique label.
 - Clicking an existing body selects it instead of starting a drag.
 - Implemented in `spacesim`.
-- End-to-end coverage: `spacesim/e2e/spawn.spec.ts`.
+
+## Tests
+- `spacesim/e2e/spawn.spec.ts`
+- `spacesim/src/throwVelocity.test.ts`

@@ -6,9 +6,9 @@ describe('Simulation scenarios', () => {
   it('loads scenario and spawns bodies over time', () => {
     const sim = new Simulation();
     sim.loadScenario(solarSystem);
-    // run steps enough to process scenario events
-    for (let i = 0; i < 10; i++) sim['step'](0.1); // using private method access for test
-    expect(sim.bodies.length).toBeGreaterThan(1);
+    // run steps enough to process all scenario events
+    for (let i = 0; i < 30; i++) sim['step'](0.1); // using private method access for test
+    expect(sim.bodies.length).toBe(solarSystem.length);
   });
 
   it('scales timestep with speed multiplier', () => {

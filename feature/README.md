@@ -17,5 +17,6 @@ Create a folder here for each significant feature. Document:
 - [3D Renderer](three-renderer/README.md)
 - [Zoom, Pan and Center View](zoom-pan/README.md)
 - [Performance Tests](performance-tests/README.md)
+- [Scenario View](scenario-view/README.md)
 
 Each user-facing feature includes an accompanying end-to-end test referenced in its documentation.

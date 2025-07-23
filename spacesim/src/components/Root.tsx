@@ -1,14 +1,6 @@
 import { useState } from 'preact/hooks';
-import CanvasView from './CanvasView';
-import BodyList from './BodyList';
-import BodyEditor from './BodyEditor';
-import BodySpawner from './BodySpawner';
-import { Simulation } from '../simulation';
-import { Vec2 } from 'planck-js';
-import { solarSystem } from '../scenarios/solarSystem';
-import { uniqueName } from '../utils';
-
 import SimulationView from './Simulation';
+import ScenarioView from './ScenarioView';
 import DocsView from './DocsView';
 
 export default function Root() {
@@ -21,7 +13,7 @@ export default function Root() {
         <button onClick={() => setTab('scenario')}>Scenario</button>
         <button onClick={() => setTab('docs')}>Docs</button>
       </div>
-      {tab === 'sandbox' ? <SimulationView /> : tab === 'docs' ? <DocsView /> : <div style={{color:'#fff'}}>Scenario coming soon</div>}
+      {tab === 'sandbox' ? <SimulationView /> : tab === 'scenario' ? <ScenarioView /> : <DocsView />}
     </div>
   );
 }
