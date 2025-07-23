@@ -2,11 +2,14 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render } from 'preact';
 import DocsView from './DocsView';
 
-const originalFetch = global.fetch;
+const originalFetch = globalThis.fetch;
 
 afterEach(() => {
   document.body.innerHTML = '';
-  global.fetch = originalFetch;
+  globalThis.fetch = originalFetch;
+  if (typeof window !== 'undefined') {
+    (window as any).fetch = originalFetch;
+  }
 });
 
 describe('DocsView', () => {
@@ -17,8 +20,10 @@ describe('DocsView', () => {
       { text: () => Promise.resolve('# Hello') }
     ];
     const fetchMock = vi.fn(() => Promise.resolve(responses.shift()!));
-    global.fetch = fetchMock as any;
-    (global as any).fetch = fetchMock;
+    globalThis.fetch = fetchMock as any;
+    if (typeof window !== 'undefined') {
+      (window as any).fetch = fetchMock;
+    }
     const container = document.createElement('div');
     document.body.appendChild(container);
     render(<DocsView />, container);
@@ -36,7 +41,10 @@ describe('DocsView', () => {
       { json: () => Promise.reject(new SyntaxError('invalid')) }
     ];
     const fetchMock = vi.fn(() => Promise.resolve(responses.shift()!));
-    global.fetch = fetchMock as any;
+    globalThis.fetch = fetchMock as any;
+    if (typeof window !== 'undefined') {
+      (window as any).fetch = fetchMock;
+    }
     const container = document.createElement('div');
     document.body.appendChild(container);
     render(<DocsView />, container);
@@ -52,7 +60,10 @@ describe('DocsView', () => {
       { text: () => Promise.resolve('# Hello') }
     ];
     const fetchMock = vi.fn(() => Promise.resolve(responses.shift()!));
-    global.fetch = fetchMock as any;
+    globalThis.fetch = fetchMock as any;
+    if (typeof window !== 'undefined') {
+      (window as any).fetch = fetchMock;
+    }
     const container = document.createElement('div');
     document.body.appendChild(container);
     render(<DocsView />, container);

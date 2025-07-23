@@ -21,13 +21,14 @@ test('edit body label', async ({ page }) => {
   const box = await canvas.boundingBox();
   if (!box) throw new Error('no canvas');
   await page.mouse.click(box.x + 50, box.y + 50);
+  await page.getByRole('button', { name: 'Apply' }).waitFor();
 
   const nameInput = page.locator('label:has-text("Name") input');
   await nameInput.fill('Edited');
   await page.getByRole('button', { name: 'Apply' }).click();
 
-  const label = await page.evaluate(() => window.sim.bodies[0].data.label);
-  expect(label).toBe('Edited');
+  await expect.poll(() => page.evaluate(() => window.sim.bodies[0].data.label))
+    .toBe('Edited');
 });
 
 test('edit body velocity', async ({ page }) => {
