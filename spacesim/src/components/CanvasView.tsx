@@ -7,7 +7,6 @@ interface Props {
   onClick?: (pos: Vec2) => void;
 }
 
-
 export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onMouseUp }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {

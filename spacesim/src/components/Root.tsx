@@ -7,6 +7,7 @@ import { Simulation } from '../simulation';
 import { Vec2 } from 'planck-js';
 import { solarSystem } from '../scenarios/solarSystem';
 import { uniqueName } from '../utils';
+
 import SimulationView from './Simulation';
 
 export default function Root() {

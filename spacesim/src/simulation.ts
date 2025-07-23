@@ -28,6 +28,7 @@ export class Simulation {
   private time = 0;
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
+
   private overlay?: { start: Vec2; end: Vec2 } | null;
 
   onRender(handler: (p: RenderPayload) => void) {
@@ -99,7 +100,9 @@ export class Simulation {
     this.reset();
     this.scenario = [...events].sort((a,b)=>a.time-b.time);
   }
+  
   setOverlay(line: { start: Vec2; end: Vec2 } | null) {
     this.overlay = line;
   }
+
 }
