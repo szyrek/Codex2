@@ -3,7 +3,9 @@
 Follow these steps whenever you address a defect:
 
 1. **Reproduce with Tests**
-   - Write a failing test that captures the bug.
+   - Write a failing test that captures the bug. This "bug test" remains in the
+     suite to guard against regressions. It can be unit, integration or end to
+     end, as long as it reproduces the issue.
    - Only begin coding the fix once the failure is verified.
 2. **Root Cause Analysis**
    - Identify why the bug occurred and document the underlying issue in a new folder under `bugfix/`.
