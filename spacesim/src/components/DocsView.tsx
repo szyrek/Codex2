@@ -9,8 +9,10 @@ export default function DocsView() {
   const [majors, setMajors] = useState<number[]>([]);
   const [content, setContent] = useState<string>('');
 
+  const base = import.meta.env.BASE_URL;
+
   useEffect(() => {
-    fetch('docs/version.json')
+    fetch(`${base}docs/version.json`)
       .then(r => r.json())
       .then(v => {
         const max = Number(v.major);
@@ -22,7 +24,7 @@ export default function DocsView() {
 
   const changeMajor = (m: string) => {
     setMajor(m);
-    fetch(`docs/${m}/manifest.json`)
+    fetch(`${base}docs/${m}/manifest.json`)
       .then(r => r.json())
       .then((man: Manifest) => {
         setFiles(man.files);
@@ -32,7 +34,7 @@ export default function DocsView() {
   };
 
   const loadFile = (maj: string, file: string) => {
-    fetch(`docs/${maj}/${file}`)
+    fetch(`${base}docs/${maj}/${file}`)
       .then(r => r.text())
       .then(t => setContent(marked.parse(t)))
       .catch(() => setContent('Documentation not found'));
