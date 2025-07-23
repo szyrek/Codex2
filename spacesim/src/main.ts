@@ -1,6 +1,7 @@
 import { Sandbox, BodyData, G } from './sandbox';
 import planck, { Vec2 } from 'planck-js';
 import { uniqueName } from './utils';
+import { renderBodies } from './render';
 
 const canvas = document.getElementById('sim') as HTMLCanvasElement;
 const button = document.getElementById('toggle') as HTMLButtonElement;
@@ -164,15 +165,7 @@ deleteBtn.addEventListener('click', () => {
 
 function render() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (const obj of sandbox.bodies) {
-    const pos = obj.body.getPosition();
-    ctx.beginPath();
-    ctx.fillStyle = obj.data.color;
-    ctx.arc(pos.x, pos.y, obj.data.radius, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#fff';
-    ctx.fillText(obj.data.label, pos.x + obj.data.radius + 2, pos.y - 2);
-  }
+  renderBodies(ctx, sandbox.bodies);
   if (mouseDown && throwing) {
     const drag = Vec2.sub(throwEnd, throwStart);
     const velocity = drag.mul(0.01 * (drag.length() / (drag.length() + 50)));

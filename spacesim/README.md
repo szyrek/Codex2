@@ -17,4 +17,7 @@ npm run preview  # preview the build
 npm test         # run unit tests
 ```
 
-The entry page `index.html` loads `src/main.ts`. The core simulation logic resides in `src/sandbox.ts`.
+The entry page `index.html` loads `src/main.ts`. The core simulation logic resides
+in `src/sandbox.ts`. Rendering can also be invoked directly in tests using
+`renderBodies` from `src/render.ts`. Unit tests cover physics behaviour and a
+simple end-to-end check renders a miniature solar system to a mock canvas.
