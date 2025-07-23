@@ -1,21 +1,7 @@
-export interface RenderableBody {
-  body: planck.Body;
-  data: {
-    radius: number;
-    color: string;
-    label: string;
-  };
-}
-
 import planck from 'planck-js';
+import { RenderPayload } from './types';
 
-/**
- * Draw all bodies to a canvas context.
- */
-export function renderBodies(
-  ctx: CanvasRenderingContext2D,
-  bodies: RenderableBody[]
-): void {
+export function renderBodies(ctx: CanvasRenderingContext2D, bodies: RenderPayload['bodies']): void {
   for (const obj of bodies) {
     const pos = obj.body.getPosition();
     ctx.beginPath();
@@ -24,5 +10,13 @@ export function renderBodies(
     ctx.fill();
     ctx.fillStyle = '#fff';
     ctx.fillText(obj.data.label, pos.x + obj.data.radius + 2, pos.y - 2);
+  }
+}
+
+export class BodyRenderer {
+  constructor(private ctx: CanvasRenderingContext2D) {}
+
+  draw({ bodies }: RenderPayload): void {
+    renderBodies(this.ctx, bodies);
   }
 }
