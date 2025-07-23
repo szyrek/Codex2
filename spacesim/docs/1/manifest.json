@@ -6,6 +6,7 @@
     "bugfix/body-editor-refresh/README.md",
     "bugfix/click-coord-offset/README.md",
     "bugfix/docs-manifest-conflict/README.md",
+    "bugfix/docs-view-layout/README.md",
     "bugfix/label-position-offset/README.md",
     "bugfix/overlay-color/README.md",
     "bugfix/three-renderer-fixes/README.md",
