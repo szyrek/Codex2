@@ -1,2 +1,61 @@
-body { margin: 0; background: #111; color: #eee; font-family: sans-serif; }
-canvas { display: block; width: 100vw; height: 100vh; background: #000; }
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+body {
+  margin: 0;
+  background: #000;
+  color: #0f0;
+  font-family: 'VT323', monospace;
+  text-shadow: 0 0 2px #0f0;
+}
+
+.app-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.hud-buttons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
+button {
+  background: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 0.25em 0.5em;
+  font-family: inherit;
+  cursor: pointer;
+}
+button:hover {
+  background: #0f0;
+  color: #000;
+}
+
+.panel {
+  background: #111;
+  border: 1px solid #0ff;
+  padding: 0.5em;
+  color: #0f0;
+}
+
+canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  border: 1px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+}
+
+.label {
+  pointer-events: none;
+  color: #0f0;
+  font-size: 12px;
+  white-space: nowrap;
+  text-shadow: 0 0 4px #0f0;
+}

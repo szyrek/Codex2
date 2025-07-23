@@ -55,7 +55,7 @@ export default function BodyEditor({ sim, body, onDeselect, frame }: Props) {
     onDeselect();
   };
   return (
-    <div style={{ position: 'absolute', top: '140px', left: '10px', background: '#2228', padding: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+    <div className="panel" style={{ position: 'absolute', top: '140px', left: '10px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
       <label>Name <input value={state.label} onInput={e => { setEdited(true); setState({ ...state, label: (e.target as HTMLInputElement).value }); }} /></label>
       <label>Mass <input type="number" step="0.1" value={state.mass} onInput={e => { setEdited(true); setState({ ...state, mass: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>
       <label>Radius <input type="number" step="1" value={state.radius} onInput={e => { setEdited(true); setState({ ...state, radius: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>

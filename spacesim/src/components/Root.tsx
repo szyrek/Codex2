@@ -7,8 +7,8 @@ export default function Root() {
   const [tab, setTab] = useState<'sandbox' | 'scenario' | 'docs'>('sandbox');
 
   return (
-    <div style={{ position:'relative', width:'100vw', height:'100vh' }}>
-      <div style={{ position:'absolute', top:'10px', left:'10px', display:'flex', gap:'0.5rem', zIndex:1 }}>
+    <div className="app-root">
+      <div className="hud-buttons">
         <button onClick={() => setTab('sandbox')}>Sandbox</button>
         <button onClick={() => setTab('scenario')}>Scenario</button>
         <button onClick={() => setTab('docs')}>Docs</button>
