@@ -6,7 +6,7 @@ import { Vec2 } from 'planck-js';
 describe('CanvasView', () => {
   it('reports click coordinates relative to canvas', () => {
     const click = vi.fn();
-    const sim = { setCanvas: vi.fn() } as any;
+    const sim = { setCanvas: vi.fn(), screenToWorld: (v: Vec2) => v } as any;
     const container = document.createElement('div');
     document.body.appendChild(container);
     render(<CanvasView sim={sim} onClick={click} />, container);
