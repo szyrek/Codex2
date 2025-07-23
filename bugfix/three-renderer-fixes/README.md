@@ -9,6 +9,7 @@ The switch to `ThreeRenderer` introduced a few visual glitches:
   2D view assumed y increases downward. This caused clicks and throw lines to appear
   mirrored vertically.
 
+
 ## Fix
 
 - `CanvasView` now scales the canvas and pointer coordinates by `devicePixelRatio`.
