@@ -8,6 +8,8 @@ Clicking an existing body opens an editor panel. Scenarios (predefined sequences
 
 The simulation is built from small modules connected through a simple event bus powered by **mitt**. `GameLoop` ticks using RxJS intervals, the `PhysicsEngine` handles Planck.js dynamics and independent renderers draw bodies and overlay elements. `CompositeRenderer` runs the collection of renderers each frame. This decoupled design keeps each part focused and easy to test.
 
+Bodies also render dotted orbit trails based on their current trajectory. The trail uses the body's color unless it is escaping (blue) or on a collision course (red).
+
 ## Setup
 ```bash
 npm install
