@@ -22,7 +22,7 @@ describe('DocsView', () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
     render(<DocsView />, container);
-    await new Promise(r => setTimeout(r, 20));
+    await new Promise(r => setTimeout(r, 30));
     const base = import.meta.env.BASE_URL;
     expect(fetchMock).toHaveBeenCalled();
     expect(fetchMock.mock.calls[0][0]).toBe(`${base}docs/version.json`);
@@ -40,7 +40,7 @@ describe('DocsView', () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
     render(<DocsView />, container);
-    await new Promise(r => setTimeout(r, 20));
+    await new Promise(r => setTimeout(r, 30));
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(container.querySelectorAll('li').length).toBe(0);
   });
@@ -56,7 +56,7 @@ describe('DocsView', () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
     render(<DocsView />, container);
-    await new Promise(r => setTimeout(r, 20));
+    await new Promise(r => setTimeout(r, 30));
     const root = container.firstElementChild as HTMLElement;
     expect(root.children.length).toBe(2);
     const sidebar = root.children[0] as HTMLElement;
