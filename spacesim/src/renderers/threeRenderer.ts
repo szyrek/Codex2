@@ -69,6 +69,14 @@ export class ThreeRenderer {
   }
 
   draw(payload: RenderPayload): void {
+    const canvas = this.renderer.domElement;
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    if (w && h && (canvas.width !== w || canvas.height !== h)) {
+      this.renderer.setSize(w, h, false);
+      this.camera.aspect = w / h;
+      this.camera.updateProjectionMatrix();
+    }
     this.syncBodies(payload.bodies);
     for (const b of payload.bodies) {
       const obj = this.bodies.get(b)!;

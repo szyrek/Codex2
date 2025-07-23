@@ -5,6 +5,9 @@ import { Vec2 } from 'planck-js';
 interface Props {
   sim: Simulation;
   onClick?: (pos: Vec2) => void;
+  onMouseDown?: (pos: Vec2) => void;
+  onMouseMove?: (pos: Vec2) => void;
+  onMouseUp?: (pos: Vec2) => void;
 }
 
 export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onMouseUp }: Props) {
