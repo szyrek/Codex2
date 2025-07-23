@@ -6,7 +6,7 @@ import BodySpawner from './BodySpawner';
 import BodyLabels from './BodyLabels';
 import { Simulation, type ScenarioEvent } from '../simulation';
 import { Vec2 } from 'planck-js';
-import { uniqueName, throwVelocity } from '../utils';
+import { uniqueName, throwVelocity, nextSpawnParams } from '../utils';
 
 interface Props {
   scenario?: ScenarioEvent[];
@@ -23,7 +23,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
   }, [sim]);
   const [running, setRunning] = useState(true);
   const [selected, setSelected] = useState<ReturnType<Simulation['addBody']> | null>(null);
-  const [spawnParams, setSpawnParams] = useState({ mass:1, radius:5, color:'#ffffff', label:'body' });
+  const [spawnParams, setSpawnParams] = useState({ mass:100, radius:50, color:'#ffff00', label:'Sun' });
   const [dragStart, setDragStart] = useState<Vec2 | null>(null);
   const [frame, setFrame] = useState(0);
   const [speed, setSpeed] = useState(sim.speed);
@@ -65,6 +65,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
     sim.addBody(dragStart, velocity, { ...spawnParams, label });
     setDragStart(null);
     sim.setOverlay(null);
+    setSpawnParams(nextSpawnParams(spawnParams));
   };
 
   const toggleRun = () => setRunning(r=>!r);

@@ -17,6 +17,20 @@ export function throwVelocity(start: Vec2, end: Vec2) {
   return drag.mul(0.01 * speed / (speed + 50));
 }
 
+export function randomColor() {
+  const n = Math.floor(Math.random() * 0xffffff);
+  return `#${n.toString(16).padStart(6, '0')}`;
+}
+
+export interface SpawnParams { mass: number; radius: number; color: string; label: string }
+
+export function nextSpawnParams(current: SpawnParams): SpawnParams {
+  if (current.label === 'Sun') {
+    return { mass: 1, radius: 5, color: randomColor(), label: 'planet' };
+  }
+  return { ...current, color: randomColor(), label: 'planet' };
+}
+
 export type OrbitType = 'crash' | 'stable' | 'escape';
 
 export function predictOrbitType(
