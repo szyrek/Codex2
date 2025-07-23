@@ -10,6 +10,7 @@
     "bugfix/label-position-offset/README.md",
     "bugfix/overlay-color/README.md",
     "bugfix/three-renderer-fixes/README.md",
+    "bugfix/variable-dt/README.md",
     "feature/README.md",
     "feature/body-editor/README.md",
     "feature/drag-spawn/README.md",
