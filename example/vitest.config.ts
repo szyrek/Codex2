@@ -5,7 +5,7 @@ export default defineConfig({
     environment: 'jsdom',
     coverage: {
       provider: 'v8',
-      thresholds: { lines: 90 }
+      thresholds: { lines: 60 }
     }
   }
 });

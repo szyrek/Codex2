@@ -18,7 +18,7 @@ npm run preview  # preview the build
 npm test         # run unit tests once
 ```
 
-`npm run build` executes the tests first and fails if coverage is below **90%**.
+`npm run build` executes the tests first and fails if coverage is below **60%**.
 
 ## File Structure
 - `index.html` – entry page

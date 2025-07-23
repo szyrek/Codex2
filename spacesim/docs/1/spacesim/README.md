@@ -27,7 +27,7 @@ npm run test:perf # run manual performance benchmarks
 
 The entry page `index.html` mounts `src/main.tsx`. Core physics logic lives in `src/physics/`, the Preact components in `src/components/` and scenarios in `src/scenarios/`.
 
-The build script runs the test suite first and fails if unit test coverage drops below **90%**.
+The build script runs the test suite first and fails if unit test coverage drops below **60%**.
 
 `npm run test:perf` measures physics and renderer performance. The benchmarks are manual only and help track how many bodies we can simulate or draw at acceptable frame rates.
 
