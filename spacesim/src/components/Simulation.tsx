@@ -82,6 +82,26 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
   const slower = () => { sim.slowDown(); setSpeed(sim.speed); };
   const resetSpeed = () => { sim.resetSpeed(); setSpeed(sim.speed); };
 
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowUp') { e.preventDefault(); pan(0, -20); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); pan(0, 20); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); pan(-20, 0); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); pan(20, 0); }
+    };
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const factor = Math.pow(1.1, -e.deltaY / 100);
+      sim.zoom(factor);
+    };
+    window.addEventListener('keydown', handleKey, { passive: false });
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [sim]);
+
   return (
     <div className="sim-container" style={{ position:'relative', width:'100%', height:'100%' }}>
       <CanvasView sim={sim} onMouseDown={down} onMouseMove={move} onMouseUp={up} />
