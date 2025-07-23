@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import { Simulation } from '../simulation';
 import type { BodyData } from '../physics';
 
@@ -10,6 +10,9 @@ interface Props {
 
 export default function BodyEditor({ sim, body, onDeselect }: Props) {
   const [state, setState] = useState<BodyData | null>(body?.data || null);
+  useEffect(() => {
+    setState(body?.data || null);
+  }, [body]);
   if (!body) return null;
   const apply = () => {
     sim.updateBody(body, state!);
