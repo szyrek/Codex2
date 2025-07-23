@@ -13,14 +13,11 @@ export default function BodyLabels({ sim }: Props) {
         return (
           <div
             key={b.data.label}
+            className="label"
             style={{
               position: 'absolute',
               left: `${screenX + b.data.radius + 2}px`,
               top: `${screenY - 10}px`,
-              pointerEvents: 'none',
-              color: '#fff',
-              fontSize: '12px',
-              whiteSpace: 'nowrap',
             }}
           >
             {b.data.label}

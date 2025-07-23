@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro UI Skeleton</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #000;
+      color: #0f0;
+      font-family: 'VT323', monospace;
+      text-shadow: 0 0 3px #0f0;
+    }
+    .hud-bar, .status-footer {
+      background: #111;
+      padding: 0.5em;
+      text-align: center;
+      border-bottom: 2px solid #0ff;
+    }
+    .status-footer {
+      border-top: 2px solid #0ff;
+      border-bottom: none;
+    }
+    .main-container {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    .terminal-panel, .control-deck {
+      width: 20%;
+      background: #111;
+      border: 1px solid #0ff;
+      padding: 1em;
+      overflow-y: auto;
+    }
+    .canvas-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle, #000 60%, #111);
+      position: relative;
+    }
+    button {
+      background: linear-gradient(#444, #111);
+      color: #0ff;
+      border: 1px solid #0ff;
+      padding: 0.25em 0.5em;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(0,255,255,0.4);
+    }
+    input {
+      background: #000;
+      color: #0f0;
+      border: 1px solid #0ff;
+      padding: 0.25em;
+      font-family: inherit;
+    }
+
+    #sim-canvas {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #0f0;
+      box-shadow: 0 0 10px #0f0;
+    }
+    /* optional CRT scanline effect */
+    .canvas-wrapper::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0) 0px,
+        rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0.05) 3px,
+        rgba(0,0,0,0.05) 4px
+      );
+    }
+  </style>
+</head>
+<body>
+  <header class="hud-bar">Top HUD bar</header>
+  <main class="main-container">
+    <aside class="terminal-panel">Terminal/logs or mission script</aside>
+    <section class="canvas-wrapper">
+      <canvas id="sim-canvas"></canvas>
+    </section>
+    <aside class="control-deck">
+      <button>Fire</button>
+      <input placeholder="Command" />
+    </aside>
+  </main>
+  <footer class="status-footer">Status bar / diagnostics</footer>
+</body>
+</html>
