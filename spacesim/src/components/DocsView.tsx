@@ -37,6 +37,13 @@ export default function DocsView() {
       .then(t => setContent(marked.parse(t)))
       .catch(() => setContent('Documentation not found'));
   };
+        setMajor(String(v.major));
+        return fetch(`/docs/${v.major}/manifest.json`);
+      })
+      .then(r => r.json())
+      .then((m: Manifest) => setFiles(m.files))
+      .catch(() => {});
+  }, []);
 
   const load = (file: string) => loadFile(major, file);
 
