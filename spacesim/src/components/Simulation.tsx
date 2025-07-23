@@ -14,10 +14,19 @@ interface Props {
 
 export default function SimulationComponent({ scenario, sim: ext }: Props) {
   const [sim] = useState(() => ext ?? new Simulation());
+  useEffect(() => {
+    (window as any).sim = sim;
+  }, [sim]);
   const [running, setRunning] = useState(true);
   const [selected, setSelected] = useState<ReturnType<Simulation['addBody']> | null>(null);
   const [spawnParams, setSpawnParams] = useState({ mass:1, radius:5, color:'#ffffff', label:'body' });
   const [dragStart, setDragStart] = useState<Vec2 | null>(null);
+  const [, setFrame] = useState(0);
+
+  useEffect(() => {
+    const off = sim.onRender(() => setFrame(f => f + 1));
+    return () => off();
+  }, [sim]);
 
   useEffect(() => {
     if (running) sim.start();

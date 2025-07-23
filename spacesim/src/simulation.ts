@@ -30,6 +30,11 @@ export class Simulation {
   private canvas?: HTMLCanvasElement;
   private overlay?: { start: Vec2; end: Vec2 } | null;
 
+  onRender(handler: (p: RenderPayload) => void) {
+    this.bus.on('render', handler);
+    return () => this.bus.off('render', handler);
+  }
+
   constructor(canvas?: HTMLCanvasElement) {
     if (canvas) this.setCanvas(canvas);
     this.bus.on('tick', (dt) => this.step(dt));
