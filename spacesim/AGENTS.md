@@ -5,3 +5,4 @@
 - Use Planck.js for physics calculations.
 - Provide unit tests for any logic in `src/`.
 - Run `npm install` before testing or building.
+- When adjusting the UI, follow [../practices/UI.md](../practices/UI.md).
