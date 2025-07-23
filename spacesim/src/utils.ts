@@ -10,11 +10,27 @@ export function uniqueName(base: string, existing: string[]): string {
   return candidate;
 }
 
-export function throwVelocity(start: Vec2, end: Vec2) {
+export function throwVelocity(start: Vec2, end: Vec2, zoom = 1) {
   const drag = Vec2.sub(end, start);
-  const speed = drag.length();
-  if (speed < 5) return Vec2();
-  return drag.mul(0.01 * speed / (speed + 50));
+  const dist = drag.length();
+  const px = dist * zoom;
+  if (px <= 3) return Vec2();
+  const scale = 0.01 * px * px / (px + 50) / (dist || 1);
+  return drag.mul(scale);
+}
+
+export function randomColor() {
+  const n = Math.floor(Math.random() * 0xffffff);
+  return `#${n.toString(16).padStart(6, '0')}`;
+}
+
+export interface SpawnParams { mass: number; radius: number; color: string; label: string }
+
+export function nextSpawnParams(current: SpawnParams): SpawnParams {
+  if (current.label === 'Sun') {
+    return { mass: 1, radius: 5, color: randomColor(), label: 'planet' };
+  }
+  return { ...current, color: randomColor(), label: 'planet' };
 }
 
 export type OrbitType = 'crash' | 'stable' | 'escape';

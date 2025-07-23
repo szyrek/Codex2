@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+const fs = require('fs');
+const path = require('path');
+
+const dir = __dirname;
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
