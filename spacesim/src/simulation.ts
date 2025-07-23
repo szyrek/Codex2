@@ -22,7 +22,7 @@ interface Events {
 export class Simulation {
   private engine = new PhysicsEngine();
   private bus: EventBus<Events> = createEventBus<Events>();
-  private loop = new GameLoop(this.bus, 1 / 25);
+  private loop = new GameLoop(this.bus);
   private renderer?: ThreeRenderer;
   private time = 0;
   private scenario?: ScenarioEvent[];
