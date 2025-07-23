@@ -43,4 +43,23 @@ describe('DocsView', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(container.querySelectorAll('li').length).toBe(0);
   });
+
+  it('renders sidebar layout', async () => {
+    const responses = [
+      { json: () => Promise.resolve({ major: 1 }) },
+      { json: () => Promise.resolve({ files: ['README.md'] }) },
+      { text: () => Promise.resolve('# Hello') }
+    ];
+    const fetchMock = vi.fn(() => Promise.resolve(responses.shift()!));
+    global.fetch = fetchMock as any;
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    render(<DocsView />, container);
+    await new Promise(r => setTimeout(r, 20));
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.children.length).toBe(2);
+    const sidebar = root.children[0] as HTMLElement;
+    expect(sidebar.querySelector('select')).not.toBeNull();
+    expect(sidebar.querySelectorAll('li').length).toBe(1);
+  });
 });

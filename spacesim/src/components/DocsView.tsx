@@ -43,21 +43,25 @@ export default function DocsView() {
   const load = (file: string) => loadFile(major, file);
 
   return (
-    <div style={{color:'#fff', padding:'1rem', overflow:'auto', height:'100%'}}>
-      <div style={{marginBottom:'1rem'}}>
-        <label>
-          Version:
-          <select value={major} onChange={e => changeMajor((e.target as HTMLSelectElement).value)}>
-            {majors.map(m => <option key={m} value={m}>{m}</option>)}
-          </select>
-        </label>
+    <div style={{position:'absolute', inset:0, display:'flex', color:'#fff'}}>
+      <div style={{width:'220px', padding:'1rem', boxSizing:'border-box', overflowY:'auto', marginTop:'60px'}}>
+        <div style={{marginBottom:'1rem'}}>
+          <label>
+            Version:
+            <select value={major} onChange={e => changeMajor((e.target as HTMLSelectElement).value)}>
+              {majors.map(m => <option key={m} value={m}>{m}</option>)}
+            </select>
+          </label>
+        </div>
+        <ul style={{listStyle:'none', padding:0}}>
+          {files.map(f => (
+            <li key={f}><button onClick={() => load(f)} style={{width:'100%', textAlign:'left'}}>{f}</button></li>
+          ))}
+        </ul>
       </div>
-      <ul>
-        {files.map(f => (
-          <li key={f}><button onClick={() => load(f)}>{f}</button></li>
-        ))}
-      </ul>
-      <div dangerouslySetInnerHTML={{__html: content}} />
+      <div style={{flex:1, padding:'1rem', overflowY:'auto', marginTop:'60px'}}>
+        <div dangerouslySetInnerHTML={{__html: content}} />
+      </div>
     </div>
   );
 }
