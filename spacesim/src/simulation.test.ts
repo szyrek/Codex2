@@ -23,17 +23,17 @@ describe('Simulation scenarios', () => {
     const sim = new Simulation();
     const stepSpy = vi.spyOn(sim['engine'], 'step');
     sim.speedUp();
-    sim['step'](0.5 as any);
-    const arg = stepSpy.mock.calls[0][0];
-    expect(arg).toBeCloseTo(1);
+    sim['step'](0.05 as any);
+    const total = stepSpy.mock.calls.reduce((s, c) => s + c[0], 0);
+    expect(total).toBeCloseTo(0.1);
   });
 
   it('tracks elapsed time', () => {
     const sim = new Simulation();
-    sim['step'](0.25 as any);
-    expect(sim.time).toBeCloseTo(0.25);
+    sim['step'](0.05 as any);
+    expect(sim.time).toBeCloseTo(0.05);
     sim.speedUp();
-    sim['step'](0.25 as any);
-    expect(sim.time).toBeCloseTo(0.75);
+    sim['step'](0.05 as any);
+    expect(sim.time).toBeCloseTo(0.15);
   });
 });

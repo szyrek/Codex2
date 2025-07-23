@@ -34,6 +34,9 @@ export class Simulation {
 
   private overlay?: { start: Vec2; end: Vec2 } | null;
 
+  private accumulator = 0;
+  private readonly fixedDt = 1 / 60;
+
   private speedIndex = 0; // 0 -> x1
 
   get speed() { return 2 ** this.speedIndex; }
@@ -110,16 +113,20 @@ export class Simulation {
 
   private step(dt: number) {
     const scaled = dt * this.speed;
-    this._time += scaled;
-    if (this.scenario) {
-      while (this.scenario.length && this.scenario[0].time <= this._time) {
-        const ev = this.scenario.shift()!;
-        if (ev.action === 'addBody') {
-          this.engine.addBody(ev.position, ev.velocity, ev.data);
+    this.accumulator += Math.min(scaled, 0.1);
+    while (this.accumulator >= this.fixedDt) {
+      this._time += this.fixedDt;
+      if (this.scenario) {
+        while (this.scenario.length && this.scenario[0].time <= this._time) {
+          const ev = this.scenario.shift()!;
+          if (ev.action === 'addBody') {
+            this.engine.addBody(ev.position, ev.velocity, ev.data);
+          }
         }
       }
+      this.engine.step(this.fixedDt);
+      this.accumulator -= this.fixedDt;
     }
-    this.engine.step(scaled);
     this.bus.emit('render', {
       bodies: this.engine.bodies,
       throwLine: this.overlay || undefined,
