@@ -143,7 +143,7 @@ export class ThreeRenderer {
       }
       return;
     }
-    const vel = throwVelocity(line.start, line.end);
+    const vel = throwVelocity(line.start, line.end, this.camera.zoom);
     const type = predictOrbitType(line.start, vel, cPos, central.data.mass, central.data.radius, G);
     const color = type === 'escape' ? 'blue' : type === 'crash' ? 'red' : 'green';
     const geom = new BufferGeometry().setFromPoints([
