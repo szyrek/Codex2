@@ -25,6 +25,4 @@ The entry page `index.html` mounts `src/main.tsx`. Core physics logic lives in `
 
 The build script runs the test suite first and fails if unit test coverage drops below **90%**.
 
-The entry page `index.html` mounts `src/main.tsx`. Core physics logic lives in `src/physics/`, the Preact components in `src/components/` and scenarios in `src/scenarios/`.
-
 See [../practices](../practices) for overall development guidelines.
