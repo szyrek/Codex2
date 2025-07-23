@@ -1,15 +1,18 @@
-import { useEffect, useRef } from 'preact/hooks';
+import { useRef, useLayoutEffect } from 'preact/hooks';
 import { Simulation } from '../simulation';
 import { Vec2 } from 'planck-js';
 
 interface Props {
   sim: Simulation;
   onClick?: (pos: Vec2) => void;
+  onMouseDown?: (pos: Vec2) => void;
+  onMouseMove?: (pos: Vec2) => void;
+  onMouseUp?: (pos: Vec2) => void;
 }
 
 export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onMouseUp }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!ref.current) return;
     const canvas = ref.current;
     canvas.width = canvas.clientWidth;

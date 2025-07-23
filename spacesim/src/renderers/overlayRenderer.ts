@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import { RenderPayload } from './types';
 import { throwVelocity, predictOrbitType } from '../utils';
 import { G } from '../physics';
@@ -12,7 +13,7 @@ function simulateOrbit(
   steps = 180,
   dt = 0.1
 ) {
-  const pts: Vec2[] = [];
+  const pts: THREE.Vector3[] = [];
   let p = pos.clone();
   let v = vel.clone();
   for (let i = 0; i < steps; i++) {
@@ -22,21 +23,32 @@ function simulateOrbit(
     const acc = r.clone().mul((-G * mass) / Math.pow(distSq, 1.5));
     v = v.clone().add(acc.mul(dt));
     p = p.clone().add(v.clone().mul(dt));
-    pts.push(p.clone());
+    pts.push(new THREE.Vector3(p.x, p.y, 0));
   }
   return pts;
 }
 
 export class OverlayRenderer {
-  constructor(private ctx: CanvasRenderingContext2D) {}
+  constructor(private scene: THREE.Scene) {}
+
+  private lines: THREE.Line[] = [];
+
+  private clear() {
+    for (const l of this.lines) {
+      this.scene.remove(l);
+      (l.material as THREE.Material).dispose();
+      l.geometry.dispose();
+    }
+    this.lines = [];
+  }
 
   draw({ throwLine, bodies }: RenderPayload): void {
+    this.clear();
     if (!bodies.length) return;
     const central = bodies.reduce((a, b) =>
       b.data.mass > a.data.mass ? b : a,
     bodies[0]);
     const cPos = central.body.getPosition();
-    this.ctx.setLineDash([2, 2]);
     for (const b of bodies) {
       if (b === central) continue;
       const pos = b.body.getPosition();
@@ -49,7 +61,7 @@ export class OverlayRenderer {
         central.data.radius,
         G
       );
-      this.ctx.strokeStyle =
+      const color =
         type === 'escape' ? 'blue' : type === 'crash' ? 'red' : b.data.color;
       const pts = simulateOrbit(
         pos,
@@ -59,29 +71,37 @@ export class OverlayRenderer {
         central.data.radius
       );
       if (pts.length) {
-        this.ctx.beginPath();
-        this.ctx.moveTo(pos.x, pos.y);
-        for (const p of pts) this.ctx.lineTo(p.x, p.y);
-        this.ctx.stroke();
+        const geom = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(pos.x, pos.y, 0),
+          ...pts,
+        ]);
+        const mat = new THREE.LineBasicMaterial({ color });
+        const line = new THREE.Line(geom, mat);
+        this.scene.add(line);
+        this.lines.push(line);
       }
     }
-    this.ctx.setLineDash([]);
 
-    if (!throwLine) return;
-    const vel = throwVelocity(throwLine.start, throwLine.end);
-    const type = predictOrbitType(
-      throwLine.start,
-      vel,
-      cPos,
-      central.data.mass,
-      central.data.radius,
-      G
-    );
-    this.ctx.strokeStyle =
-      type === 'escape' ? 'blue' : type === 'crash' ? 'red' : 'green';
-    this.ctx.beginPath();
-    this.ctx.moveTo(throwLine.start.x, throwLine.start.y);
-    this.ctx.lineTo(throwLine.end.x, throwLine.end.y);
-    this.ctx.stroke();
+    if (throwLine) {
+      const vel = throwVelocity(throwLine.start, throwLine.end);
+      const type = predictOrbitType(
+        throwLine.start,
+        vel,
+        cPos,
+        central.data.mass,
+        central.data.radius,
+        G
+      );
+      const color =
+        type === 'escape' ? 'blue' : type === 'crash' ? 'red' : 'green';
+      const geom = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(throwLine.start.x, throwLine.start.y, 1),
+        new THREE.Vector3(throwLine.end.x, throwLine.end.y, 1),
+      ]);
+      const mat = new THREE.LineBasicMaterial({ color });
+      const line = new THREE.Line(geom, mat);
+      this.scene.add(line);
+      this.lines.push(line);
+    }
   }
 }

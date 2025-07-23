@@ -3,7 +3,13 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     environment: 'jsdom',
-    exclude: ['node_modules/**', 'e2e/**'],
+    exclude: [
+      'node_modules/**',
+      'e2e/**',
+      'dist/**',
+      'vite.config.js',
+      'vitest.config.js'
+    ],
 
     coverage: {
       provider: 'v8',
@@ -16,7 +22,10 @@ export default defineConfig({
         'src/sandbox.ts',
         'playwright.config.ts',
         'vite.config.ts',
-        'vitest.config.ts'
+        'vitest.config.ts',
+        'vite.config.js',
+        'vitest.config.js',
+        'dist/**'
       ]
     }
   }
