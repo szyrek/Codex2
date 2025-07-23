@@ -2,9 +2,7 @@ import { Vec2 } from 'planck-js';
 import { createEventBus, EventBus } from './core/eventBus';
 import { GameLoop } from './core/gameLoop';
 import { PhysicsEngine, BodyData, BodyUpdate } from './physics';
-import { CompositeRenderer } from './renderers/compositeRenderer';
-import { BodyRenderer } from './renderers/bodyRenderer';
-import { OverlayRenderer } from './renderers/overlayRenderer';
+import { ThreeRenderer } from './renderers/threeRenderer';
 import { RenderPayload } from './renderers/types';
 
 export interface ScenarioEvent {
@@ -24,13 +22,25 @@ interface Events {
 export class Simulation {
   private engine = new PhysicsEngine();
   private bus: EventBus<Events> = createEventBus<Events>();
-  private loop = new GameLoop(this.bus);
-  private renderer?: CompositeRenderer;
+  private loop = new GameLoop(this.bus, 1 / 25);
+  private renderer?: ThreeRenderer;
   private time = 0;
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
 
+  private _view = { center: Vec2(), zoom: 1 };
+
   private overlay?: { start: Vec2; end: Vec2 } | null;
+
+  private speedIndex = 0; // 0 -> x1
+
+  get speed() { return 2 ** this.speedIndex; }
+
+  speedUp() { if (this.speedIndex < 6) this.speedIndex++; }
+
+  slowDown() { if (this.speedIndex > 0) this.speedIndex--; }
+
+  resetSpeed() { this.speedIndex = 0; }
 
   onRender(handler: (p: RenderPayload) => void) {
     this.bus.on('render', handler);
@@ -44,11 +54,40 @@ export class Simulation {
 
   setCanvas(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
-    const ctx = canvas.getContext('2d')!;
-    this.renderer = new CompositeRenderer(ctx, this.bus, [
-      new BodyRenderer(ctx),
-      new OverlayRenderer(ctx),
-    ]);
+    this.renderer = new ThreeRenderer(canvas, this.bus);
+  }
+
+  get view() { return this._view; }
+
+  setZoom(z: number) { this._view.zoom = z; }
+
+  zoom(factor: number) { this._view.zoom *= factor; }
+
+  pan(dx: number, dy: number) {
+    this._view.center = this._view.center.clone().add(Vec2(dx, dy));
+  }
+
+  resetView() { this._view = { center: Vec2(), zoom: 1 }; }
+
+  centerOn(body: ReturnType<PhysicsEngine['addBody']>) {
+    this._view.center = body.body.getPosition().clone();
+    this._view.zoom = 1;
+  }
+
+  worldToScreen(p: Vec2) {
+    if (!this.canvas) return p.clone();
+    return Vec2(
+      (p.x - this._view.center.x) * this._view.zoom + this.canvas.width / 2,
+      (p.y - this._view.center.y) * this._view.zoom + this.canvas.height / 2,
+    );
+  }
+
+  screenToWorld(p: Vec2) {
+    if (!this.canvas) return p.clone();
+    return Vec2(
+      (p.x - this.canvas.width / 2) / this._view.zoom + this._view.center.x,
+      (p.y - this.canvas.height / 2) / this._view.zoom + this._view.center.y,
+    );
   }
 
   start() {
@@ -66,7 +105,8 @@ export class Simulation {
   }
 
   private step(dt: number) {
-    this.time += dt;
+    const scaled = dt * this.speed;
+    this.time += scaled;
     if (this.scenario) {
       while (this.scenario.length && this.scenario[0].time <= this.time) {
         const ev = this.scenario.shift()!;
@@ -75,8 +115,12 @@ export class Simulation {
         }
       }
     }
-    this.engine.step(dt);
-    this.bus.emit('render', { bodies: this.engine.bodies, throwLine: this.overlay || undefined });
+    this.engine.step(scaled);
+    this.bus.emit('render', {
+      bodies: this.engine.bodies,
+      throwLine: this.overlay || undefined,
+      view: this._view,
+    });
   }
 
   get bodies() { return this.engine.bodies; }

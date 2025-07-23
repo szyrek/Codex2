@@ -15,6 +15,7 @@ Bodies also render dotted orbit trails based on their current trajectory. The tr
 npm install
 ```
 
+
 ## Commands
 ```bash
 npm run dev      # start development server
@@ -22,10 +23,13 @@ npm run build    # create production build
 npm run preview  # preview the build
 npm test         # run unit tests
 npm run test:e2e  # run browser tests with Playwright
+npm run test:perf # run manual performance benchmarks
 ```
 
 The entry page `index.html` mounts `src/main.tsx`. Core physics logic lives in `src/physics/`, the Preact components in `src/components/` and scenarios in `src/scenarios/`.
 
 The build script runs the test suite first and fails if unit test coverage drops below **90%**.
+
+`npm run test:perf` measures physics and renderer performance. The benchmarks are manual only and help track how many bodies we can simulate or draw at acceptable frame rates.
 
 See [../practices](../practices) for overall development guidelines.

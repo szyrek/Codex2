@@ -7,7 +7,8 @@
     "build": "npm test && vite build",
     "preview": "vite preview",
     "test": "vitest run --coverage",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:perf": "vitest bench --run --config vitest.performance.config.ts"
   },
   "type": "module",
   "devDependencies": {
@@ -25,6 +26,8 @@
     "mitt": "^3.0.1",
     "planck-js": "^0.3.0",
     "preact": "^10.26.9",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "marked": "^9.1.2",
+    "three": "^0.178.0"
   }
 }

@@ -6,7 +6,7 @@ import { Vec2 } from 'planck-js';
 describe('CanvasView', () => {
   it('reports click coordinates relative to canvas', () => {
     const click = vi.fn();
-    const sim = { setCanvas: vi.fn() } as any;
+    const sim = { setCanvas: vi.fn(), screenToWorld: (v: Vec2) => v } as any;
     const container = document.createElement('div');
     document.body.appendChild(container);
     render(<CanvasView sim={sim} onClick={click} />, container);
@@ -16,5 +16,18 @@ describe('CanvasView', () => {
     const pos = click.mock.calls[0][0] as ReturnType<typeof Vec2>;
     expect(pos.x).toBeCloseTo(5);
     expect(pos.y).toBeCloseTo(5);
+  });
+
+  it('initializes canvas size before passing to simulation', () => {
+    const sim = { setCanvas: vi.fn() } as any;
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    Object.defineProperty(HTMLCanvasElement.prototype, 'clientWidth', { get: () => 200 });
+    Object.defineProperty(HTMLCanvasElement.prototype, 'clientHeight', { get: () => 150 });
+    render(<CanvasView sim={sim} />, container);
+    const canvas = container.querySelector('canvas')!;
+    expect(canvas.width).toBe(200);
+    expect(canvas.height).toBe(150);
+    expect(sim.setCanvas).toHaveBeenCalledWith(canvas);
   });
 });
