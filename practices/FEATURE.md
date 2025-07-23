@@ -11,6 +11,7 @@ When introducing a new feature, follow these principles:
      - purpose and high-level design decisions
      - links to relevant commits and architectural documents
      - changelog entries
+   - The helper script [`new-record.js`](new-record.js) can generate this folder automatically: `node practices/new-record.js feature <name>`.
    - Update any affected architecture docs and reference this feature folder from them.
 3. **Quality Gates**
    - The build must pass with required coverage before merging.
