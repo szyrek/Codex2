@@ -1,10 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const {execSync} = require('child_process');
+const {spawnSync} = require('child_process');
 const assert = require('assert');
 
-function run(cmd){
-  execSync(cmd, {stdio:'inherit'});
+function run(args){
+  return spawnSync('node', args, {encoding:'utf8'});
 }
 
 function cleanup(type, name){
@@ -13,14 +13,22 @@ function cleanup(type, name){
 }
 
 try {
+  let res = run(['practices/new-record.js']);
+  assert.strictEqual(res.status, 1);
+  assert(res.stderr.includes('Usage:'));
+
+  res = run(['practices/new-record.js', 'oops', 'name']);
+  assert.strictEqual(res.status, 1);
+  assert(res.stderr.includes('Usage:'));
+
   cleanup('feature', 'test-feat');
-  run('node practices/new-record.js feature test-feat');
+  run(['practices/new-record.js', 'feature', 'test-feat']);
   const featContent = fs.readFileSync(path.join(__dirname, '..', 'feature', 'test-feat', 'README.md'), 'utf8');
   assert(featContent.includes('purpose and high-level design decisions'));
   cleanup('feature', 'test-feat');
 
   cleanup('bugfix', 'test-bug');
-  run('node practices/new-record.js bugfix test-bug');
+  run(['practices/new-record.js', 'bugfix', 'test-bug']);
   const bugContent = fs.readFileSync(path.join(__dirname, '..', 'bugfix', 'test-bug', 'README.md'), 'utf8');
   assert(bugContent.includes('Identify why the bug occurred'));
   cleanup('bugfix', 'test-bug');
