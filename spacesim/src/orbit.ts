@@ -1,4 +1,4 @@
-import Vec2, { Vector } from '../vec2';
+import Vec2, { Vector } from './vec2';
 import { G } from './physics';
 import type { OrbitType } from './utils';
 
