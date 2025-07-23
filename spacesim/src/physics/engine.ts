@@ -27,7 +27,9 @@ export class PhysicsEngine {
       position,
       linearVelocity: velocity,
     });
-    body.createFixture(planck.Circle(data.radius), { density: data.mass, isSensor: true });
+    const density = data.mass / (Math.PI * data.radius * data.radius);
+    body.createFixture(planck.Circle(data.radius), { density, isSensor: true });
+    body.resetMassData();
     const entry = { body, data };
     this.bodies.push(entry);
     return entry;
@@ -57,21 +59,24 @@ export class PhysicsEngine {
     updates: Partial<BodyData> & { position?: Vec2; velocity?: Vec2 }
   ) {
     if (updates.mass !== undefined) {
+      target.data.mass = updates.mass;
       const fixture = target.body.getFixtureList();
       if (fixture) {
-        fixture.setDensity(updates.mass);
+        const radius = target.data.radius;
+        const density = updates.mass / (Math.PI * radius * radius);
+        fixture.setDensity(density);
         target.body.resetMassData();
       }
-      target.data.mass = updates.mass;
     }
     if (updates.radius !== undefined) {
+      target.data.radius = updates.radius;
       const fixture = target.body.getFixtureList();
       if (fixture) {
-        const density = fixture.getDensity();
+        const density = target.data.mass / (Math.PI * updates.radius * updates.radius);
         target.body.destroyFixture(fixture);
         target.body.createFixture(planck.Circle(updates.radius), { density });
+        target.body.resetMassData();
       }
-      target.data.radius = updates.radius;
     }
     if (updates.label !== undefined) target.data.label = updates.label;
     if (updates.color !== undefined) target.data.color = updates.color;
@@ -91,10 +96,11 @@ export class PhysicsEngine {
         const posA = a.body.getPosition();
         const posB = b.body.getPosition();
         const r = Vec2.sub(posB, posA);
-        const distSq = r.lengthSquared();
-        if (distSq === 0) continue;
-        const forceMag = (G * a.data.mass * b.data.mass) / distSq;
-        const force = r.clone().mul(forceMag / Math.sqrt(distSq));
+        const dist = r.length();
+        if (dist === 0) continue;
+        const dir = r.clone().mul(1 / dist);
+        const forceMag = (G * a.data.mass * b.data.mass) / (dist * dist);
+        const force = dir.mul(forceMag);
         a.body.applyForceToCenter(force, true);
         b.body.applyForceToCenter(force.neg(), true);
       }
