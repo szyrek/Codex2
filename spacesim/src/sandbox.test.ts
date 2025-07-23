@@ -29,10 +29,37 @@ describe('Sandbox gravity', () => {
     expect(fixture?.getDensity()).toBe(2);
   });
 
+  it('updates body radius', () => {
+    const sb = new Sandbox();
+    const start = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: '' });
+    if (start) sb.updateBody(start, { radius: 2 });
+    const fixture = start?.body.getFixtureList();
+    const shape = fixture?.getShape() as any;
+    expect(shape.m_radius).toBe(2);
+  });
+
   it('finds a body by position', () => {
     const sb = new Sandbox();
     sb.addBody(Vec2(5, 5), Vec2(), { mass: 1, radius: 2, color: 'red', label: '' });
     const found = sb.findBody(Vec2(6, 5));
     expect(found).toBeDefined();
+  });
+
+  it('merges smaller body on collision with massive one', () => {
+    const sb = new Sandbox();
+    const big = sb.addBody(Vec2(0, 0), Vec2(), { mass: 3, radius: 1, color: 'red', label: '' });
+    const small = sb.addBody(Vec2(0.5, 0), Vec2(), { mass: 1, radius: 1, color: 'blue', label: '' });
+    sb.step(0);
+    expect(sb.bodies.length).toBe(1);
+    expect(sb.bodies[0].data.mass).toBeCloseTo(4);
+  });
+
+  it('bounces similar masses', () => {
+    const sb = new Sandbox();
+    const a = sb.addBody(Vec2(-0.5, 0), Vec2(1, 0), { mass: 1, radius: 1, color: 'red', label: '' });
+    const b = sb.addBody(Vec2(0.5, 0), Vec2(-1, 0), { mass: 1, radius: 1, color: 'blue', label: '' });
+    sb.step(0);
+    expect(a.body.getLinearVelocity().x).toBeLessThan(0);
+    expect(b.body.getLinearVelocity().x).toBeGreaterThan(0);
   });
 });

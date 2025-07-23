@@ -1,3 +1,8 @@
 body { margin: 0; background: #111; color: #eee; font-family: sans-serif; }
 canvas { display: block; width: 100vw; height: 100vh; background: #000; }
 #ui { position: absolute; top: 10px; left: 10px; display: flex; gap: 0.5rem; }
+#body-list { position: absolute; right: 10px; bottom: 10px; list-style: none; margin: 0; padding: 0.5rem; background: #2228; color: #eee; }
+#body-list li { cursor: pointer; padding: 2px 4px; }
+#body-list li:hover { background: #444; }
+#edit-ui { position: absolute; top: 140px; left: 10px; background: #2228; padding: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.hidden { display: none; }
