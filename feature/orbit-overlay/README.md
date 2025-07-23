@@ -7,6 +7,5 @@ Active bodies display a dotted line predicting their orbit.
 - Unit tests cover the color logic in `src/threeRenderer.test.ts`.
 
 ## Tests
-- `spacesim/src/overlayRenderer.test.ts`
 - `spacesim/src/threeRenderer.test.ts`
 - `spacesim/src/predictOrbitType.test.ts`
