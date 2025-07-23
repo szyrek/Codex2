@@ -11,10 +11,7 @@ export function setupRotation(element: HTMLElement): void {
   });
 }
 
-/* c8 ignore next */
 const croissant = document.getElementById('croissant');
-/* c8 ignore next */
 if (croissant) {
-  /* c8 ignore next */
-  setupRotation(croissant);
+    setupRotation(croissant);
 }

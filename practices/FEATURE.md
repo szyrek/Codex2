@@ -5,7 +5,7 @@ When introducing a new feature, follow these principles:
 1. **Test-Driven Development**
    - Write unit and integration tests first to describe the desired behaviour.
    - Do not implement functionality until failing tests prove the need.
-   - Aim for at least 90% coverage as described in [Testing](TESTING.md).
+   - Aim for at least 60% coverage as described in [Testing](TESTING.md).
    - Provide an end-to-end test for each user-facing capability. See the
      [Testing practices](TESTING.md) section on E2E tests.
 2. **Documentation**

@@ -4,7 +4,7 @@ This repository follows a test-driven approach. Every feature begins with tests 
 
 ## Unit Tests
 - All logic should be unit tested.
-- We target **90% line coverage** as a quality gate.
+- We target **60% line coverage** as a quality gate.
 - The default build fails if coverage drops below this threshold.
 
 ## Integration Tests

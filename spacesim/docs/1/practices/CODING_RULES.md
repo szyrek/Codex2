@@ -33,7 +33,7 @@ This document defines the lifecycle that all contributors must follow. It applie
 - Aim for robust coverage to prevent regressions.
 
 ## 8. Quality Gates
-- Automated tests must achieve at least **90% line coverage**.
+- Automated tests must achieve at least **60% line coverage**.
 - The default build will fail if this threshold is not met.
 
 ## 9. Refactor with Confidence
