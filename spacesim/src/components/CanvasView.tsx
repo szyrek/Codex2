@@ -12,13 +12,18 @@ export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onM
   useEffect(() => {
     if (!ref.current) return;
     const canvas = ref.current;
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = canvas.clientWidth * dpr;
+    canvas.height = canvas.clientHeight * dpr;
     sim.setCanvas(canvas);
   }, [sim]);
   const toVec = (e: MouseEvent) => {
     const rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
-    const p = Vec2(e.clientX - rect.left, e.clientY - rect.top);
+    const dpr = window.devicePixelRatio || 1;
+    const p = Vec2(
+      (e.clientX - rect.left) * dpr,
+      (e.clientY - rect.top) * dpr
+    );
     return sim.screenToWorld(p);
   };
   const handleClick = (e: MouseEvent) => {
