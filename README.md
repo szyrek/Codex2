@@ -19,3 +19,11 @@ Implemented features are documented under the [feature/](feature/) directory. Ea
 All Markdown files in the repository can be compiled into a browsable set of docs.
 Run `npm run docs` at the repository root to regenerate them. The output appears
 under `spacesim/docs/<major>` based on the package version.
+
+## Testing
+
+Run `npm test` to execute every test suite. This runs the Node scripts in
+`test/`, then launches the Spacesim unit tests with coverage, its end-to-end
+browser checks and the performance benchmarks.
+The GitHub Actions workflow calls the same command and merges are blocked if any
+test fails.
