@@ -14,6 +14,16 @@ describe('Sandbox gravity', () => {
     expect(b.body.getLinearVelocity().x).toBeLessThan(0);
   });
 
+  it('does not accelerate heavier body', () => {
+    const sb = new PhysicsEngine();
+    const heavy = sb.addBody(Vec2(0, 0), Vec2(), { mass: 5, radius: 1, color: 'red', label: '' });
+    sb.addBody(Vec2(10, 0), Vec2(), { mass: 1, radius: 1, color: 'blue', label: '' });
+
+    sb.step(1 / 60);
+    const vel = heavy.body.getLinearVelocity();
+    expect(vel.length()).toBeCloseTo(0);
+  });
+
   it('clears bodies on reset', () => {
     const sb = new PhysicsEngine();
     sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: '' });
