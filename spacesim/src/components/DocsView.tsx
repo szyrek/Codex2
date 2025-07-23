@@ -33,6 +33,10 @@ export default function DocsView() {
 
   const loadFile = (maj: string, file: string) => {
     fetch(`/docs/${maj}/${file}`)
+      .then(r => r.text())
+      .then(t => setContent(marked.parse(t)))
+      .catch(() => setContent('Documentation not found'));
+  };
         setMajor(String(v.major));
         return fetch(`/docs/${v.major}/manifest.json`);
       })
