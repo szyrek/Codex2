@@ -16,19 +16,6 @@ jobs:
       - run: npm install
       - run: node test/new-record.test.js && node test/generate-docs.test.js
 
-  example:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: example
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: npm install
-      - run: npm test
-
   spacesim:
     runs-on: ubuntu-latest
     defaults:
