@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'preact/hooks';
 import { Simulation } from '../simulation';
-import { Vec2 } from 'planck-js';
+import { Vec2 } from '../vec';
 
 interface Props {
   sim: Simulation;

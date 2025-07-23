@@ -1,4 +1,4 @@
-import { Vec2 } from "planck-js";
+import { Vec2 } from "./vec";
 export function uniqueName(base: string, existing: string[]): string {
   if (!existing.includes(base)) return base;
   let i = 1;
@@ -14,7 +14,7 @@ export function throwVelocity(start: Vec2, end: Vec2) {
   const drag = Vec2.sub(end, start);
   const speed = drag.length();
   if (speed < 5) return Vec2();
-  return drag.mul(0.01 * speed / (speed + 50));
+  return drag.multiplyScalar(0.01 * speed / (speed + 50));
 }
 
 export type OrbitType = 'crash' | 'stable' | 'escape';
