@@ -20,6 +20,12 @@ body {
   border-bottom: 2px solid #0ff;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.app-logo {
+  height: 40px;
+  margin-right: 0.5rem;
 }
 
 .hud-buttons {
@@ -115,14 +121,6 @@ input[type="color"] {
   color: #0f0;
   box-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
   box-sizing: border-box;
-
-.hud-buttons {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  display: flex;
-  gap: 0.5rem;
-  z-index: 1;
 }
 
 button {
