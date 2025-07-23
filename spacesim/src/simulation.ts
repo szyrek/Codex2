@@ -1,4 +1,4 @@
-import { Vec2 } from 'planck-js';
+import Vec2 from './vec2';
 import { createEventBus, EventBus } from './core/eventBus';
 import { GameLoop } from './core/gameLoop';
 import { PhysicsEngine, BodyData, BodyUpdate } from './physics';
@@ -75,7 +75,7 @@ export class Simulation {
   resetView() { this._view = { center: Vec2(), zoom: 1 }; }
 
   centerOn(body: ReturnType<PhysicsEngine['addBody']>) {
-    this._view.center = body.body.getPosition().clone();
+    this._view.center = body.body.translation().clone();
     this._view.zoom = 1;
   }
 

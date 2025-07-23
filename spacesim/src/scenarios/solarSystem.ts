@@ -1,4 +1,4 @@
-import { Vec2 } from 'planck-js';
+import Vec2 from '../vec2';
 import type { ScenarioEvent } from '../simulation';
 
 export const solarSystem: ScenarioEvent[] = [

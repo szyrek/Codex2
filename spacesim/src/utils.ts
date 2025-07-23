@@ -1,4 +1,4 @@
-import { Vec2 } from "planck-js";
+import Vec2, { Vector } from './vec2';
 export function uniqueName(base: string, existing: string[]): string {
   if (!existing.includes(base)) return base;
   let i = 1;
@@ -10,7 +10,7 @@ export function uniqueName(base: string, existing: string[]): string {
   return candidate;
 }
 
-export function throwVelocity(start: Vec2, end: Vec2, zoom = 1) {
+export function throwVelocity(start: Vector, end: Vector, zoom = 1) {
   const drag = Vec2.sub(end, start);
   const dist = drag.length();
   const px = dist * zoom;
@@ -36,9 +36,9 @@ export function nextSpawnParams(current: SpawnParams): SpawnParams {
 export type OrbitType = 'crash' | 'stable' | 'escape';
 
 export function predictOrbitType(
-  position: Vec2,
-  velocity: Vec2,
-  centralPos: Vec2,
+  position: Vector,
+  velocity: Vector,
+  centralPos: Vector,
   centralMass: number,
   centralRadius: number,
   Gconst: number

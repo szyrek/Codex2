@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { PhysicsEngine } from './physics';
-import { Vec2 } from 'planck-js';
+import Vec2 from './vec2';
 
 describe('Sandbox gravity', () => {
   it('attracts bodies toward each other', () => {
@@ -10,8 +10,8 @@ describe('Sandbox gravity', () => {
 
     sb.step(1 / 60);
     const [a, b] = sb.bodies;
-    expect(a.body.getLinearVelocity().x).toBeGreaterThan(0);
-    expect(b.body.getLinearVelocity().x).toBeLessThan(0);
+    expect(a.body.linvel().x).toBeGreaterThan(0);
+    expect(b.body.linvel().x).toBeLessThan(0);
   });
 
   it('clears bodies on reset', () => {
@@ -25,17 +25,16 @@ describe('Sandbox gravity', () => {
     const sb = new PhysicsEngine();
     const start = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: '' });
     if (start) sb.updateBody(start, { mass: 2 });
-    const fixture = start?.body.getFixtureList();
-    expect(fixture?.getDensity()).toBeCloseTo(2 / Math.PI, 6);
+    const density = start?.collider.density();
+    expect(density).toBeCloseTo(2 / Math.PI, 6);
   });
 
   it('updates body radius', () => {
     const sb = new PhysicsEngine();
     const start = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: '' });
     if (start) sb.updateBody(start, { radius: 2 });
-    const fixture = start?.body.getFixtureList();
-    const shape = fixture?.getShape() as any;
-    expect(shape.m_radius).toBe(2);
+    const radius = start?.collider.radius();
+    expect(radius).toBe(2);
   });
 
   it('finds a body by position', () => {
@@ -66,8 +65,8 @@ describe('Sandbox gravity', () => {
     const a = sb.addBody(Vec2(-0.5, 0), Vec2(1, 0), { mass: 1, radius: 1, color: 'red', label: '' });
     const b = sb.addBody(Vec2(0.5, 0), Vec2(-1, 0), { mass: 1, radius: 1, color: 'blue', label: '' });
     sb.step(0);
-    expect(a.body.getLinearVelocity().x).toBeLessThan(0);
-    expect(b.body.getLinearVelocity().x).toBeGreaterThan(0);
+    expect(a.body.linvel().x).toBeLessThan(0);
+    expect(b.body.linvel().x).toBeGreaterThan(0);
   });
 
   it('removes bodies correctly', () => {
@@ -89,7 +88,7 @@ describe('Sandbox gravity', () => {
     const sb = new PhysicsEngine();
     const body = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: 'a' });
     sb.updateBody(body, { position: Vec2(5, 6) });
-    const pos = body.body.getPosition();
+    const pos = body.body.translation();
     expect(pos.x).toBeCloseTo(5);
     expect(pos.y).toBeCloseTo(6);
   });
@@ -98,7 +97,7 @@ describe('Sandbox gravity', () => {
     const sb = new PhysicsEngine();
     const body = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: 'a' });
     sb.updateBody(body, { velocity: Vec2(3, 4) });
-    const vel = body.body.getLinearVelocity();
+    const vel = body.body.linvel();
     expect(vel.x).toBeCloseTo(3);
     expect(vel.y).toBeCloseTo(4);
   });
@@ -108,8 +107,8 @@ describe('Sandbox gravity', () => {
     const a = sb.addBody(Vec2(0, 0), Vec2(), { mass: 2, radius: 1, color: 'red', label: 'a' });
     const b = sb.addBody(Vec2(10, 0), Vec2(), { mass: 2, radius: 5, color: 'blue', label: 'b' });
     sb.step(1);
-    const va = a.body.getLinearVelocity().x;
-    const vb = b.body.getLinearVelocity().x;
+    const va = a.body.linvel().x;
+    const vb = b.body.linvel().x;
     expect(Math.abs(va)).toBeCloseTo(Math.abs(vb), 5);
   });
 
@@ -119,7 +118,7 @@ describe('Sandbox gravity', () => {
     sb.addBody(Vec2(5, 0), Vec2(), { mass: 0, radius: 1, color: 'blue', label: 'b' });
     sb.step(1 / 60);
     const [a, b] = sb.bodies;
-    expect(a.body.getLinearVelocity().length()).toBe(0);
-    expect(b.body.getLinearVelocity().length()).toBe(0);
+    expect(a.body.linvel().length()).toBe(0);
+    expect(b.body.linvel().length()).toBe(0);
   });
 });
