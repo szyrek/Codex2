@@ -23,4 +23,17 @@ describe('BodyLabels', () => {
     expect(div.style.left).toBe(`${5 + 2 + 2}px`);
     expect(div.style.top).toBe(`${6 - 10}px`);
   });
+
+  it('scales position with devicePixelRatio', () => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    const orig = (window as any).devicePixelRatio;
+    Object.defineProperty(window, 'devicePixelRatio', { value: 2, configurable: true });
+    const sim2 = { bodies: [body], worldToScreen: () => Vec2(10, 12) } as any;
+    render(<BodyLabels sim={sim2} frame={0} />, container);
+    const div = container.querySelector('div') as HTMLElement;
+    expect(div.style.left).toBe(`${10 / 2 + 2 + 2}px`);
+    expect(div.style.top).toBe(`${12 / 2 - 10}px`);
+    Object.defineProperty(window, 'devicePixelRatio', { value: orig });
+  });
 });
