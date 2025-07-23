@@ -20,5 +20,6 @@ Create a folder here for each significant feature. Document:
 - [Performance Tests](performance-tests/README.md)
 - [Performance History](perf-history/README.md)
 - [Scenario View](scenario-view/README.md)
+- [Scenario Selection](scenario-select/README.md)
 
 Each user-facing feature includes an accompanying end-to-end test referenced in its documentation.
