@@ -26,6 +26,8 @@ export default defineConfig({
         'vite.config.js',
         'vitest.config.js',
         'dist/**'
+        'performance/**',
+        'vitest.performance.config.ts'
       ]
     }
   }
