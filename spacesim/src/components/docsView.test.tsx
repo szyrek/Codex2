@@ -5,6 +5,7 @@ import DocsView from './DocsView';
 const originalFetch = global.fetch;
 
 afterEach(() => {
+  document.body.innerHTML = '';
   global.fetch = originalFetch;
 });
 
