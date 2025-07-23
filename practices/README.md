@@ -7,6 +7,7 @@ This folder collects the documentation that defines how we work.
 - [Testing](TESTING.md)
 - [Adding Features](FEATURE.md)
 - [Fixing Bugs](BUGFIX.md)
+- [Refactoring](REFACTORING.md)
 - [UI Design Best Practices](UI.md)
 - [Record Helper](new-record.js)
 

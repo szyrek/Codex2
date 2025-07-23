@@ -38,6 +38,7 @@ This document defines the lifecycle that all contributors must follow. It applie
 
 ## 9. Refactor with Confidence
 - Improve code clarity and structure without altering behavior.
+- Follow [REFACTORING.md](REFACTORING.md) for detailed guidance.
 - Rerun all tests after refactoring to confirm correctness.
 
 ## 10. Finalize Documentation
