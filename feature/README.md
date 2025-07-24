@@ -15,5 +15,6 @@ Create a folder here for each significant feature. Document:
 - [Orbit overlays](orbit-overlay/README.md)
 - [Simulation Speed Control](speed-control/README.md)
 - [3D Renderer](three-renderer/README.md)
+- [3D Physics Engine](physics-3d/README.md)
 
 Each user-facing feature includes an accompanying end-to-end test referenced in its documentation.

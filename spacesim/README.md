@@ -2,6 +2,8 @@
 
 A simple 2D physics sandbox illustrating basic orbital mechanics. The project uses TypeScript and Planck.js to simulate gravity between bodies. The UI is built with **Preact** and composed of small components.
 
+An experimental `PhysicsEngine3D` extends the simulation logic into three dimensions using Three.js vectors. It shares the same API as the 2D engine but operates on `Vector3` objects.
+
 Bodies are spawned by dragging on the canvas while the spawner panel is visible. The drag length defines the initial velocity and short drags create a body with near-zero velocity. A green line shows the drag vector as you hold the mouse. When released a body is created with a unique label from the spawner panel.
 
 Clicking an existing body opens an editor panel. The editor now shows live position and velocity values which can be edited alongside mass, radius and color. Scenarios (predefined sequences of events) can be loaded from the Scenario tab; a simple Solar System example is included. The top-right of the screen contains **Pause** and **Reset** buttons to control the simulation.
