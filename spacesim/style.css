@@ -330,3 +330,7 @@ canvas {
 }
 
 .burn-controls { position:absolute; bottom:0; left:0; right:0; padding:0.25rem; }
+
+.draggable {
+  position: absolute;
+}

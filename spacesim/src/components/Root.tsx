@@ -2,9 +2,10 @@ import { useState } from 'preact/hooks';
 import SimulationView from './Simulation';
 import DocsView from './DocsView';
 import ShipView from './ShipView';
+import TestView from './TestView';
 
 export default function Root() {
-  const [tab, setTab] = useState<'sandbox' | 'scenario' | 'docs' | 'shipview'>('sandbox');
+  const [tab, setTab] = useState<'sandbox' | 'scenario' | 'docs' | 'shipview' | 'test'>('sandbox');
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -21,6 +22,8 @@ export default function Root() {
           <SimulationView />
         ) : tab === 'shipview' ? (
           <ShipView />
+        ) : tab === 'test' ? (
+          <TestView />
         ) : (
           <DocsView />
         )}
@@ -35,6 +38,7 @@ export default function Root() {
           <button onClick={() => { setTab('scenario'); setMenuOpen(false); }}>Scenario</button>
           <button onClick={() => { setTab('shipview'); setMenuOpen(false); }}>Shipview</button>
           <button onClick={() => { setTab('docs'); setMenuOpen(false); }}>Docs</button>
+          <button onClick={() => { setTab('test'); setMenuOpen(false); }}>Test</button>
         </div>
       </div>
     </div>
