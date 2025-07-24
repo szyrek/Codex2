@@ -1,16 +1,21 @@
 {
   "files": [
     "AGENTS.md",
+    "FAST_GUIDANCE.md",
     "README.md",
     "bugfix/README.md",
+    "bugfix/accumulator-loop/README.md",
     "bugfix/body-editor-refresh/README.md",
     "bugfix/click-coord-offset/README.md",
     "bugfix/docs-manifest-conflict/README.md",
     "bugfix/docs-view-layout/README.md",
+    "bugfix/gravity-calculation/README.md",
     "bugfix/label-position-offset/README.md",
     "bugfix/overlay-color/README.md",
+    "bugfix/space-transform/README.md",
     "bugfix/three-renderer-fixes/README.md",
     "bugfix/variable-dt/README.md",
+    "engine/README.md",
     "feature/README.md",
     "feature/body-editor/README.md",
     "feature/drag-spawn/README.md",
@@ -25,6 +30,8 @@
     "feature/speed-control/README.md",
     "feature/sun-default-spawn/README.md",
     "feature/three-renderer/README.md",
+    "feature/renderer-lighting/README.md",
+    "feature/verlet-physics/README.md",
     "feature/zoom-pan/README.md",
     "githooks/README.md",
     "practices/BUGFIX.md",
@@ -36,6 +43,7 @@
     "practices/TESTING.md",
     "practices/UI.md",
     "spacesim/AGENTS.md",
-    "spacesim/README.md"
+    "spacesim/README.md",
+    "spacesim/test-results/edit-edit-body-label/error-context.md"
   ]
 }

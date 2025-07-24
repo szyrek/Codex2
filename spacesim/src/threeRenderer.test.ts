@@ -17,7 +17,9 @@ vi.mock('three', () => {
   class Mesh { position={x:0,y:0,z:0,set(x:number,y:number,z:number){this.x=x;this.y=y;this.z=z;}}; constructor(public g:any,public m:any){} }
   class Line { geometry:any; material:any; constructor(g:any,m:any){ this.geometry=g; this.material=m; } computeLineDistances(){} }
   class Vector3 { constructor(public x:number,public y:number,public z:number){} }
-  return { Scene, WebGLRenderer, OrthographicCamera, SphereGeometry, MeshBasicMaterial, Mesh, LineBasicMaterial, LineDashedMaterial, BufferGeometry, Line, Vector3 };
+  class AmbientLight { constructor(public color:any, public intensity:any){} }
+  class PointLight { position={x:0,y:0,z:0,set(x:number,y:number,z:number){this.x=x;this.y=y;this.z=z;}}; constructor(public color:any, public intensity:any){} }
+  return { Scene, WebGLRenderer, OrthographicCamera, SphereGeometry, MeshBasicMaterial, Mesh, LineBasicMaterial, LineDashedMaterial, BufferGeometry, Line, Vector3, AmbientLight, PointLight };
 });
 
 describe('ThreeRenderer', () => {
@@ -31,6 +33,19 @@ describe('ThreeRenderer', () => {
     const mesh = (renderer as any).bodyMeshes.get(body.body);
     expect(mesh.position.x).toBeCloseTo(5);
     expect(mesh.position.y).toBeCloseTo(6);
+  });
+
+  it('positions light at heaviest body', () => {
+    const canvas = { width: 200, height: 200 } as HTMLCanvasElement;
+    const bus = createEventBus<any>();
+    const renderer = new ThreeRenderer(canvas, bus);
+    const engine = new PhysicsEngine();
+    engine.addBody(Vec2(1,1), Vec2(), { mass:1, radius:1, color:'#fff', label:'a' });
+    const sun = engine.addBody(Vec2(4,5), Vec2(), { mass:10, radius:2, color:'yellow', label:'s' });
+    bus.emit('render', { bodies: engine.bodies });
+    const light = (renderer as any).sunLight;
+    expect(light.position.x).toBeCloseTo(4);
+    expect(light.position.y).toBeCloseTo(5);
   });
 
   it('draws orbit line in body color when stable', () => {

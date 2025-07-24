@@ -9,8 +9,8 @@ export class GameLoop<Events extends Record<string, any>> {
 
   start(): void {
     if (this.sub) return;
+    this.last = performance.now();
     this.sub = animationFrames().subscribe(({ timestamp }) => {
-      if (!this.last) this.last = timestamp;
       const dt = (timestamp - this.last) / 1000;
       this.last = timestamp;
       this.bus.emit('tick' as keyof Events, dt);

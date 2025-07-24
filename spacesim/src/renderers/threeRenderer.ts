@@ -5,6 +5,8 @@ import {
   SphereGeometry,
   MeshBasicMaterial,
   Mesh,
+  AmbientLight,
+  PointLight,
   Line,
   LineBasicMaterial,
   LineDashedMaterial,
@@ -26,6 +28,8 @@ export class ThreeRenderer {
   private bodyMeshes = new Map<planck.Body, Mesh>();
   private orbitLines = new Map<planck.Body, Line>();
   private dragLine?: Line;
+  private ambient = new AmbientLight(0xffffff, 0.3);
+  private sunLight = new PointLight(0xffffff, 1);
 
   constructor(private canvas: HTMLCanvasElement, bus: EventBus<{ render: RenderPayload }>) {
     this.renderer = new WebGLRenderer({ canvas });
@@ -40,10 +44,14 @@ export class ThreeRenderer {
       1000
     );
     this.camera.position.z = 100;
+    this.scene.add(this.ambient);
+    this.scene.add(this.sunLight);
     bus.on('render', (p) => this.draw(p));
   }
 
   private syncBodies(bodies: RenderPayload['bodies']) {
+    let centralPos: planck.Vec2 | null = null;
+    let maxMass = -Infinity;
     for (const { body, data } of bodies) {
       let mesh = this.bodyMeshes.get(body);
       if (!mesh) {
@@ -56,12 +64,21 @@ export class ThreeRenderer {
       }
       const pos = body.getPosition();
       mesh.position.set(pos.x, pos.y, 0);
+      if (data.mass > maxMass) {
+        maxMass = data.mass;
+        centralPos = pos;
+      }
     }
     for (const [b, mesh] of Array.from(this.bodyMeshes.entries())) {
       if (!bodies.find((obj) => obj.body === b)) {
         this.scene.remove(mesh);
         this.bodyMeshes.delete(b);
       }
+    }
+    if (centralPos) {
+      this.sunLight.position.set(centralPos.x, centralPos.y, 50);
+    } else {
+      this.sunLight.position.set(0, 0, 50);
     }
   }
 

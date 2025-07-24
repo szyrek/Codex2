@@ -17,6 +17,7 @@ Create a folder here for each significant feature. Document:
 - [Simulation Speed Control](speed-control/README.md)
 - [Simulation Clock](simulation-time/README.md)
 - [3D Renderer](three-renderer/README.md)
+- [Renderer Lighting](renderer-lighting/README.md)
 - [Zoom, Pan and Center View](zoom-pan/README.md)
 - [Performance Tests](performance-tests/README.md)
 - [Performance History](perf-history/README.md)
