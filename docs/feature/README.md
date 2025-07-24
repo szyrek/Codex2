@@ -28,5 +28,8 @@ Create a folder here for each significant feature. Document:
 - [Navigation View Rotation](navigation-view/README.md)
 - [Ship Navigation Burn Controls](burn-controls/README.md)
 - [Test View Sandbox](test-view/README.md)
+- [Shipview Cockpit](shipview/README.md)
+- [Window View Background](window-view/README.md)
+- [WSAD Thruster Controls](wsad-thrusters/README.md)
 
 Each user-facing feature includes an accompanying end-to-end test referenced in its documentation.
