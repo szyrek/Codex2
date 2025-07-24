@@ -226,12 +226,13 @@ canvas {
 
 .window-image {
   position: absolute;
-  top: -20%;
-  left: -25%;
-  width: 150%;
-  height: 160%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-size: 512px 512px;
+  background-repeat: repeat;
+  transition: transform 0.3s ease, background-position 0.3s linear;
 }
 
 .ship-left,

@@ -47,4 +47,20 @@ describe('ShipView', () => {
     const screen = container.querySelector('.console-screen');
     expect(screen?.textContent).toContain('sim');
   });
+
+  it('rotates window when pressing D', async () => {
+    vi.useFakeTimers();
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    render(<ShipView />, container);
+    await Promise.resolve();
+    const img = container.querySelector('.window-image') as HTMLElement;
+    const initial = img.style.transform;
+    window.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'd', bubbles: true }));
+    vi.advanceTimersByTime(20);
+    window.dispatchEvent(new window.KeyboardEvent('keyup', { key: 'd', bubbles: true }));
+    vi.advanceTimersByTime(40);
+    expect(img.style.transform).not.toBe(initial);
+    vi.useRealTimers();
+  });
 });

@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect, useRef } from 'preact/hooks';
 import NavigationView from './NavigationView';
 import BurnControls from './BurnControls';
 import WindowView from './WindowView';
@@ -6,6 +6,43 @@ import SimulationComponent from './Simulation';
 
 export default function ShipView() {
   const [view, setView] = useState<'center' | 'left' | 'right'>('center');
+  const [yaw, setYaw] = useState(0);
+  const [pitch, setPitch] = useState(0);
+  const vel = useRef({ yaw: 0, pitch: 0 });
+  const keys = useRef({ w:false, a:false, s:false, d:false });
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === 'w') keys.current.w = true;
+      else if (e.key === 's') keys.current.s = true;
+      else if (e.key === 'a') keys.current.a = true;
+      else if (e.key === 'd') keys.current.d = true;
+    };
+    const up = (e: KeyboardEvent) => {
+      if (e.key === 'w') keys.current.w = false;
+      else if (e.key === 's') keys.current.s = false;
+      else if (e.key === 'a') keys.current.a = false;
+      else if (e.key === 'd') keys.current.d = false;
+    };
+    window.addEventListener('keydown', down);
+    window.addEventListener('keyup', up);
+    let frame: number;
+    const step = () => {
+      if (keys.current.w) vel.current.pitch -= 0.0005;
+      if (keys.current.s) vel.current.pitch += 0.0005;
+      if (keys.current.a) vel.current.yaw += 0.0005;
+      if (keys.current.d) vel.current.yaw -= 0.0005;
+      setYaw(y => y + vel.current.yaw);
+      setPitch(p => p + vel.current.pitch);
+      frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+    return () => {
+      window.removeEventListener('keydown', down);
+      window.removeEventListener('keyup', up);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
   const onMove = (e: MouseEvent) => {
     const edge = 50;
@@ -21,7 +58,7 @@ export default function ShipView() {
       <div className="ship-cockpit">
         <div className="ship-surface ship-left panel">Console</div>
         <div className="ship-surface ship-window" style={{ position:'relative' }}>
-          <WindowView angle={angle} />
+          <WindowView yaw={angle + yaw * 57.3} pitch={pitch * 57.3} />
           <NavigationView />
         </div>
         <div className="ship-surface ship-right panel">
