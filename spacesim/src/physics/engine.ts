@@ -59,6 +59,16 @@ export class PhysicsEngine {
     target: { body: planck.Body; data: BodyData },
     updates: Partial<BodyData> & { position?: Vec2; velocity?: Vec2 }
   ) {
+    if (updates.mass !== undefined || updates.radius !== undefined) {
+      const mass = updates.mass ?? target.data.mass;
+      const radius = updates.radius ?? target.data.radius;
+      const fixture = target.body.getFixtureList();
+      if (fixture) target.body.destroyFixture(fixture);
+      const density = mass / (Math.PI * radius * radius);
+      target.body.createFixture(planck.Circle(radius), { density, isSensor: true });
+      target.body.resetMassData();
+      if (updates.mass !== undefined) target.data.mass = updates.mass;
+      if (updates.radius !== undefined) target.data.radius = updates.radius;
     const newMass = updates.mass ?? target.data.mass;
     const newRadius = updates.radius ?? target.data.radius;
     if (updates.mass !== undefined || updates.radius !== undefined) {
