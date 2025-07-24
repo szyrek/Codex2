@@ -29,4 +29,16 @@ describe('ShipView', () => {
     await new Promise(r => setTimeout(r, 0));
     expect(rootEl.className).toContain('view-left');
   });
+
+  it('shows simulation in console screen when view is left', async () => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    render(<ShipView />, container);
+    await Promise.resolve();
+    const rootEl = container.querySelector('.shipview') as HTMLElement;
+    rootEl.dispatchEvent(new MouseEvent('mousemove', { clientX: 0, bubbles: true }));
+    await new Promise(r => setTimeout(r, 0));
+    const screen = container.querySelector('.console-screen');
+    expect(screen?.textContent).toContain('sim');
+  });
 });

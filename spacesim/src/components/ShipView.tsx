@@ -13,7 +13,7 @@ export default function ShipView() {
     else setView('center');
   };
 
-  const angle = view === 'left' ? 20 : view === 'right' ? -20 : 0;
+  const angle = view === 'left' ? -20 : view === 'right' ? 20 : 0;
 
   return (
     <div className={`shipview view-${view}`} onMouseMove={onMove}>
@@ -23,10 +23,17 @@ export default function ShipView() {
           <WindowView angle={angle} />
           <NavigationView />
         </div>
-        <div className="ship-surface ship-right panel">Nav</div>
+        <div className="ship-surface ship-right panel">
+          {view !== 'right' && <div className="nav-static" />}
+          Nav
+        </div>
       </div>
       <div className="ship-surface ship-console panel">Console</div>
-      {view === 'left' && <div className="console-screen panel">Console</div>}
+      {view === 'left' && (
+        <div className="console-screen panel">
+          <SimulationComponent showSpawner={false} />
+        </div>
+      )}
       {view === 'right' && (
         <div className="nav-screen panel" style={{ position:'relative' }}>
           <NavigationView />
