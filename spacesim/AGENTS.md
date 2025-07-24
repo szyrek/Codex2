@@ -1,8 +1,8 @@
-# Instructions for AI Coding Agents
+# Spacesim Folder Instructions
 
-- Start by reviewing the repository-level [AGENTS.md](../AGENTS.md).
+See [../AGENTS.md](../AGENTS.md) for the full workflow.
+
+Additional notes:
 - Keep the simulation minimal and well-documented.
 - Use Three.js vectors for physics calculations in 3D.
-- Provide unit tests for any logic in `src/`.
-- Run `npm install` before testing or building.
-- When adjusting the UI, follow [../practices/UI.md](../practices/UI.md).
+- Provide unit tests for logic in `src/`.
