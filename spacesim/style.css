@@ -285,3 +285,35 @@ canvas {
 }
 
 .burn-controls { position:absolute; bottom:0; left:0; right:0; padding:0.25rem; }
+
+.hud-menu {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hud-menu .menu-items {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.25rem;
+  transform: scaleY(0);
+  transform-origin: bottom left;
+  transition: transform 0.3s ease;
+}
+
+.hud-menu.open .menu-items {
+  transform: scaleY(1);
+}
+
+.menu-toggle:hover {
+  animation: pulseGlow 1s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 4px #0ff; }
+  50% { box-shadow: 0 0 8px #0ff; }
+  100% { box-shadow: 0 0 4px #0ff; }
+}
