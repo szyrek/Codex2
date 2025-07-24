@@ -28,7 +28,7 @@ export class Simulation {
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
 
-  private _view = { center: Vec2(), zoom: 1 };
+  private _view = { center: Vec2(), zoom: 1, rotation: 0 };
 
   private overlay?: { start: Vec2; end: Vec2 } | null;
 
@@ -63,11 +63,15 @@ export class Simulation {
 
   zoom(factor: number) { this._view.zoom *= factor; }
 
+  rotate(angle: number) { this._view.rotation += angle; }
+
+  setRotation(angle: number) { this._view.rotation = angle; }
+
   pan(dx: number, dy: number) {
     this._view.center = this._view.center.clone().add(Vec2(dx, dy));
   }
 
-  resetView() { this._view = { center: Vec2(), zoom: 1 }; }
+  resetView() { this._view = { center: Vec2(), zoom: 1, rotation: 0 }; }
 
   centerOn(body: ReturnType<PhysicsEngine['addBody']>) {
     this._view.center = body.body.getPosition().clone();
@@ -76,19 +80,27 @@ export class Simulation {
 
   worldToScreen(p: Vec2) {
     if (!this.canvas) return p.clone();
+    const cos = Math.cos(this._view.rotation);
+    const sin = Math.sin(this._view.rotation);
+    const dx = p.x - this._view.center.x;
+    const dy = p.y - this._view.center.y;
+    const rx = dx * cos - dy * sin;
+    const ry = dx * sin + dy * cos;
     return Vec2(
-      (p.x - this._view.center.x) * this._view.zoom + this.canvas.width / 2,
-      this.canvas.height / 2 -
-        (p.y - this._view.center.y) * this._view.zoom,
+      rx * this._view.zoom + this.canvas.width / 2,
+      this.canvas.height / 2 - ry * this._view.zoom,
     );
   }
 
   screenToWorld(p: Vec2) {
     if (!this.canvas) return p.clone();
-    return Vec2(
-      (p.x - this.canvas.width / 2) / this._view.zoom + this._view.center.x,
-      (this.canvas.height / 2 - p.y) / this._view.zoom + this._view.center.y,
-    );
+    const cos = Math.cos(this._view.rotation);
+    const sin = Math.sin(this._view.rotation);
+    const dx = (p.x - this.canvas.width / 2) / this._view.zoom;
+    const dy = (this.canvas.height / 2 - p.y) / this._view.zoom;
+    const rx = dx * cos + dy * sin;
+    const ry = -dx * sin + dy * cos;
+    return Vec2(rx + this._view.center.x, ry + this._view.center.y);
   }
 
   start() {

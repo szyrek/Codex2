@@ -7,8 +7,9 @@ Bodies are spawned by dragging on the canvas while the spawner panel is visible.
 Clicking an existing body opens an editor panel. The editor now shows live position and velocity values which can be edited alongside mass, radius and color. Scenarios (predefined sequences of events) can be loaded from the Scenario tab; a simple Solar System example is included. The top-right of the screen contains **Pause** and **Reset** buttons to control the simulation.
 
 A new **Shipview** tab displays a basic cockpit layout. Three angled panels and
-a bottom console create a simple 3D illusion. The centre "window" will later
-host the simulation or space imagery.
+a bottom console create a simple 3D illusion. The centre "window" hosts the
+sandbox while the right panel opens a navigation screen. Dragging on this
+navigation view rotates the camera instead of spawning bodies.
 
 The simulation is built from small modules connected through a simple event bus powered by **mitt**. `GameLoop` ticks once per animation frame using RxJS and passes the elapsed time to the simulation. `PhysicsEngine` handles Planck.js dynamics. A single `ThreeRenderer` listens for render events and draws bodies, orbit trails and the drag line using Three.js.
 

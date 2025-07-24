@@ -64,29 +64,11 @@ export class PhysicsEngine {
     const density = newMass / (Math.PI * newRadius * newRadius);
     const fixture = target.body.getFixtureList();
     if (fixture) {
-      target.body.destroyFixture(fixture);
-    if (updates.mass !== undefined || updates.radius !== undefined) {
-      const mass = updates.mass ?? target.data.mass;
-      const radius = updates.radius ?? target.data.radius;
-      const fixture = target.body.getFixtureList();
-      if (fixture) target.body.destroyFixture(fixture);
-      const density = mass / (Math.PI * radius * radius);
-      target.body.createFixture(planck.Circle(radius), { density, isSensor: true });
-      target.body.resetMassData();
-      if (updates.mass !== undefined) target.data.mass = updates.mass;
-      if (updates.radius !== undefined) target.data.radius = updates.radius;
-    const newMass = updates.mass ?? target.data.mass;
-    const newRadius = updates.radius ?? target.data.radius;
-    if (updates.mass !== undefined || updates.radius !== undefined) {
-      const fixture = target.body.getFixtureList();
-      if (fixture) target.body.destroyFixture(fixture);
-      const density = newMass / (Math.PI * newRadius * newRadius);
-      target.body.createFixture(planck.Circle(newRadius), { density });
-      target.body.resetMassData();
-      target.data.mass = newMass;
-      target.data.radius = newRadius;
+      (fixture.getShape() as any).m_radius = newRadius;
+      fixture.setDensity(density);
+    } else {
+      target.body.createFixture(planck.Circle(newRadius), { density, isSensor: true });
     }
-    target.body.createFixture(planck.Circle(newRadius), { density });
     target.body.resetMassData();
     target.data.mass = newMass;
     target.data.radius = newRadius;

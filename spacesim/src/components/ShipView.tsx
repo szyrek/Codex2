@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks';
 import SimulationComponent from './Simulation';
+import NavigationView from './NavigationView';
 import WindowView from './WindowView';
 
 export default function ShipView() {
@@ -28,7 +29,7 @@ export default function ShipView() {
       {view === 'left' && <div className="console-screen panel">Console</div>}
       {view === 'right' && (
         <div className="nav-screen panel">
-          <SimulationComponent />
+          <NavigationView />
         </div>
       )}
     </div>

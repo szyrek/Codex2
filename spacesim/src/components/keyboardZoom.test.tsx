@@ -10,7 +10,7 @@ const baseSim = {
   speed: 1,
   time: 0,
   bodies: [],
-  view: { zoom: 1, center: { x: 0, y: 0 } },
+  view: { zoom: 1, center: { x: 0, y: 0 }, rotation: 0 },
   findBody: () => null,
   setOverlay: () => {},
   setCanvas: () => {},
