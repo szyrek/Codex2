@@ -28,8 +28,7 @@ export class Simulation {
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
 
-  private _view = { center: Vec2(), zoom: 1, rotation: 0 };
-  private _view = { center: Vec3(), zoom: 1 };
+  private _view = { center: Vec3(), zoom: 1, rotation: 0 };
 
   private overlay?: { start: Vec3; end: Vec3 } | null;
 
