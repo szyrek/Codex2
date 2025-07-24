@@ -41,4 +41,14 @@ describe('view transforms', () => {
     expect(sim.view.center.x).toBeCloseTo(5);
     expect(sim.view.center.y).toBeCloseTo(5);
   });
+
+  it('applies rotation to coordinate transforms', () => {
+    const sim = setupSim();
+    sim.rotate(Math.PI / 2);
+    const world = Vec2(10, 0);
+    const screen = sim.worldToScreen(world);
+    const round = sim.screenToWorld(screen);
+    expect(round.x).toBeCloseTo(world.x);
+    expect(round.y).toBeCloseTo(world.y);
+  });
 });

@@ -181,10 +181,11 @@ export class ThreeRenderer {
     this.syncBodies(bodies);
     this.updateOrbits(bodies);
     this.updateDragLine(bodies, throwLine);
-    const v = view ?? { center: { x: 0, y: 0 }, zoom: 1 };
+    const v = view ?? { center: { x: 0, y: 0 }, zoom: 1, rotation: 0 };
     this.camera.position.x = v.center.x;
     this.camera.position.y = v.center.y;
     this.camera.zoom = v.zoom;
+    this.camera.rotation.z = v.rotation;
     this.camera.updateProjectionMatrix();
     this.renderer.render(this.scene, this.camera);
   }

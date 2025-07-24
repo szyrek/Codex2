@@ -28,6 +28,7 @@ export class Simulation {
   private scenario?: ScenarioEvent[];
   private canvas?: HTMLCanvasElement;
 
+  private _view = { center: Vec2(), zoom: 1, rotation: 0 };
   private _view = { center: Vec3(), zoom: 1 };
 
   private overlay?: { start: Vec3; end: Vec3 } | null;
@@ -62,6 +63,10 @@ export class Simulation {
   setZoom(z: number) { this._view.zoom = z; }
 
   zoom(factor: number) { this._view.zoom *= factor; }
+
+  rotate(angle: number) { this._view.rotation += angle; }
+
+  setRotation(angle: number) { this._view.rotation = angle; }
 
   pan(dx: number, dy: number) {
     this._view.center = this._view.center.clone().add(Vec3(dx, dy, 0));

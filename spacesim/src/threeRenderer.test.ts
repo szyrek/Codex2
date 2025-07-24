@@ -8,7 +8,7 @@ import { throwVelocity } from './utils';
 vi.mock('three', () => {
   class Scene { objects:any[]=[]; add(o:any){this.objects.push(o);} remove(o:any){this.objects=this.objects.filter(x=>x!==o);} }
   class WebGLRenderer { setSize(){} render(){} }
-  class OrthographicCamera { position={x:0,y:0,z:0}; zoom=1; constructor(){} updateProjectionMatrix(){} }
+  class OrthographicCamera { position={x:0,y:0,z:0}; rotation={z:0}; zoom=1; constructor(){} updateProjectionMatrix(){} }
   class SphereGeometry { constructor(public r:number,_s?:number,_s2?:number){} dispose(){} }
   class MeshBasicMaterial { color:string; constructor(public opts:any){this.color=opts.color;} dispose(){} }
   class LineBasicMaterial { color:string; constructor(public opts:any){this.color=opts.color;} dispose(){} }
@@ -95,5 +95,14 @@ describe('ThreeRenderer', () => {
     expect((renderer as any).orbitLines.size).toBe(1);
     bus.emit('render', { bodies: [] });
     expect((renderer as any).orbitLines.size).toBe(0);
+  });
+
+  it('applies view rotation to the camera', () => {
+    const canvas = { width: 200, height: 200 } as HTMLCanvasElement;
+    const bus = createEventBus<any>();
+    const renderer = new ThreeRenderer(canvas, bus);
+    bus.emit('render', { bodies: [], view: { center: Vec2(), zoom: 1, rotation: Math.PI / 4 } });
+    const cam = (renderer as any).camera;
+    expect(cam.rotation.z).toBeCloseTo(Math.PI / 4);
   });
 });

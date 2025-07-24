@@ -1,8 +1,7 @@
 import { Vec3 } from '../vector';
 import type { ScenarioEvent } from '../simulation';
 
-// Scale factors keep planets visible while preserving real mass ratios
-const MASS_FACTOR = 0.003; // Earth mass * factor => simulation mass units
+const MASS_FACTOR = 0.003;
 const PLANET_RADIUS_SCALE = 500;
 const SUN_RADIUS_SCALE = 50;
 
@@ -11,7 +10,7 @@ export const solarSystem: ScenarioEvent[] = [
     time: 0,
     action: 'addBody',
     position: Vec3(0, 0),
-    velocity: Vec3(),
+    velocity: Vec3(0,0),
     data: { mass: 332948.2285, radius: 0.69634, color: 'yellow', label: 'Sun' }
   },
   { time: 0.1, action: 'addBody', position: Vec3(57.90, 0.00), velocity: Vec3(-0.00, 75.83), data: { mass: 0.0553, radius: 0.00244, color: 'gray', label: 'Mercury' } },
