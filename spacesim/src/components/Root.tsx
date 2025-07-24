@@ -1,6 +1,5 @@
 import { useState } from 'preact/hooks';
 import SimulationView from './Simulation';
-import ScenarioView from './ScenarioView';
 import DocsView from './DocsView';
 import ShipView from './ShipView';
 
@@ -20,8 +19,6 @@ export default function Root() {
       <main className="main-container">
         {tab === 'sandbox' ? (
           <SimulationView />
-        ) : tab === 'scenario' ? (
-          <ScenarioView />
         ) : tab === 'shipview' ? (
           <ShipView />
         ) : (
