@@ -6,5 +6,6 @@
 - Moving the mouse to either screen edge now rotates the cockpit.
 - The right side reveals a navigation screen running the simulation.
 - The left side shows an enlarged console panel.
+- Added a **Config** tab with controls to flip rotation and adjust console height.
 
 Tests: `spacesim/src/components/shipView.test.tsx` and `spacesim/src/components/root.test.tsx`.

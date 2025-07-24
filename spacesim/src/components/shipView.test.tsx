@@ -8,7 +8,8 @@ describe('ShipView', () => {
   it('renders four cockpit surfaces', () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
-    render(<ShipView />, container);
+    const config = { flipRotation: false, midHeight: 70 };
+    render(<ShipView config={config} />, container);
     const surfaces = container.querySelectorAll('.ship-surface');
     expect(surfaces.length).toBe(4); // left, window, right, console
     const consoleEl = container.querySelector('.ship-console');
@@ -18,7 +19,8 @@ describe('ShipView', () => {
   it('changes view on pointer move', async () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
-    render(<ShipView />, container);
+    const config = { flipRotation: false, midHeight: 70 };
+    render(<ShipView config={config} />, container);
     await Promise.resolve();
     const rootEl = container.querySelector('.shipview') as HTMLElement;
     rootEl.dispatchEvent(new MouseEvent('mousemove', { clientX: window.innerWidth - 1, bubbles: true }));
