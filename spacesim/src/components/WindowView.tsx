@@ -7,7 +7,7 @@ interface Props {
 
 export default function WindowView({ yaw, pitch }: Props) {
   const imgRef = useRef<HTMLDivElement>(null);
-  const starsUrl = new URL('../../images/hdr_stars.jpeg', import.meta.url).href;
+  const starsUrl = `${import.meta.env.BASE_URL}images/hdr_stars.jpeg`;
 
   useEffect(() => {
     if (!imgRef.current) return;
