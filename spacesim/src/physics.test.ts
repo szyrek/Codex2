@@ -60,11 +60,13 @@ describe('Sandbox gravity', () => {
     expect(found).toBeUndefined();
   });
 
-  it('merges smaller body on collision with massive one', () => {
+  it('slowly merges smaller body into massive one', () => {
     const sb = new PhysicsEngine();
     const big = sb.addBody(Vec3(0, 0), Vec3(), { mass: 3, radius: 1, color: 'red', label: '' });
     const small = sb.addBody(Vec3(0.5, 0), Vec3(), { mass: 1, radius: 1, color: 'blue', label: '' });
     sb.step(0);
+    expect(sb.bodies.length).toBe(2);
+    sb.step(1);
     expect(sb.bodies.length).toBe(1);
     expect(sb.bodies[0].data.mass).toBeCloseTo(4);
   });
