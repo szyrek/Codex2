@@ -7,7 +7,7 @@ interface Props {
 
 export default function WindowView({ yaw, pitch }: Props) {
   const imgRef = useRef<HTMLDivElement>(null);
-  const base = import.meta.env.BASE_URL;
+  const starsUrl = new URL('../../images/hdr_stars.jpeg', import.meta.url).href;
 
   useEffect(() => {
     if (!imgRef.current) return;
@@ -22,7 +22,7 @@ export default function WindowView({ yaw, pitch }: Props) {
       <div
         ref={imgRef}
         className="window-image"
-        style={{ backgroundImage: `url(${base}images/hdr_stars.jpeg)` }}
+        style={{ backgroundImage: `url(${starsUrl})` }}
       />
     </div>
   );
