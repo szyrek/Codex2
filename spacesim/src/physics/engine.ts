@@ -29,7 +29,8 @@ export class PhysicsEngine {
       position,
       linearVelocity: velocity,
     });
-    body.createFixture(planck.Circle(data.radius), { density: data.mass, isSensor: true });
+    const density = data.mass / (Math.PI * data.radius * data.radius);
+    body.createFixture(planck.Circle(data.radius), { density, isSensor: true });
     const entry = { body, data };
     this.bodies.push(entry);
     return entry;
@@ -58,22 +59,16 @@ export class PhysicsEngine {
     target: { body: planck.Body; data: BodyData },
     updates: Partial<BodyData> & { position?: Vec2; velocity?: Vec2 }
   ) {
-    if (updates.mass !== undefined) {
+    if (updates.mass !== undefined || updates.radius !== undefined) {
+      const mass = updates.mass ?? target.data.mass;
+      const radius = updates.radius ?? target.data.radius;
       const fixture = target.body.getFixtureList();
-      if (fixture) {
-        fixture.setDensity(updates.mass);
-        target.body.resetMassData();
-      }
-      target.data.mass = updates.mass;
-    }
-    if (updates.radius !== undefined) {
-      const fixture = target.body.getFixtureList();
-      if (fixture) {
-        const density = fixture.getDensity();
-        target.body.destroyFixture(fixture);
-        target.body.createFixture(planck.Circle(updates.radius), { density });
-      }
-      target.data.radius = updates.radius;
+      if (fixture) target.body.destroyFixture(fixture);
+      const density = mass / (Math.PI * radius * radius);
+      target.body.createFixture(planck.Circle(radius), { density, isSensor: true });
+      target.body.resetMassData();
+      if (updates.mass !== undefined) target.data.mass = updates.mass;
+      if (updates.radius !== undefined) target.data.radius = updates.radius;
     }
     if (updates.label !== undefined) target.data.label = updates.label;
     if (updates.color !== undefined) target.data.color = updates.color;
