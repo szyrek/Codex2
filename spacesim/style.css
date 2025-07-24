@@ -177,6 +177,15 @@ canvas {
   display: flex;
   flex-direction: column;
   perspective: 800px;
+  overflow: hidden;
+}
+
+.shipview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 20px 30px #000;
 }
 
 .shipview.view-left .ship-cockpit {
