@@ -101,7 +101,7 @@ describe('ThreeRenderer', () => {
     const canvas = { width: 200, height: 200 } as HTMLCanvasElement;
     const bus = createEventBus<any>();
     const renderer = new ThreeRenderer(canvas, bus);
-    bus.emit('render', { bodies: [], view: { center: Vec2(), zoom: 1, rotation: Math.PI / 4 } });
+    bus.emit('render', { bodies: [], view: { center: Vec3(), zoom: 1, rotation: Math.PI / 4 } });
     const cam = (renderer as any).camera;
     expect(cam.rotation.z).toBeCloseTo(Math.PI / 4);
   });

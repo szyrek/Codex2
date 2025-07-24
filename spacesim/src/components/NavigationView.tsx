@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'preact/hooks';
 import CanvasView from './CanvasView';
 import { Simulation } from '../simulation';
-import { Vec2 } from 'planck-js';
+import { Vec3 } from '../vector';
 
 interface Props { sim?: Simulation }
 
 export default function NavigationView({ sim: ext }: Props) {
   const [sim] = useState(() => ext ?? new Simulation());
-  const [drag, setDrag] = useState<Vec2 | null>(null);
+  const [drag, setDrag] = useState<Vec3 | null>(null);
 
   useEffect(() => { sim.start(); return () => sim.stop(); }, [sim]);
 
-  const down = (pos: Vec2) => { setDrag(pos); };
-  const move = (pos: Vec2) => {
+  const down = (pos: Vec3) => { setDrag(pos); };
+  const move = (pos: Vec3) => {
     if (!drag) return;
     const dx = pos.x - drag.x;
     sim.rotate(dx * 0.005);

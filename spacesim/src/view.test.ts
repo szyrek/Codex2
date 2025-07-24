@@ -45,7 +45,7 @@ describe('view transforms', () => {
   it('applies rotation to coordinate transforms', () => {
     const sim = setupSim();
     sim.rotate(Math.PI / 2);
-    const world = Vec2(10, 0);
+    const world = Vec3(10, 0, 0);
     const screen = sim.worldToScreen(world);
     const round = sim.screenToWorld(screen);
     expect(round.x).toBeCloseTo(world.x);

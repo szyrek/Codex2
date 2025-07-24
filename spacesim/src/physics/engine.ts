@@ -41,7 +41,7 @@ export class PhysicsEngine {
   findBody(point: Vec3) {
     return this.bodies.find((b) => b.body.position.distanceTo(point) <= b.data.radius);
   }
-  
+
   updateBody(
     target: { body: planck.Body; data: BodyData },
     updates: Partial<BodyData> & { position?: Vec2; velocity?: Vec2 }

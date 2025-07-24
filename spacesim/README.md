@@ -11,7 +11,7 @@ a bottom console create a simple 3D illusion. The centre "window" hosts the
 sandbox while the right panel opens a navigation screen. Dragging on this
 navigation view rotates the camera instead of spawning bodies.
 
-The simulation is built from small modules connected through a simple event bus powered by **mitt**. `GameLoop` ticks once per animation frame using RxJS and passes the elapsed time to the simulation. `PhysicsEngine` handles Planck.js dynamics. A single `ThreeRenderer` listens for render events and draws bodies, orbit trails and the drag line using Three.js.
+The simulation is built from small modules connected through a simple event bus powered by **mitt**. `GameLoop` ticks once per animation frame using RxJS and passes the elapsed time to the simulation. `PhysicsEngine` handles simple 3D dynamics using Three.js vectors. A single `ThreeRenderer` listens for render events and draws bodies, orbit trails and the drag line using Three.js.
 
 Bodies also render dotted orbit trails based on their current trajectory. The trail uses the body's color unless it is escaping (blue) or on a collision course (red).
 
