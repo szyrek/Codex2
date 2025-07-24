@@ -10,9 +10,10 @@ import { uniqueName } from '../utils';
 
 import SimulationView from './Simulation';
 import DocsView from './DocsView';
+import ConfigView from './ConfigView';
 
 export default function Root() {
-  const [tab, setTab] = useState<'sandbox' | 'scenario' | 'docs'>('sandbox');
+  const [tab, setTab] = useState<'sandbox' | 'scenario' | 'docs' | 'config'>('sandbox');
 
   return (
     <div style={{ position:'relative', width:'100vw', height:'100vh' }}>
@@ -20,8 +21,15 @@ export default function Root() {
         <button onClick={() => setTab('sandbox')}>Sandbox</button>
         <button onClick={() => setTab('scenario')}>Scenario</button>
         <button onClick={() => setTab('docs')}>Docs</button>
+        <button onClick={() => setTab('config')}>Config</button>
       </div>
-      {tab === 'sandbox' ? <SimulationView /> : tab === 'docs' ? <DocsView /> : <div style={{color:'#fff'}}>Scenario coming soon</div>}
+      {tab === 'sandbox'
+        ? <SimulationView />
+        : tab === 'docs'
+          ? <DocsView />
+          : tab === 'config'
+            ? <ConfigView />
+            : <div style={{color:'#fff'}}>Scenario coming soon</div>}
     </div>
   );
 }
