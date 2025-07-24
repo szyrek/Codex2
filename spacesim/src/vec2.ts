@@ -1,2 +1,2 @@
-export { Vec2 as default, Vec2 } from 'planck-js';
-export type { Vec2 as Vector } from 'planck-js';
+export { Vec3 as default, Vec3 } from './vector';
+export type { Vec3 as Vector } from './vector';

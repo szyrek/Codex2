@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { PhysicsEngine, G } from './physics';
-import { Vec2 } from 'planck-js';
+import { Vec3 } from './vector';
 import { simulateOrbit, ESCAPE_RADIUS } from './orbit';
 import { throwVelocity, predictOrbitType } from './utils';
 
@@ -16,33 +16,33 @@ class MockContext {
 
 
 describe('simulateOrbit', () => {
-  const centralPos = Vec2(0,0);
+  const centralPos = Vec3(0,0,0);
   const mass = 1;
   const radius = 1;
 
   it('returns closed path for stable orbit', () => {
-    const vel = throwVelocity(Vec2(10,0), Vec2(10,50));
-    const type = predictOrbitType(Vec2(10,0), vel, centralPos, mass, radius, G);
-    const pts = simulateOrbit(Vec2(10,0), vel, centralPos, mass, radius, type);
+    const vel = throwVelocity(Vec3(10,0,0), Vec3(10,50,0));
+    const type = predictOrbitType(Vec3(10,0,0), vel, centralPos, mass, radius, G);
+    const pts = simulateOrbit(Vec3(10,0,0), vel, centralPos, mass, radius, type);
     const first = pts[0];
     const last = pts[pts.length-1];
     expect(pts.length).toBeGreaterThan(300);
-    expect(Vec2.distance(first, last)).toBeLessThan(0.5);
+    expect(Vec3.distance(first, last)).toBeLessThan(0.5);
   });
 
   it('stops when crashing', () => {
-    const vel = throwVelocity(Vec2(10,0), Vec2(0,0));
-    const type = predictOrbitType(Vec2(10,0), vel, centralPos, mass, radius, G);
-    const pts = simulateOrbit(Vec2(10,0), vel, centralPos, mass, radius, type);
+    const vel = throwVelocity(Vec3(10,0,0), Vec3(0,0,0));
+    const type = predictOrbitType(Vec3(10,0,0), vel, centralPos, mass, radius, G);
+    const pts = simulateOrbit(Vec3(10,0,0), vel, centralPos, mass, radius, type);
     const last = pts[pts.length-1];
-    expect(Vec2.distance(last, centralPos)).toBeLessThanOrEqual(radius);
+    expect(Vec3.distance(last, centralPos)).toBeLessThanOrEqual(radius);
   });
 
   it('stops after leaving sphere of influence', () => {
-    const vel = throwVelocity(Vec2(10,0), Vec2(110,0));
-    const type = predictOrbitType(Vec2(10,0), vel, centralPos, mass, radius, G);
-    const pts = simulateOrbit(Vec2(10,0), vel, centralPos, mass, radius, type);
+    const vel = throwVelocity(Vec3(10,0,0), Vec3(110,0,0));
+    const type = predictOrbitType(Vec3(10,0,0), vel, centralPos, mass, radius, G);
+    const pts = simulateOrbit(Vec3(10,0,0), vel, centralPos, mass, radius, type);
     const last = pts[pts.length-1];
-    expect(Vec2.distance(last, centralPos)).toBeGreaterThanOrEqual(ESCAPE_RADIUS);
+    expect(Vec3.distance(last, centralPos)).toBeGreaterThanOrEqual(ESCAPE_RADIUS);
   });
 });

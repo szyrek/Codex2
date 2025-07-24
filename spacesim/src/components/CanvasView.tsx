@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'preact/hooks';
 import { Simulation } from '../simulation';
-import { Vec2 } from 'planck-js';
+import { Vec3 } from '../vector';
 
 interface Props {
   sim: Simulation;
-  onClick?: (pos: Vec2) => void;
+  onClick?: (pos: Vec3) => void;
 }
 
 export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onMouseUp }: Props) {
@@ -20,9 +20,10 @@ export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onM
   const toVec = (e: MouseEvent) => {
     const rect = (e.target as HTMLCanvasElement).getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
-    const p = Vec2(
+    const p = Vec3(
       (e.clientX - rect.left) * dpr,
-      (e.clientY - rect.top) * dpr
+      (e.clientY - rect.top) * dpr,
+      0
     );
     return sim.screenToWorld(p);
   };
