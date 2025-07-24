@@ -72,7 +72,6 @@ export const solarSystem: ScenarioEvent[] = [
       color: 'red',
       label: 'Mars'
   },
-  ]
   {
     time: 0.2,
     action: 'addBody',
