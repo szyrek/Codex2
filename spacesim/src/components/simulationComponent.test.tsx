@@ -61,4 +61,27 @@ describe('SimulationComponent', () => {
     render(<SimulationComponent sim={sim} showSpawner={false} />, container)
     expect(container.textContent).not.toContain('Click canvas to spawn')
   })
+
+  it('resets spawn defaults when clicking Reset', async () => {
+    const testSim = {
+      ...sim,
+      screenToWorld: (v: any) => v,
+    } as any
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+    render(<SimulationComponent sim={testSim} />, container)
+    await new Promise(r => setTimeout(r, 20))
+    const canvas = container.querySelector('canvas') as HTMLCanvasElement
+    canvas.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 100 } as any)
+    canvas.dispatchEvent(new MouseEvent('mousedown', { clientX: 0, clientY: 0, bubbles: true }))
+    canvas.dispatchEvent(new MouseEvent('mouseup', { clientX: 10, clientY: 0, bubbles: true }))
+    await new Promise(r => setTimeout(r))
+    const nameInput = container.querySelector('input') as HTMLInputElement
+    expect(nameInput.value).toBe('planet')
+    const btn = Array.from(container.querySelectorAll('button')).find(b => b.textContent === 'Reset') as HTMLButtonElement
+    btn.click()
+    await new Promise(r => setTimeout(r))
+    const resetInput = container.querySelector('input') as HTMLInputElement
+    expect(resetInput.value).toBe('Sun')
+  })
 })
