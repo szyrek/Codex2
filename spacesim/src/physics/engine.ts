@@ -42,7 +42,10 @@ export class PhysicsEngine {
     return this.bodies.find((b) => b.body.position.distanceTo(point) <= b.data.radius);
   }
 
-  updateBody(target: { body: Body; data: BodyData }, updates: BodyUpdate) {
+  updateBody(
+    target: { body: Body; data: BodyData },
+    updates: Partial<BodyData> & { position?: Vec3; velocity?: Vec3 }
+  ) {
     if (updates.mass !== undefined) target.data.mass = updates.mass;
     if (updates.radius !== undefined) target.data.radius = updates.radius;
     if (updates.label !== undefined) target.data.label = updates.label;
