@@ -43,7 +43,7 @@ This document defines the lifecycle that all contributors must follow. It applie
 
 ## 10. Finalize Documentation
 - Ensure all affected `README.md` and `AGENTS.md` files are accurate and complete.
-- Record feature or bug fix details in the appropriate folder under `feature/` or `bugfix/`.
+ - Record feature or bug fix details in the appropriate folder under `docs/feature` or `docs/bugfix`.
 - Verify that documentation and implementation stay in sync.
 
 No change is complete until documentation and tests are comprehensive and current.

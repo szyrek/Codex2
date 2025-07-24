@@ -12,7 +12,8 @@ const stampPath = path.join(majorDir, 'generated.json');
 function gather(dir) {
   let results = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (['node_modules', 'docs', '.git'].includes(entry.name)) continue;
+    if (['node_modules', '.git'].includes(entry.name)) continue;
+    if (entry.name === 'docs' && path.basename(dir) === 'spacesim') continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) results = results.concat(gather(full));
     else if (entry.isFile() && entry.name.endsWith('.md')) results.push(full);

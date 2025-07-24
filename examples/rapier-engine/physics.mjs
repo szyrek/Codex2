@@ -5,7 +5,7 @@ export const world = new RAPIER.World(gravity);
 
 const G = 6.67430e-11;
 
-export function createBody(x: number, y: number, z: number, vx: number, vy: number, vz: number, mass: number): RAPIER.RigidBody {
+export function createBody(x, y, z, vx, vy, vz, mass) {
   const desc = RAPIER.RigidBodyDesc.dynamic()
     .setTranslation(x, y, z)
     .setLinvel(vx, vy, vz)
@@ -36,7 +36,7 @@ function applyOrbitalGravity() {
   }
 }
 
-export function stepPhysics(_dt: number) {
+export function stepPhysics(_dt) {
   applyOrbitalGravity();
   world.step();
 }

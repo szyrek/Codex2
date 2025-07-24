@@ -12,8 +12,8 @@ function usage(){
 if(!type || !name) usage();
 if(type !== 'feature' && type !== 'bugfix') usage();
 
-const root = path.resolve(__dirname, '..');
-const outDir = path.join(root, type, name);
+const root = path.resolve(__dirname, '..', '..');
+const outDir = path.join(root, 'docs', type, name);
 fs.mkdirSync(outDir, {recursive:true});
 
 let sections;
@@ -35,4 +35,4 @@ if(type === 'feature'){
 
 const content = `# ${name}\n\n${sections.join('\n')}\n`;
 fs.writeFileSync(path.join(outDir, 'README.md'), content);
-console.log(`Created ${path.join(type, name, 'README.md')}`);
+console.log(`Created ${path.join('docs', type, name, 'README.md')}`);
