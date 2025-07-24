@@ -26,5 +26,6 @@ Create a folder here for each significant feature. Document:
 - [Verlet Physics](verlet-physics/README.md)
 - [Metric Units](metric-units/README.md)
 - [Navigation View Rotation](navigation-view/README.md)
+- [Ship Navigation Burn Controls](burn-controls/README.md)
 
 Each user-facing feature includes an accompanying end-to-end test referenced in its documentation.

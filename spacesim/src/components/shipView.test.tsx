@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render } from 'preact';
 
-vi.mock('./Simulation', () => ({ default: () => <div>sim</div> }));
 vi.mock('./NavigationView', () => ({ default: () => <div>nav</div> }));
+vi.mock('./BurnControls', () => ({ default: () => <div>burn</div> }));
 import ShipView from './ShipView';
 
 describe('ShipView', () => {
