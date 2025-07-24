@@ -1,7 +1,7 @@
 # Scenario View
 
 A dedicated tab plays predefined scenarios.
-The first implementation loads a hardcoded Solar System simulation where all planets spawn automatically.
+The Solar System scenario now uses real planet masses and orbital distances scaled for visibility. Bodies spawn with circular velocities around the Sun.
 
 - `ScenarioView` wraps `Simulation` with the `solarSystem` events.
 - Switching to the **Scenario** tab loads the scenario and runs it immediately.

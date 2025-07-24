@@ -208,6 +208,23 @@ canvas {
   background: #000;
 }
 
+/* WindowView styles */
+.window-view {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.window-image {
+  position: absolute;
+  top: -25%;
+  left: -25%;
+  width: 150%;
+  height: 150%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
 .ship-left,
 .ship-right {
   flex: 0.66;
