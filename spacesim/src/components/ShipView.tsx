@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
-import SimulationComponent from './Simulation';
 import NavigationView from './NavigationView';
+import BurnControls from './BurnControls';
 import WindowView from './WindowView';
 
 export default function ShipView() {
@@ -21,6 +21,7 @@ export default function ShipView() {
         <div className="ship-surface ship-left panel">Console</div>
         <div className="ship-surface ship-window" style={{ position:'relative' }}>
           <WindowView angle={angle} />
+          <NavigationView />
         </div>
         <div className="ship-surface ship-right panel">
           {view !== 'right' && <div className="nav-static" />}
@@ -34,8 +35,9 @@ export default function ShipView() {
         </div>
       )}
       {view === 'right' && (
-        <div className="nav-screen panel">
+        <div className="nav-screen panel" style={{ position:'relative' }}>
           <NavigationView />
+          <BurnControls />
         </div>
       )}
     </div>
