@@ -2,6 +2,14 @@ import { useState, useEffect } from 'preact/hooks';
 import { Simulation } from '../simulation';
 import { Vec2 } from 'planck-js';
 import type { BodyData } from '../physics';
+import {
+  kgToUnits,
+  unitsToKg,
+  formatKg,
+  unitsToMeters,
+  metersToUnits,
+  formatMeters,
+} from '../units';
 
 interface Props {
   sim: Simulation;
@@ -39,6 +47,7 @@ export default function BodyEditor({ sim, body, onDeselect, frame }: Props) {
     });
   }, [body, frame, edited]);
   if (!body || !state) return null;
+  const massExp = Math.log10(unitsToKg(state.mass));
   const apply = () => {
     setEdited(false);
     sim.updateBody(body, {
@@ -57,13 +66,29 @@ export default function BodyEditor({ sim, body, onDeselect, frame }: Props) {
   return (
     <div style={{ position: 'absolute', top: '140px', left: '10px', background: '#2228', padding: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
       <label>Name <input value={state.label} onInput={e => { setEdited(true); setState({ ...state, label: (e.target as HTMLInputElement).value }); }} /></label>
-      <label>Mass <input type="number" step="0.1" value={state.mass} onInput={e => { setEdited(true); setState({ ...state, mass: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>
-      <label>Radius <input type="number" step="1" value={state.radius} onInput={e => { setEdited(true); setState({ ...state, radius: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>
+      <label>Mass 10^
+        <input
+          type="range"
+          min="20"
+          max="30"
+          step="0.1"
+          value={massExp}
+          onInput={e => {
+            setEdited(true);
+            setState({ ...state, mass: kgToUnits(Math.pow(10, parseFloat((e.target as HTMLInputElement).value))) });
+          }}
+        />
+        <span>{formatKg(unitsToKg(state.mass))}kg</span>
+      </label>
+      <label>Radius (m)
+        <input type="text" value={formatMeters(unitsToMeters(state.radius))}
+          onInput={e => { setEdited(true); setState({ ...state, radius: metersToUnits(parseFloat((e.target as HTMLInputElement).value)) }); }} />
+      </label>
       <label>Color <input type="color" value={state.color} onInput={e => { setEdited(true); setState({ ...state, color: (e.target as HTMLInputElement).value }); }} /></label>
-      <label>Pos X <input type="number" step="0.1" value={state.posX} onInput={e => { setEdited(true); setState({ ...state, posX: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>
-      <label>Pos Y <input type="number" step="0.1" value={state.posY} onInput={e => { setEdited(true); setState({ ...state, posY: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>
-      <label>Vel X <input type="number" step="0.1" value={state.velX} onInput={e => { setEdited(true); setState({ ...state, velX: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>
-      <label>Vel Y <input type="number" step="0.1" value={state.velY} onInput={e => { setEdited(true); setState({ ...state, velY: parseFloat((e.target as HTMLInputElement).value) }); }} /></label>
+      <label>Pos X (m) <input type="text" value={formatMeters(unitsToMeters(state.posX))} onInput={e => { setEdited(true); setState({ ...state, posX: metersToUnits(parseFloat((e.target as HTMLInputElement).value)) }); }} /></label>
+      <label>Pos Y (m) <input type="text" value={formatMeters(unitsToMeters(state.posY))} onInput={e => { setEdited(true); setState({ ...state, posY: metersToUnits(parseFloat((e.target as HTMLInputElement).value)) }); }} /></label>
+      <label>Vel X (m/s) <input type="text" value={formatMeters(unitsToMeters(state.velX))} onInput={e => { setEdited(true); setState({ ...state, velX: metersToUnits(parseFloat((e.target as HTMLInputElement).value)) }); }} /></label>
+      <label>Vel Y (m/s) <input type="text" value={formatMeters(unitsToMeters(state.velY))} onInput={e => { setEdited(true); setState({ ...state, velY: metersToUnits(parseFloat((e.target as HTMLInputElement).value)) }); }} /></label>
       <button onClick={apply}>Apply</button>
       <button onClick={remove}>Delete</button>
     </div>

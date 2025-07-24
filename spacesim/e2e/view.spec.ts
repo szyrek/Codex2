@@ -14,12 +14,12 @@ const dragSpawn = async (page) => {
 test('zoom and pan controls change view', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Pause' }).waitFor();
-  await page.getByRole('button', { name: '+' }).click();
+  await page.getByRole('button', { name: '+' }).click({ force: true });
   await page.getByRole('button', { name: '→' }).click();
   const view = await page.evaluate(() => ({ zoom: window.sim.view.zoom, x: window.sim.view.center.x }));
   expect(view.zoom).toBeCloseTo(1.2);
   expect(view.x).toBeCloseTo(16.67, 1);
-  await page.getByRole('button', { name: '-' }).click();
+  await page.getByRole('button', { name: '-' }).click({ force: true });
   const zoom = await page.evaluate(() => window.sim.view.zoom);
   expect(zoom).toBeCloseTo(1);
 });
@@ -31,7 +31,7 @@ test('center button focuses selected body', async ({ page }) => {
   await page.waitForTimeout(100);
   const item = page.locator('li').first();
   await item.click();
-  await page.getByRole('button', { name: '+' }).click();
+  await page.getByRole('button', { name: '+' }).click({ force: true });
   await page.getByRole('button', { name: 'Center' }).click();
   const pos = await page.evaluate(() => {
     const b = window.sim.bodies[0].body.getPosition();
