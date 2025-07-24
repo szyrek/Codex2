@@ -34,7 +34,7 @@ test('short drag spawns body with zero velocity', async ({ page }) => {
   await page.mouse.up();
   await page.waitForTimeout(100);
   const vel = await page.evaluate(() => {
-    const v = window.sim.bodies[0].body.getLinearVelocity();
+    const v = window.sim.bodies[0].body.velocity;
     return { x: v.x, y: v.y, count: window.sim.bodies.length };
   });
   expect(vel.count).toBe(1);

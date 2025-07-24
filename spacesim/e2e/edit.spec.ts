@@ -50,7 +50,7 @@ test('edit body velocity', async ({ page }) => {
   await page.getByRole('button', { name: 'Apply' }).click();
 
   const vel = await page.evaluate(() => {
-    const v = window.sim.bodies[0].body.getLinearVelocity();
+    const v = window.sim.bodies[0].body.velocity;
     return { x: v.x, y: v.y };
   });
   expect(Math.round(vel.x)).toBe(5);
