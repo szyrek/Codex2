@@ -7,62 +7,62 @@ export const solarSystem: ScenarioEvent[] = [
     action: 'addBody',
     position: Vec2(0, 0),
     velocity: Vec2(),
-    data: { mass: 1000, radius: 10, color: 'yellow', label: 'Sun' }
+    data: { mass: 99.4, radius: 7, color: 'yellow', label: 'Sun' }
   },
   {
     time: 0.1,
     action: 'addBody',
-    position: Vec2(40, 0),
-    velocity: Vec2(0, 4.8),
-    data: { mass: 0.055, radius: 1, color: 'gray', label: 'Mercury' }
+    position: Vec2(57.9, 0),
+    velocity: Vec2(0, 1.31),
+    data: { mass: 0.00002, radius: 1.2, color: 'gray', label: 'Mercury' }
   },
   {
     time: 0.1,
     action: 'addBody',
-    position: Vec2(70, 0),
-    velocity: Vec2(0, 3.5),
-    data: { mass: 0.815, radius: 2, color: 'orange', label: 'Venus' }
+    position: Vec2(76.5, 76.5),
+    velocity: Vec2(-0.68, 0.68),
+    data: { mass: 0.00024, radius: 3.0, color: 'orange', label: 'Venus' }
   },
   {
     time: 0.1,
     action: 'addBody',
-    position: Vec2(100, 0),
-    velocity: Vec2(0, 3),
-    data: { mass: 1, radius: 4, color: 'blue', label: 'Earth' }
+    position: Vec2(0, 149.6),
+    velocity: Vec2(-0.82, 0),
+    data: { mass: 0.00030, radius: 3.2, color: 'blue', label: 'Earth' }
   },
   {
     time: 0.1,
     action: 'addBody',
-    position: Vec2(150, 0),
-    velocity: Vec2(0, 2.4),
-    data: { mass: 0.107, radius: 2, color: 'red', label: 'Mars' }
+    position: Vec2(-161.1, 161.1),
+    velocity: Vec2(-0.47, -0.47),
+    data: { mass: 0.00003, radius: 1.7, color: 'red', label: 'Mars' }
   },
   {
     time: 0.2,
     action: 'addBody',
-    position: Vec2(300, 0),
-    velocity: Vec2(0, 1.5),
-    data: { mass: 317.8, radius: 6, color: 'orange', label: 'Jupiter' }
+    position: Vec2(-778.5, 0),
+    velocity: Vec2(0, -0.36),
+    data: { mass: 0.09490, radius: 4.9, color: 'orange', label: 'Jupiter' }
   },
   {
     time: 0.2,
     action: 'addBody',
-    position: Vec2(400, 0),
-    velocity: Vec2(0, 1.2),
-    data: { mass: 95, radius: 5, color: 'gold', label: 'Saturn' }
+    position: Vec2(-1013.6, -1013.6),
+    velocity: Vec2(0.19, -0.19),
+    data: { mass: 0.02842, radius: 4.1, color: 'gold', label: 'Saturn' }
   },
   {
     time: 0.2,
     action: 'addBody',
-    position: Vec2(500, 0),
-    velocity: Vec2(0, 1),
-    data: { mass: 14, radius: 4, color: 'lightblue', label: 'Uranus' }
+    position: Vec2(0, -2872.5),
+    velocity: Vec2(0.19, 0),
+    data: { mass: 0.00434, radius: 1.0, color: 'lightblue', label: 'Uranus' }
   },
   {
     time: 0.2,
     action: 'addBody',
-    position: Vec2(600, 0),
-    velocity: Vec2(0, 0.8),
-    data: { mass: 17, radius: 4, color: 'blue', label: 'Neptune' }
+    position: Vec2(3178.5, -3178.5),
+    velocity: Vec2(0.11, 0.11),
+    data: { mass: 0.00512, radius: 1.0, color: 'blue', label: 'Neptune' }
   }
 ];
