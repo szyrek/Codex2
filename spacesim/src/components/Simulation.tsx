@@ -9,6 +9,8 @@ import ScenarioChooser from './ScenarioChooser';
 import { Vec3 } from '../vector';
 import { uniqueName, throwVelocity, nextSpawnParams } from '../utils';
 
+const defaultSpawn = { mass: 100, radius: 50, color: '#ffff00', label: 'Sun' };
+
 interface Props {
   scenario?: ScenarioEvent[];
   sim?: Simulation; // for tests
@@ -25,7 +27,7 @@ export default function SimulationComponent({ scenario, sim: ext, showSpawner = 
   }, [sim]);
   const [running, setRunning] = useState(true);
   const [selected, setSelected] = useState<ReturnType<Simulation['addBody']> | null>(null);
-  const [spawnParams, setSpawnParams] = useState({ mass:100, radius:50, color:'#ffff00', label:'Sun' });
+  const [spawnParams, setSpawnParams] = useState({ ...defaultSpawn });
   const [dragStart, setDragStart] = useState<Vec3 | null>(null);
   const [frame, setFrame] = useState(0);
   const [speed, setSpeed] = useState(sim.speed);
@@ -76,7 +78,13 @@ export default function SimulationComponent({ scenario, sim: ext, showSpawner = 
   };
 
   const toggleRun = () => setRunning(r=>!r);
-  const reset = () => { sim.reset(); setSelected(null); setDragStart(null); sim.resetView(); };
+  const reset = () => {
+    sim.reset();
+    setSelected(null);
+    setDragStart(null);
+    sim.resetView();
+    setSpawnParams({ ...defaultSpawn });
+  };
   const zoomIn = () => { sim.zoom(1.2); };
   const zoomOut = () => { sim.zoom(1/1.2); };
   const pan = (dx:number, dy:number) => { sim.pan(dx / sim.view.zoom, dy / sim.view.zoom); };

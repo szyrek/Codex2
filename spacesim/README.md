@@ -4,7 +4,7 @@ A simple 3D physics sandbox illustrating basic orbital mechanics. The project us
 
 Bodies are spawned by dragging on the canvas while the spawner panel is visible. The drag length defines the initial velocity and short drags create a body with near-zero velocity. A green line shows the drag vector as you hold the mouse. When released a body is created with a unique label from the spawner panel. The first spawn defaults to a **Sun** with mass 100, radius 50 and yellow color. After that the spawner switches to a **planet** preset with random color for each new body. Mass now uses a slider scaled from a small moon to the Sun and all distances are shown in metric units.
 
-Clicking an existing body opens an editor panel. The editor now shows live position and velocity values which can be edited alongside mass, radius and color. Scenarios (predefined sequences of events) can be loaded using the **Scenario** button within the sandbox; a simple Solar System example is included. The top-right of the screen contains **Pause** and **Reset** buttons to control the simulation.
+Clicking an existing body opens an editor panel. The editor now shows live position and velocity values which can be edited alongside mass, radius and color. Scenarios (predefined sequences of events) can be loaded using the **Scenario** button within the sandbox; a simple Solar System example is included. The top-right of the screen contains **Pause** and **Reset** buttons to control the simulation. Reset also restores the Sun preset for the next spawned body.
 
 A new **Shipview** tab displays a basic cockpit layout. Three angled panels and
 a bottom console create a simple 3D illusion. The centre "window" hosts the
