@@ -43,8 +43,6 @@ export class PhysicsEngine {
   }
 
   updateBody(target: { body: Body; data: BodyData }, updates: BodyUpdate) {
-    target: { body: Body; data: BodyData },
-  ) {
     if (updates.mass !== undefined) target.data.mass = updates.mass;
     if (updates.radius !== undefined) target.data.radius = updates.radius;
     if (updates.label !== undefined) target.data.label = updates.label;
