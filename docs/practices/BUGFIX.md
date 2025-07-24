@@ -8,10 +8,10 @@ Follow these steps whenever you address a defect:
      end, as long as it reproduces the issue.
    - Only begin coding the fix once the failure is verified.
 2. **Root Cause Analysis**
-   - Identify why the bug occurred and document the underlying issue in a new folder under `bugfix/`.
+   - Identify why the bug occurred and document the underlying issue in a new folder under `docs/bugfix/`.
    - Include notes on which parts of the architecture were affected and link to the relevant feature docs or commits.
    - Record any process issues uncovered and propose improvements.
-   - You can create the folder with [`new-record.js`](new-record.js): `node practices/new-record.js bugfix <name>`.
+   - You can create the folder with [`new-record.js`](new-record.js): `node docs/practices/new-record.js bugfix <name>`.
 3. **Implement Safely**
    - Keep the failing test in place until the fix passes.
    - Ensure unit coverage remains above the [Testing](TESTING.md) threshold.

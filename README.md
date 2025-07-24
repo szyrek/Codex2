@@ -12,7 +12,7 @@ This file is part of the initial project scaffolding and will evolve as the proj
 
 ## Features
 
-Implemented features are documented under the [feature/](feature/) directory. Each entry links to the commits and has an accompanying end-to-end test.
+Implemented features are documented under [docs/feature](docs/feature/) where each entry links to the commits and has an accompanying end-to-end test.
 
 ## Documentation
 

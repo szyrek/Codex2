@@ -11,7 +11,7 @@ Use the imperative mood and keep the summary under 72 characters:
 `feat: add user login`
 
 Reference the related folder in the body when applicable, for example
-`feature/login` or `bugfix/drag-bodies`.
+`docs/feature/login` or `docs/bugfix/drag-bodies`.
 
 All contributors and agents must follow these rules. If a change touches a
 feature or bugfix folder, mention it so future debugging can trace the commit

@@ -7,7 +7,7 @@ This file distills the core practices for quick reference.
 - Document planned work before coding.
 - Write tests first and aim for at least 60% coverage.
 - Run `npm install` and then `npm test` to execute all suites.
-- Use Conventional Commit style: `feat:`, `fix:`, or `chore:` and reference feature/bugfix folders.
+- Use Conventional Commit style: `feat:`, `fix:`, or `chore:` and reference docs/feature or docs/bugfix folders.
 - Update documentation and tests whenever behavior changes.
 
 ## UI Guidelines
