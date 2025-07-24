@@ -21,7 +21,7 @@ Create a folder here for each significant feature. Document:
 - [Zoom, Pan and Center View](zoom-pan/README.md)
 - [Performance Tests](performance-tests/README.md)
 - [Performance History](perf-history/README.md)
-- [Scenario View](scenario-view/README.md)
+- [Scenario Panel](scenario-view/README.md)
 - [Scenario Selection](scenario-select/README.md)
 - [Verlet Physics](verlet-physics/README.md)
 - [Metric Units](metric-units/README.md)
