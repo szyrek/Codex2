@@ -169,3 +169,45 @@ canvas {
   text-align: center;
   color: #0ff;
 }
+
+/* Ship cockpit layout */
+.shipview {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  perspective: 800px;
+}
+
+.ship-cockpit {
+  flex: 1;
+  display: flex;
+}
+
+.ship-surface {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #222;
+  border: 1px solid #0ff;
+  box-sizing: border-box;
+}
+
+.ship-window {
+  background: #000;
+}
+
+.ship-left {
+  transform: rotateY(15deg);
+}
+
+.ship-right {
+  transform: rotateY(-15deg);
+}
+
+.ship-console {
+  height: 100px;
+  border-top: 1px solid #0ff;
+  background: #111;
+}
