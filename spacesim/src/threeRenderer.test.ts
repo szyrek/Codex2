@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { ThreeRenderer } from './renderers/threeRenderer';
 import { createEventBus } from './core/eventBus';
 import { PhysicsEngine } from './physics';
-import { Vec2 } from 'planck-js';
+import { Vec3 } from './vector';
 import { throwVelocity } from './utils';
 
 vi.mock('three', () => {
@@ -28,7 +28,7 @@ describe('ThreeRenderer', () => {
     const bus = createEventBus<any>();
     const renderer = new ThreeRenderer(canvas, bus);
     const engine = new PhysicsEngine();
-    const body = engine.addBody(Vec2(5, 6), Vec2(), { mass:1, radius:1, color:'#fff', label:'b' });
+    const body = engine.addBody(Vec3(5, 6, 0), Vec3(), { mass:1, radius:1, color:'#fff', label:'b' });
     bus.emit('render', { bodies: engine.bodies });
     const mesh = (renderer as any).bodyMeshes.get(body.body);
     expect(mesh.position.x).toBeCloseTo(5);
@@ -40,8 +40,8 @@ describe('ThreeRenderer', () => {
     const bus = createEventBus<any>();
     const renderer = new ThreeRenderer(canvas, bus);
     const engine = new PhysicsEngine();
-    engine.addBody(Vec2(1,1), Vec2(), { mass:1, radius:1, color:'#fff', label:'a' });
-    const sun = engine.addBody(Vec2(4,5), Vec2(), { mass:10, radius:2, color:'yellow', label:'s' });
+    engine.addBody(Vec3(1,1,0), Vec3(), { mass:1, radius:1, color:'#fff', label:'a' });
+    const sun = engine.addBody(Vec3(4,5,0), Vec3(), { mass:10, radius:2, color:'yellow', label:'s' });
     bus.emit('render', { bodies: engine.bodies });
     const light = (renderer as any).sunLight;
     expect(light.position.x).toBeCloseTo(4);
@@ -53,9 +53,9 @@ describe('ThreeRenderer', () => {
     const bus = createEventBus<any>();
     const renderer = new ThreeRenderer(canvas, bus);
     const engine = new PhysicsEngine();
-    engine.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'yellow', label: 'c' });
-    const vel = throwVelocity(Vec2(10,0), Vec2(10,50));
-    const satellite = engine.addBody(Vec2(10, 0), vel, { mass: 1, radius: 1, color: 'white', label: 's' });
+    engine.addBody(Vec3(0, 0, 0), Vec3(), { mass: 1, radius: 1, color: 'yellow', label: 'c' });
+    const vel = throwVelocity(Vec3(10,0,0), Vec3(10,50,0));
+    const satellite = engine.addBody(Vec3(10, 0, 0), vel, { mass: 1, radius: 1, color: 'white', label: 's' });
     bus.emit('render', { bodies: engine.bodies });
     const line = (renderer as any).orbitLines.get(satellite.body);
     expect(line.material.color).toBe('white');
@@ -66,8 +66,8 @@ describe('ThreeRenderer', () => {
     const bus = createEventBus<any>();
     const renderer = new ThreeRenderer(canvas, bus);
     const engine = new PhysicsEngine();
-    engine.addBody(Vec2(0,0), Vec2(), { mass: 1, radius: 1, color: 'yellow', label: 'c' });
-    bus.emit('render', { bodies: engine.bodies, throwLine: { start: Vec2(10,0), end: Vec2(110,0) } });
+    engine.addBody(Vec3(0,0,0), Vec3(), { mass: 1, radius: 1, color: 'yellow', label: 'c' });
+    bus.emit('render', { bodies: engine.bodies, throwLine: { start: Vec3(10,0,0), end: Vec3(110,0,0) } });
     const drag = (renderer as any).dragLine;
     expect(drag.material.color).toBe('blue');
   });
@@ -77,9 +77,9 @@ describe('ThreeRenderer', () => {
     const bus = createEventBus<any>();
     const renderer = new ThreeRenderer(canvas, bus);
     const engine = new PhysicsEngine();
-    engine.addBody(Vec2(0, 0), Vec2(), { mass:1, radius:1, color:'yellow', label:'c' });
-    const vel = throwVelocity(Vec2(10,0), Vec2(10,50));
-    engine.addBody(Vec2(10,0), vel, { mass:1, radius:1, color:'white', label:'s' });
+    engine.addBody(Vec3(0, 0, 0), Vec3(), { mass:1, radius:1, color:'yellow', label:'c' });
+    const vel = throwVelocity(Vec3(10,0,0), Vec3(10,50,0));
+    engine.addBody(Vec3(10,0,0), vel, { mass:1, radius:1, color:'white', label:'s' });
     bus.emit('render', { bodies: engine.bodies });
     expect((renderer as any).orbitLines.size).toBe(1);
     bus.emit('render', { bodies: [] });

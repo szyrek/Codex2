@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { Simulation } from './simulation';
-import { Vec2 } from 'planck-js';
+import { Vec3 } from './vector';
 
 function setupSim() {
   const sim = new Simulation();
@@ -14,7 +14,7 @@ describe('view transforms', () => {
     const sim = setupSim();
     sim.setZoom(2);
     sim.pan(10, 10);
-    const world = Vec2(10, 10);
+    const world = Vec3(10, 10, 0);
     const screen = sim.worldToScreen(world);
     expect(screen.x).toBeCloseTo(100);
     expect(screen.y).toBeCloseTo(100);
@@ -25,7 +25,7 @@ describe('view transforms', () => {
 
   it('maps positive world y upward on screen', () => {
     const sim = setupSim();
-    const screen = sim.worldToScreen(Vec2(0, 10));
+    const screen = sim.worldToScreen(Vec3(0, 10, 0));
     expect(screen.y).toBeLessThan(100);
     const round = sim.screenToWorld(screen);
     expect(round.y).toBeCloseTo(10);
@@ -33,7 +33,7 @@ describe('view transforms', () => {
 
   it('centers on body and resets zoom', () => {
     const sim = setupSim();
-    const body = sim.addBody(Vec2(5, 5), Vec2(), { mass:1, radius:1, color:'#fff', label:'b' });
+    const body = sim.addBody(Vec3(5, 5, 0), Vec3(), { mass:1, radius:1, color:'#fff', label:'b' });
     sim.setZoom(3);
     sim.pan(20, 20);
     sim.centerOn(body);

@@ -1,14 +1,14 @@
-import type planck from 'planck-js';
-import type { Vec2 } from 'planck-js';
+import type { Vec3 } from '../vector';
+import type { Body } from '../physics';
 import type { BodyData } from '../physics';
 
 export interface RenderableBody {
-  body: planck.Body;
+  body: Body;
   data: BodyData;
 }
 
 export interface RenderPayload {
   bodies: RenderableBody[];
-  throwLine?: { start: Vec2; end: Vec2 };
-  view?: { center: Vec2; zoom: number; rotation: number };
+  throwLine?: { start: Vec3; end: Vec3 };
+  view?: { center: Vec3; zoom: number };
 }

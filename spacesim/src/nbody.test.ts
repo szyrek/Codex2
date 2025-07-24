@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { updatePhysics, Body } from './nbody';
 
 function makeBody(id: string, x: number, y: number, mass: number): Body {
-  return { id, x, y, vx: 0, vy: 0, ax: 0, ay: 0, mass };
+  return { id, x, y, z: 0, vx: 0, vy: 0, vz: 0, ax: 0, ay: 0, az: 0, mass };
 }
 
 describe('updatePhysics', () => {

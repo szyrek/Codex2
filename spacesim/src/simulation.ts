@@ -1,4 +1,4 @@
-import { Vec2 } from 'planck-js';
+import { Vec3 } from './vector';
 import { createEventBus, EventBus } from './core/eventBus';
 import { GameLoop } from './core/gameLoop';
 import { PhysicsEngine, BodyData, BodyUpdate } from './physics';
@@ -8,8 +8,8 @@ import { RenderPayload } from './renderers/types';
 export interface ScenarioEvent {
   time: number;
   action: 'addBody';
-  position: Vec2;
-  velocity: Vec2;
+  position: Vec3;
+  velocity: Vec3;
   data: BodyData;
 }
 
@@ -29,8 +29,9 @@ export class Simulation {
   private canvas?: HTMLCanvasElement;
 
   private _view = { center: Vec2(), zoom: 1, rotation: 0 };
+  private _view = { center: Vec3(), zoom: 1 };
 
-  private overlay?: { start: Vec2; end: Vec2 } | null;
+  private overlay?: { start: Vec3; end: Vec3 } | null;
 
   private speedIndex = 0; // 0 -> x1
 
@@ -68,39 +69,33 @@ export class Simulation {
   setRotation(angle: number) { this._view.rotation = angle; }
 
   pan(dx: number, dy: number) {
-    this._view.center = this._view.center.clone().add(Vec2(dx, dy));
+    this._view.center = this._view.center.clone().add(Vec3(dx, dy, 0));
   }
 
-  resetView() { this._view = { center: Vec2(), zoom: 1, rotation: 0 }; }
+  resetView() { this._view = { center: Vec3(), zoom: 1 }; }
 
   centerOn(body: ReturnType<PhysicsEngine['addBody']>) {
-    this._view.center = body.body.getPosition().clone();
+    this._view.center = body.body.position.clone();
     this._view.zoom = 1;
   }
 
-  worldToScreen(p: Vec2) {
+  worldToScreen(p: Vec3) {
     if (!this.canvas) return p.clone();
-    const cos = Math.cos(this._view.rotation);
-    const sin = Math.sin(this._view.rotation);
-    const dx = p.x - this._view.center.x;
-    const dy = p.y - this._view.center.y;
-    const rx = dx * cos - dy * sin;
-    const ry = dx * sin + dy * cos;
-    return Vec2(
-      rx * this._view.zoom + this.canvas.width / 2,
-      this.canvas.height / 2 - ry * this._view.zoom,
+    return Vec3(
+      (p.x - this._view.center.x) * this._view.zoom + this.canvas.width / 2,
+      this.canvas.height / 2 -
+        (p.y - this._view.center.y) * this._view.zoom,
+      0
     );
   }
 
-  screenToWorld(p: Vec2) {
+  screenToWorld(p: Vec3) {
     if (!this.canvas) return p.clone();
-    const cos = Math.cos(this._view.rotation);
-    const sin = Math.sin(this._view.rotation);
-    const dx = (p.x - this.canvas.width / 2) / this._view.zoom;
-    const dy = (this.canvas.height / 2 - p.y) / this._view.zoom;
-    const rx = dx * cos + dy * sin;
-    const ry = -dx * sin + dy * cos;
-    return Vec2(rx + this._view.center.x, ry + this._view.center.y);
+    return Vec3(
+      (p.x - this.canvas.width / 2) / this._view.zoom + this._view.center.x,
+      (this.canvas.height / 2 - p.y) / this._view.zoom + this._view.center.y,
+      0
+    );
   }
 
   start() {
@@ -138,11 +133,11 @@ export class Simulation {
 
   get bodies() { return this.engine.bodies; }
 
-  addBody(pos: Vec2, vel: Vec2, data: BodyData) {
+  addBody(pos: Vec3, vel: Vec3, data: BodyData) {
     return this.engine.addBody(pos, vel, data);
   }
 
-  findBody(pos: Vec2) {
+  findBody(pos: Vec3) {
     return this.engine.findBody(pos);
   }
 
@@ -160,7 +155,7 @@ export class Simulation {
     this.scenario = [...events].sort((a,b)=>a.time-b.time);
   }
   
-  setOverlay(line: { start: Vec2; end: Vec2 } | null) {
+  setOverlay(line: { start: Vec3; end: Vec3 } | null) {
     this.overlay = line;
   }
 
