@@ -9,42 +9,8 @@ export const solarSystem: ScenarioEvent[] = [
   {
     time: 0,
     action: 'addBody',
-    position: Vec2(0, 0),
-    velocity: Vec2(),
-    data: {
-      mass: 333000 * MASS_FACTOR,
-      radius: 0.696 * SUN_RADIUS_SCALE,
-      color: 'yellow',
-      label: 'Sun'
-    }
-  },
-  {
-    time: 0.1,
-    action: 'addBody',
-    position: Vec2(57.9, 0),
-    velocity: Vec2(0, Math.sqrt(333000 * MASS_FACTOR / 57.9)),
-    data: {
-      mass: 0.0553 * MASS_FACTOR,
-      radius: 0.002 * PLANET_RADIUS_SCALE,
-      color: 'gray',
-      label: 'Mercury'
-    }
-  },
-  {
-    time: 0.1,
-    action: 'addBody',
-    position: Vec2(0, 149.6),
-    velocity: Vec2(-Math.sqrt(333000 * MASS_FACTOR / 149.6), 0),
-    data: {
-      mass: 1 * MASS_FACTOR,
-      radius: 0.006 * PLANET_RADIUS_SCALE,
-      color: 'blue',
-      label: 'Earth'
-    }
-  }
-];
     position: Vec3(0, 0),
-    velocity: Vec3(),
+    velocity: Vec3(0,0),
     data: { mass: 332948.2285, radius: 0.69634, color: 'yellow', label: 'Sun' }
   },
   { time: 0.1, action: 'addBody', position: Vec3(57.90, 0.00), velocity: Vec3(-0.00, 75.83), data: { mass: 0.0553, radius: 0.00244, color: 'gray', label: 'Mercury' } },
