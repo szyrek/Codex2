@@ -10,8 +10,9 @@ describe('NavigationView', () => {
     document.body.appendChild(container);
     render(<NavigationView sim={sim} />, container);
     expect(container.querySelector('canvas')).not.toBeNull();
-    const btn = container.querySelector('button') as HTMLButtonElement;
-    btn.click();
+    const buttons = container.querySelectorAll('button');
+    expect(buttons.length).toBe(4);
+    (buttons[0] as HTMLButtonElement).click();
     expect(sim.pan).toHaveBeenCalled();
   });
 });
