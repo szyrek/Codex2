@@ -17,15 +17,16 @@ vi.mock('three', () => {
   class Mesh { position={x:0,y:0,z:0,set(x:number,y:number,z:number){this.x=x;this.y=y;this.z=z;}}; constructor(public g:any,public m:any){} }
   class Line { geometry:any; material:any; constructor(g:any,m:any){ this.geometry=g; this.material=m; } computeLineDistances(){} }
   class Vector3 {
-    constructor(public x:number,public y:number,public z:number){}
-    clone(){ return new Vector3(this.x,this.y,this.z); }
-    add(v:any){ this.x+=v.x; this.y+=v.y; this.z+=v.z; return this; }
-    sub(v:any){ this.x-=v.x; this.y-=v.y; this.z-=v.z; return this; }
-    multiplyScalar(s:number){ this.x*=s; this.y*=s; this.z*=s; return this; }
-    lengthSq(){ return this.x*this.x + this.y*this.y + this.z*this.z; }
+    constructor(public x:number, public y:number, public z:number) {}
+    clone() { return new Vector3(this.x, this.y, this.z); }
+    add(v:any){ this.x += v.x; this.y += v.y; this.z += v.z; return this; }
+    sub(v:any){ this.x -= v.x; this.y -= v.y; this.z -= v.z; return this; }
+    multiplyScalar(s:number){ this.x *= s; this.y *= s; this.z *= s; return this; }
     length(){ return Math.sqrt(this.lengthSq()); }
-    distanceTo(v:any){ return this.clone().sub(v).length(); }
+    lengthSq(){ return this.x*this.x + this.y*this.y + this.z*this.z; }
     dot(v:any){ return this.x*v.x + this.y*v.y + this.z*v.z; }
+    distanceTo(v:any){ return Math.sqrt((this.x-v.x)**2 + (this.y-v.y)**2 + (this.z-v.z)**2); }
+    copy(v:any){ this.x=v.x; this.y=v.y; this.z=v.z; return this; }
   }
   class AmbientLight { constructor(public color:any, public intensity:any){} }
   class PointLight { position={x:0,y:0,z:0,set(x:number,y:number,z:number){this.x=x;this.y=y;this.z=z;}}; constructor(public color:any, public intensity:any){} }

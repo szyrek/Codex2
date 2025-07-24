@@ -42,9 +42,23 @@ export class PhysicsEngine {
     return this.bodies.find((b) => b.body.position.distanceTo(point) <= b.data.radius);
   }
 
-  updateBody(target: { body: Body; data: BodyData }, updates: BodyUpdate) {
-    if (updates.mass !== undefined) target.data.mass = updates.mass;
-    if (updates.radius !== undefined) target.data.radius = updates.radius;
+  updateBody(
+    target: { body: planck.Body; data: BodyData },
+    updates: Partial<BodyData> & { position?: Vec2; velocity?: Vec2 }
+  ) {
+    const newMass = updates.mass ?? target.data.mass;
+    const newRadius = updates.radius ?? target.data.radius;
+    const density = newMass / (Math.PI * newRadius * newRadius);
+    const fixture = target.body.getFixtureList();
+    if (fixture) {
+      (fixture.getShape() as any).m_radius = newRadius;
+      fixture.setDensity(density);
+    } else {
+      target.body.createFixture(planck.Circle(newRadius), { density, isSensor: true });
+    }
+    target.body.resetMassData();
+    target.data.mass = newMass;
+    target.data.radius = newRadius;
     if (updates.label !== undefined) target.data.label = updates.label;
     if (updates.color !== undefined) target.data.color = updates.color;
     if (updates.position) target.body.position.copy(updates.position);

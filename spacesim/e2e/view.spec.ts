@@ -34,7 +34,7 @@ test('center button focuses selected body', async ({ page }) => {
   await page.getByRole('button', { name: '+' }).click({ force: true });
   await page.getByRole('button', { name: 'Center' }).click();
   const pos = await page.evaluate(() => {
-    const b = window.sim.bodies[0].body.getPosition();
+    const b = window.sim.bodies[0].body.position;
     return { x: b.x, y: b.y };
   });
   const center = await page.evaluate(() => ({ x: window.sim.view.center.x, y: window.sim.view.center.y, zoom: window.sim.view.zoom }));
