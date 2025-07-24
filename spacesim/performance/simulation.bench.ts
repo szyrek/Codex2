@@ -1,11 +1,11 @@
 import { bench } from 'vitest';
 import { PhysicsEngine } from '../src/physics/engine';
-import { Vec2 } from 'planck-js';
+import { Vec3 } from '../src/vector';
 
 function createEngine(count: number) {
   const engine = new PhysicsEngine();
   for (let i = 0; i < count; i++) {
-    engine.addBody(Vec2(i, 0), Vec2(0, 0), {
+    engine.addBody(Vec3(i, 0, 0), Vec3(0, 0, 0), {
       mass: 1,
       radius: 1,
       color: '#fff',

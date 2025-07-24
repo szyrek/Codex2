@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { PhysicsEngine, G } from './physics';
-import { Vec3 } from './vector';
+import { Vec3, distance } from './vector';
 import { simulateOrbit, ESCAPE_RADIUS } from './orbit';
 import { throwVelocity, predictOrbitType } from './utils';
 
@@ -27,7 +27,7 @@ describe('simulateOrbit', () => {
     const first = pts[0];
     const last = pts[pts.length-1];
     expect(pts.length).toBeGreaterThan(300);
-    expect(Vec3.distance(first, last)).toBeLessThan(0.5);
+    expect(distance(first, last)).toBeLessThan(0.5);
   });
 
   it('stops when crashing', () => {
@@ -35,7 +35,7 @@ describe('simulateOrbit', () => {
     const type = predictOrbitType(Vec3(10,0,0), vel, centralPos, mass, radius, G);
     const pts = simulateOrbit(Vec3(10,0,0), vel, centralPos, mass, radius, type);
     const last = pts[pts.length-1];
-    expect(Vec3.distance(last, centralPos)).toBeLessThanOrEqual(radius);
+    expect(distance(last, centralPos)).toBeLessThanOrEqual(radius);
   });
 
   it('stops after leaving sphere of influence', () => {
@@ -43,6 +43,6 @@ describe('simulateOrbit', () => {
     const type = predictOrbitType(Vec3(10,0,0), vel, centralPos, mass, radius, G);
     const pts = simulateOrbit(Vec3(10,0,0), vel, centralPos, mass, radius, type);
     const last = pts[pts.length-1];
-    expect(Vec3.distance(last, centralPos)).toBeGreaterThanOrEqual(ESCAPE_RADIUS);
+    expect(distance(last, centralPos)).toBeGreaterThanOrEqual(ESCAPE_RADIUS);
   });
 });
