@@ -180,11 +180,11 @@ canvas {
 }
 
 .shipview.view-left .ship-cockpit {
-  transform: rotateY(20deg) translateX(20px);
+  transform: rotateY(-20deg) translateX(-20px) scale(0.95);
 }
 
 .shipview.view-right .ship-cockpit {
-  transform: rotateY(-20deg) translateX(-20px);
+  transform: rotateY(20deg) translateX(20px) scale(0.95);
 }
 
 .ship-cockpit {
@@ -204,7 +204,7 @@ canvas {
 }
 
 .ship-window {
-  flex: 2;
+  flex: 2.4;
   background: #000;
 }
 
@@ -217,10 +217,10 @@ canvas {
 
 .window-image {
   position: absolute;
-  top: -25%;
+  top: -20%;
   left: -25%;
   width: 150%;
-  height: 150%;
+  height: 160%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
@@ -231,15 +231,16 @@ canvas {
 }
 
 .ship-left {
-  transform: rotateY(15deg);
+  transform: rotateY(15deg) skewY(-2deg);
 }
 
 .ship-right {
-  transform: rotateY(-15deg);
+  position: relative;
+  transform: rotateY(-15deg) skewY(2deg);
 }
 
 .ship-console {
-  height: 70px;
+  height: 60px;
   border-top: 1px solid #0ff;
   background: #111;
 }
@@ -247,8 +248,6 @@ canvas {
 .console-screen,
 .nav-screen {
   position: absolute;
-  bottom: 70px;
-  top: 10%;
   width: 40%;
   background: #111;
   border: 1px solid #0ff;
@@ -261,8 +260,26 @@ canvas {
 
 .console-screen {
   left: 0;
+  bottom: 60px;
+  height: 40%;
 }
 
 .nav-screen {
   right: 0;
+  top: 0;
+  height: 40%;
+}
+
+.nav-static {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  background-image: repeating-linear-gradient(
+    0deg,
+    #111 0px,
+    #222 2px,
+    #333 3px,
+    #222 4px
+  );
 }

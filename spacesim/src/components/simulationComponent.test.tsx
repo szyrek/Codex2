@@ -54,4 +54,11 @@ describe('SimulationComponent', () => {
     display = container.querySelector('.sim-time') as HTMLElement
     expect(display.textContent).toBe('Time 1.5s')
   })
+
+  it('hides spawner when showSpawner is false', () => {
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+    render(<SimulationComponent sim={sim} showSpawner={false} />, container)
+    expect(container.textContent).not.toContain('Click canvas to spawn')
+  })
 })
