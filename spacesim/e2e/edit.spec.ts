@@ -25,6 +25,7 @@ test('edit body label', async ({ page }) => {
   const nameInput = page.locator('label:has-text("Name") input');
   await nameInput.fill('Edited');
   await page.getByRole('button', { name: 'Apply' }).click();
+  await page.waitForTimeout(50);
 
   const label = await page.evaluate(() => window.sim.bodies[0].data.label);
   expect(label).toBe('Edited');
