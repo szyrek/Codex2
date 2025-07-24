@@ -1,4 +1,4 @@
-import { Vec2 } from "planck-js";
+import { Vec3, sub } from "./vector";
 export function uniqueName(base: string, existing: string[]): string {
   if (!existing.includes(base)) return base;
   let i = 1;
@@ -10,11 +10,11 @@ export function uniqueName(base: string, existing: string[]): string {
   return candidate;
 }
 
-export function throwVelocity(start: Vec2, end: Vec2) {
-  const drag = Vec2.sub(end, start);
+export function throwVelocity(start: Vec3, end: Vec3) {
+  const drag = sub(end, start);
   const speed = drag.length();
-  if (speed < 5) return Vec2();
-  return drag.mul(0.01 * speed / (speed + 50));
+  if (speed < 5) return Vec3();
+  return drag.multiplyScalar(0.01 * speed / (speed + 50));
 }
 
 export function randomColor() {
@@ -39,16 +39,16 @@ export function nextSpawnParams(current: SpawnParams): SpawnParams {
 export type OrbitType = 'crash' | 'stable' | 'escape';
 
 export function predictOrbitType(
-  position: Vec2,
-  velocity: Vec2,
-  centralPos: Vec2,
+  position: Vec3,
+  velocity: Vec3,
+  centralPos: Vec3,
   centralMass: number,
   centralRadius: number,
   Gconst: number
 ): OrbitType {
-  const rVec = Vec2.sub(position, centralPos);
+  const rVec = sub(position, centralPos);
   const r = rVec.length();
-  const v2 = velocity.lengthSquared();
+  const v2 = velocity.lengthSq();
   const mu = Gconst * centralMass;
   const energy = 0.5 * v2 - mu / r;
   if (energy < 0) {

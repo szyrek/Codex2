@@ -5,7 +5,7 @@ import BodyEditor from './BodyEditor';
 import BodySpawner from './BodySpawner';
 import BodyLabels from './BodyLabels';
 import { Simulation, type ScenarioEvent } from '../simulation';
-import { Vec2 } from 'planck-js';
+import { Vec3 } from '../vector';
 import { uniqueName, throwVelocity, nextSpawnParams } from '../utils';
 
 interface Props {
@@ -24,7 +24,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
   const [running, setRunning] = useState(true);
   const [selected, setSelected] = useState<ReturnType<Simulation['addBody']> | null>(null);
   const [spawnParams, setSpawnParams] = useState({ mass:100, radius:50, color:'#ffff00', label:'Sun' });
-  const [dragStart, setDragStart] = useState<Vec2 | null>(null);
+  const [dragStart, setDragStart] = useState<Vec3 | null>(null);
   const [frame, setFrame] = useState(0);
   const [speed, setSpeed] = useState(sim.speed);
   const [time, setTime] = useState(sim.time);
@@ -46,7 +46,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
     if (scenario) sim.loadScenario(scenario);
   }, [scenario, sim]);
 
-  const down = (pos: Vec2) => {
+  const down = (pos: Vec3) => {
     const found = sim.findBody(pos);
     if (found) {
       setSelected(found);
@@ -57,12 +57,12 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
     sim.setOverlay({ start: pos, end: pos });
   };
 
-  const move = (pos: Vec2) => {
+  const move = (pos: Vec3) => {
     if (!dragStart) return;
     sim.setOverlay({ start: dragStart, end: pos });
   };
 
-  const up = (pos: Vec2) => {
+  const up = (pos: Vec3) => {
     if (!dragStart) return;
     const velocity = throwVelocity(dragStart, pos, sim.view.zoom);
     const label = uniqueName(spawnParams.label, sim.bodies.map(b=>b.data.label));

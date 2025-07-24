@@ -14,7 +14,7 @@ import {
   Vector3,
   Color,
 } from 'three';
-import type planck from 'planck-js';
+import type { Vec3 } from '../vector';
 import type { EventBus } from '../core/eventBus';
 import { RenderPayload } from './types';
 import { predictOrbitType, throwVelocity } from '../utils';
@@ -25,8 +25,8 @@ export class ThreeRenderer {
   private scene = new Scene();
   private camera: OrthographicCamera;
   private renderer: WebGLRenderer;
-  private bodyMeshes = new Map<planck.Body, Mesh>();
-  private orbitLines = new Map<planck.Body, Line>();
+  private bodyMeshes = new Map<RenderPayload['bodies'][number]['body'], Mesh>();
+  private orbitLines = new Map<RenderPayload['bodies'][number]['body'], Line>();
   private dragLine?: Line;
   private ambient = new AmbientLight(0xffffff, 0.3);
   private sunLight = new PointLight(0xffffff, 1);
@@ -50,7 +50,7 @@ export class ThreeRenderer {
   }
 
   private syncBodies(bodies: RenderPayload['bodies']) {
-    let centralPos: planck.Vec2 | null = null;
+    let centralPos: Vec3 | null = null;
     let maxMass = -Infinity;
     for (const { body, data } of bodies) {
       let mesh = this.bodyMeshes.get(body);
@@ -62,8 +62,8 @@ export class ThreeRenderer {
         this.scene.add(mesh);
         this.bodyMeshes.set(body, mesh);
       }
-      const pos = body.getPosition();
-      mesh.position.set(pos.x, pos.y, 0);
+      const pos = body.position;
+      mesh.position.set(pos.x, pos.y, pos.z);
       if (data.mass > maxMass) {
         maxMass = data.mass;
         centralPos = pos;
@@ -93,7 +93,7 @@ export class ThreeRenderer {
     const central = bodies.reduce((a, b) =>
       b.data.mass > a.data.mass ? b : a,
     bodies[0]);
-    const cPos = central.body.getPosition();
+    const cPos = central.body.position;
 
     const active = new Set(bodies.map((b) => b.body));
     for (const [b, line] of Array.from(this.orbitLines.entries())) {
@@ -105,8 +105,8 @@ export class ThreeRenderer {
 
     for (const b of bodies) {
       if (b === central) continue;
-      const pos = b.body.getPosition();
-      const vel = b.body.getLinearVelocity();
+      const pos = b.body.position;
+      const vel = b.body.velocity;
       const type = predictOrbitType(
         pos,
         vel,
@@ -147,12 +147,12 @@ export class ThreeRenderer {
     }
   }
 
-  private updateDragLine(bodies: RenderPayload['bodies'], line?: { start: planck.Vec2; end: planck.Vec2 }) {
+  private updateDragLine(bodies: RenderPayload['bodies'], line?: { start: Vec3; end: Vec3 }) {
     if (!bodies.length) return;
     const central = bodies.reduce((a, b) =>
       b.data.mass > a.data.mass ? b : a,
     bodies[0]);
-    const cPos = central.body.getPosition();
+    const cPos = central.body.position;
     if (!line) {
       if (this.dragLine) {
         this.scene.remove(this.dragLine);

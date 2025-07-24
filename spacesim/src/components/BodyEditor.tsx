@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'preact/hooks';
 import { Simulation } from '../simulation';
-import { Vec2 } from 'planck-js';
+import { Vec3 } from '../vector';
 import type { BodyData } from '../physics';
 import {
   kgToUnits,
@@ -28,16 +28,16 @@ interface BodyState extends BodyData {
 export default function BodyEditor({ sim, body, onDeselect, frame }: Props) {
   const [state, setState] = useState<BodyState | null>(() => {
     if (!body) return null;
-    const pos = body.body.getPosition();
-    const vel = body.body.getLinearVelocity();
+    const pos = body.body.position;
+    const vel = body.body.velocity;
     return { ...body.data, posX: pos.x, posY: pos.y, velX: vel.x, velY: vel.y };
   });
   const [edited, setEdited] = useState(false);
   useEffect(() => {
     if (!body) return setState(null);
     if (edited) return;
-    const pos = body.body.getPosition();
-    const vel = body.body.getLinearVelocity();
+    const pos = body.body.position;
+    const vel = body.body.velocity;
     setState({
       ...body.data,
       posX: pos.x,
@@ -55,8 +55,8 @@ export default function BodyEditor({ sim, body, onDeselect, frame }: Props) {
       radius: state.radius,
       color: state.color,
       label: state.label,
-      position: Vec2(state.posX, state.posY),
-      velocity: Vec2(state.velX, state.velY),
+      position: Vec3(state.posX, state.posY, 0),
+      velocity: Vec3(state.velX, state.velY, 0),
     });
   };
   const remove = () => {

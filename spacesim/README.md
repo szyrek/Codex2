@@ -1,6 +1,6 @@
 # Spacesim
 
-A simple 2D physics sandbox illustrating basic orbital mechanics. The project uses TypeScript and Planck.js to simulate gravity between bodies. The UI is built with **Preact** and composed of small components.
+A simple 3D physics sandbox illustrating basic orbital mechanics. The project uses a lightweight custom engine built on Three.js vectors to simulate gravity between bodies. The UI is built with **Preact** and composed of small components.
 
 Bodies are spawned by dragging on the canvas while the spawner panel is visible. The drag length defines the initial velocity and short drags create a body with near-zero velocity. A green line shows the drag vector as you hold the mouse. When released a body is created with a unique label from the spawner panel. The first spawn defaults to a **Sun** with mass 100, radius 50 and yellow color. After that the spawner switches to a **planet** preset with random color for each new body. Mass now uses a slider scaled from a small moon to the Sun and all distances are shown in metric units.
 
