@@ -1,9 +1,15 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { render } from 'preact';
 
 vi.mock('./NavigationView', () => ({ default: () => <div>nav</div> }));
 vi.mock('./BurnControls', () => ({ default: () => <div>burn</div> }));
+vi.mock('./Simulation', () => ({ default: () => <div>sim</div> }));
 import ShipView from './ShipView';
+
+beforeAll(() => {
+  // stub canvas for Three.js renderer
+  HTMLCanvasElement.prototype.getContext = vi.fn();
+});
 
 describe('ShipView', () => {
   it('renders four cockpit surfaces', () => {

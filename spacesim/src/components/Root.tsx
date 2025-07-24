@@ -4,7 +4,8 @@ import DocsView from './DocsView';
 import ShipView from './ShipView';
 
 export default function Root() {
-  const [tab, setTab] = useState<'sandbox' | 'docs' | 'shipview'>('sandbox');
+  const [tab, setTab] = useState<'sandbox' | 'scenario' | 'docs' | 'shipview'>('sandbox');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="app-root" style={{display:'flex', flexDirection:'column'}}>
@@ -14,11 +15,6 @@ export default function Root() {
           alt="Spacesim logo"
           className="app-logo"
         />
-        <div className="hud-buttons">
-          <button onClick={() => setTab('sandbox')}>Sandbox</button>
-          <button onClick={() => setTab('shipview')}>Shipview</button>
-          <button onClick={() => setTab('docs')}>Docs</button>
-        </div>
       </header>
       <main className="main-container">
         {tab === 'sandbox' ? (
@@ -30,6 +26,17 @@ export default function Root() {
         )}
       </main>
       <footer className="status-footer">Ready</footer>
+      <div className={`hud-menu${menuOpen ? ' open' : ''}`}>
+        <button className="menu-toggle" onClick={() => setMenuOpen(o => !o)}>
+          Utilities
+        </button>
+        <div className="menu-items">
+          <button onClick={() => { setTab('sandbox'); setMenuOpen(false); }}>Sandbox</button>
+          <button onClick={() => { setTab('scenario'); setMenuOpen(false); }}>Scenario</button>
+          <button onClick={() => { setTab('shipview'); setMenuOpen(false); }}>Shipview</button>
+          <button onClick={() => { setTab('docs'); setMenuOpen(false); }}>Docs</button>
+        </div>
+      </div>
     </div>
   );
 }

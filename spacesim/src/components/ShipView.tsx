@@ -2,6 +2,7 @@ import { useState } from 'preact/hooks';
 import NavigationView from './NavigationView';
 import BurnControls from './BurnControls';
 import WindowView from './WindowView';
+import SimulationComponent from './Simulation';
 
 export default function ShipView() {
   const [view, setView] = useState<'center' | 'left' | 'right'>('center');
