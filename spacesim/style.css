@@ -179,9 +179,18 @@ canvas {
   perspective: 800px;
 }
 
+.shipview.view-left .ship-cockpit {
+  transform: rotateY(20deg) translateX(20px);
+}
+
+.shipview.view-right .ship-cockpit {
+  transform: rotateY(-20deg) translateX(-20px);
+}
+
 .ship-cockpit {
   flex: 1;
   display: flex;
+  transition: transform 0.3s ease;
 }
 
 .ship-surface {
@@ -195,7 +204,13 @@ canvas {
 }
 
 .ship-window {
+  flex: 2;
   background: #000;
+}
+
+.ship-left,
+.ship-right {
+  flex: 0.66;
 }
 
 .ship-left {
@@ -207,7 +222,30 @@ canvas {
 }
 
 .ship-console {
-  height: 100px;
+  height: 70px;
   border-top: 1px solid #0ff;
   background: #111;
+}
+
+.console-screen,
+.nav-screen {
+  position: absolute;
+  bottom: 70px;
+  top: 10%;
+  width: 40%;
+  background: #111;
+  border: 1px solid #0ff;
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.console-screen {
+  left: 0;
+}
+
+.nav-screen {
+  right: 0;
 }
