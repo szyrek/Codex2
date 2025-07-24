@@ -46,7 +46,7 @@ test('edit body velocity', async ({ page }) => {
   await page.mouse.click(box.x + 50, box.y + 50);
 
   const vxInput = page.locator('label:has-text("Vel X") input');
-  await vxInput.fill('5');
+  await vxInput.fill('5e9');
   await page.getByRole('button', { name: 'Apply' }).click();
 
   const vel = await page.evaluate(() => {

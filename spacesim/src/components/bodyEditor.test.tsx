@@ -33,13 +33,13 @@ describe('BodyEditor', () => {
     render(<BodyEditor sim={sim} body={body} onDeselect={() => {}} frame={0} />, container);
     const labels = Array.from(container.querySelectorAll('label'));
     const posX = labels.find(l => l.textContent?.startsWith('Pos X'))!.querySelector('input') as HTMLInputElement;
-    expect(posX.value).toBe('0');
+    expect(posX.value).toBe('0.00e+0');
     (body.body as any).getPosition = () => ({ x: 2, y: 0 });
     render(<BodyEditor sim={sim} body={body} onDeselect={() => {}} frame={1} />, container);
     await new Promise(r => setTimeout(r));
     const labels2 = Array.from(container.querySelectorAll('label'));
     const posX2 = labels2.find(l => l.textContent?.startsWith('Pos X'))!.querySelector('input') as HTMLInputElement;
-    expect(posX2.value).toBe('2');
+    expect(posX2.value).toBe('2.00e+9');
   });
 
 });
