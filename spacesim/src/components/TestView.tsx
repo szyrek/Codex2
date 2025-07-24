@@ -15,7 +15,7 @@ export default function TestView() {
     const stored = localStorage.getItem(STORAGE_KEY);
     return stored ? JSON.parse(stored) : defaultLayout;
   });
-  const [locked, setLocked] = useState(true);
+  const [locked, setLocked] = useState(false);
 
   const move = (id: string, x: number, y: number) => {
     setLayout(l => ({ ...l, [id]: { x, y } }));

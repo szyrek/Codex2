@@ -27,6 +27,7 @@ describe('ShipView', () => {
     document.body.appendChild(container);
     render(<ShipView />, container);
     await Promise.resolve();
+    await Promise.resolve();
     const rootEl = container.querySelector('.shipview') as HTMLElement;
     rootEl.dispatchEvent(new MouseEvent('mousemove', { clientX: window.innerWidth - 1, bubbles: true }));
     await new Promise(r => setTimeout(r, 0));
@@ -60,6 +61,7 @@ describe('ShipView', () => {
     vi.advanceTimersByTime(20);
     window.dispatchEvent(new window.KeyboardEvent('keyup', { key: 'd', bubbles: true }));
     vi.advanceTimersByTime(40);
+    await Promise.resolve();
     expect(img.style.transform).not.toBe(initial);
     vi.useRealTimers();
   });

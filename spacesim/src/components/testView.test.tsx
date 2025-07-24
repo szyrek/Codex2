@@ -19,9 +19,9 @@ describe('TestView', () => {
     document.body.appendChild(container);
     render(<TestView />, container);
     const btn = container.querySelector('.lock-toggle') as HTMLButtonElement;
-    expect(btn.dataset.locked).toBe('true');
+    expect(btn.dataset.locked).toBe('false');
     btn.click();
     await Promise.resolve();
-    expect(btn.dataset.locked).toBe('false');
+    expect(btn.dataset.locked).toBe('true');
   });
 });
