@@ -5,6 +5,9 @@ import { Vec3 } from '../vector';
 interface Props {
   sim: Simulation;
   onClick?: (pos: Vec3) => void;
+  onMouseDown?: (pos: Vec3) => void;
+  onMouseMove?: (pos: Vec3) => void;
+  onMouseUp?: (pos: Vec3) => void;
 }
 
 export default function CanvasView({ sim, onClick, onMouseDown, onMouseMove, onMouseUp }: Props) {
