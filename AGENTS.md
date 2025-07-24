@@ -16,7 +16,7 @@ Welcome, coding agent! Follow these instructions whenever you work in this repos
    - Format commit messages according to [`docs/practices/COMMIT_MESSAGE.md`](docs/practices/COMMIT_MESSAGE.md).
    - Write tests before implementing any change and ensure they all pass.
 3. **Maintain Local Instructions**
-   - Some subfolders include their own `AGENTS.md` with additional guidance. If present, read it before editing files in that folder.
+   - Some folders include their own `AGENTS.md` with notes specific to that location. Keep these files short and link back here rather than repeating the entire workflow. If present, read them before editing files in that folder.
 
 These practices must not be altered without explicit approval. Raise concerns rather than modifying them silently.
 
