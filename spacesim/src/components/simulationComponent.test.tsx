@@ -74,6 +74,7 @@ describe('SimulationComponent', () => {
     const canvas = container.querySelector('canvas') as HTMLCanvasElement
     canvas.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 100 } as any)
     canvas.dispatchEvent(new MouseEvent('mousedown', { clientX: 0, clientY: 0, bubbles: true }))
+    await new Promise(r => setTimeout(r))
     canvas.dispatchEvent(new MouseEvent('mouseup', { clientX: 10, clientY: 0, bubbles: true }))
     await new Promise(r => setTimeout(r))
     const nameInput = container.querySelector('input') as HTMLInputElement
