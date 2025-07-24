@@ -14,4 +14,18 @@ describe('ShipView', () => {
     const consoleEl = container.querySelector('.ship-console');
     expect(consoleEl).not.toBeNull();
   });
+
+  it('changes view on pointer move', async () => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    render(<ShipView />, container);
+    await Promise.resolve();
+    const rootEl = container.querySelector('.shipview') as HTMLElement;
+    rootEl.dispatchEvent(new MouseEvent('mousemove', { clientX: window.innerWidth - 1, bubbles: true }));
+    await new Promise(r => setTimeout(r, 0));
+    expect(rootEl.className).toContain('view-right');
+    rootEl.dispatchEvent(new MouseEvent('mousemove', { clientX: 0, bubbles: true }));
+    await new Promise(r => setTimeout(r, 0));
+    expect(rootEl.className).toContain('view-left');
+  });
 });
