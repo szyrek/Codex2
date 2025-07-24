@@ -69,6 +69,16 @@ export class PhysicsEngine {
       target.body.resetMassData();
       if (updates.mass !== undefined) target.data.mass = updates.mass;
       if (updates.radius !== undefined) target.data.radius = updates.radius;
+    const newMass = updates.mass ?? target.data.mass;
+    const newRadius = updates.radius ?? target.data.radius;
+    if (updates.mass !== undefined || updates.radius !== undefined) {
+      const fixture = target.body.getFixtureList();
+      if (fixture) target.body.destroyFixture(fixture);
+      const density = newMass / (Math.PI * newRadius * newRadius);
+      target.body.createFixture(planck.Circle(newRadius), { density });
+      target.body.resetMassData();
+      target.data.mass = newMass;
+      target.data.radius = newRadius;
     }
     if (updates.label !== undefined) target.data.label = updates.label;
     if (updates.color !== undefined) target.data.color = updates.color;
