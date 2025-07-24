@@ -5,15 +5,17 @@ import BodyEditor from './BodyEditor';
 import BodySpawner from './BodySpawner';
 import BodyLabels from './BodyLabels';
 import { Simulation, type ScenarioEvent } from '../simulation';
+import ScenarioChooser from './ScenarioChooser';
 import { Vec3 } from '../vector';
 import { uniqueName, throwVelocity, nextSpawnParams } from '../utils';
 
 interface Props {
   scenario?: ScenarioEvent[];
   sim?: Simulation; // for tests
+  showSpawner?: boolean;
 }
 
-export default function SimulationComponent({ scenario, sim: ext }: Props) {
+export default function SimulationComponent({ scenario, sim: ext, showSpawner = true }: Props) {
   const [sim] = useState(() => ext ?? new Simulation());
   useEffect(() => {
     if (import.meta.env.DEV) {
@@ -28,6 +30,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
   const [frame, setFrame] = useState(0);
   const [speed, setSpeed] = useState(sim.speed);
   const [time, setTime] = useState(sim.time);
+  const [showScenario, setShowScenario] = useState(false);
 
   useEffect(() => {
     const off = sim.onRender(() => {
@@ -110,6 +113,7 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
           <button onClick={toggleRun}>{running ? 'Pause' : 'Start'}</button>
           <button onClick={reset}>Reset</button>
           <button onClick={center}>Center</button>
+          <button onClick={() => setShowScenario(s => !s)}>Scenario</button>
         </div>
         <div style={{ display:'flex', gap:'0.25rem', justifyContent:'center' }}>
           <button onClick={slower}>{'<<<'}</button>
@@ -132,7 +136,15 @@ export default function SimulationComponent({ scenario, sim: ext }: Props) {
         </div>
         <div className="sim-time" style={{marginTop:'0.25rem'}}>Time {time.toFixed(1)}s</div>
       </div>
-      <BodySpawner sim={sim} disabled={!!selected || !!dragStart} params={spawnParams} onChange={setSpawnParams} />
+      {showSpawner && (
+        <BodySpawner
+          sim={sim}
+          disabled={!!selected || !!dragStart}
+          params={spawnParams}
+          onChange={setSpawnParams}
+        />
+      )}
+      <ScenarioChooser sim={sim} visible={showScenario} />
       <BodyEditor sim={sim} body={selected} onDeselect={()=>setSelected(null)} frame={frame} />
       <BodyList sim={sim} selected={selected} onSelect={b=>setSelected(b)} />
       <BodyLabels sim={sim} frame={frame} />

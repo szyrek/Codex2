@@ -1,9 +1,15 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { render } from 'preact';
 
 vi.mock('./NavigationView', () => ({ default: () => <div>nav</div> }));
 vi.mock('./BurnControls', () => ({ default: () => <div>burn</div> }));
+vi.mock('./Simulation', () => ({ default: () => <div>sim</div> }));
 import ShipView from './ShipView';
+
+beforeAll(() => {
+  // stub canvas for Three.js renderer
+  HTMLCanvasElement.prototype.getContext = vi.fn();
+});
 
 describe('ShipView', () => {
   it('renders four cockpit surfaces', () => {
@@ -28,5 +34,17 @@ describe('ShipView', () => {
     rootEl.dispatchEvent(new MouseEvent('mousemove', { clientX: 0, bubbles: true }));
     await new Promise(r => setTimeout(r, 0));
     expect(rootEl.className).toContain('view-left');
+  });
+
+  it('shows simulation in console screen when view is left', async () => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    render(<ShipView />, container);
+    await Promise.resolve();
+    const rootEl = container.querySelector('.shipview') as HTMLElement;
+    rootEl.dispatchEvent(new MouseEvent('mousemove', { clientX: 0, bubbles: true }));
+    await new Promise(r => setTimeout(r, 0));
+    const screen = container.querySelector('.console-screen');
+    expect(screen?.textContent).toContain('sim');
   });
 });

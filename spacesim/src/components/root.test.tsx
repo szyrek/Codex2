@@ -44,6 +44,8 @@ describe('Root', () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
     render(<Root />, container);
+    const toggle = container.querySelector('.menu-toggle') as HTMLButtonElement;
+    toggle.click();
     const btn = Array.from(container.querySelectorAll('button')).find(b => b.textContent === 'Shipview');
     expect(btn).not.toBeUndefined();
   });
