@@ -39,4 +39,12 @@ describe('Root', () => {
     expect(img).not.toBeNull();
     expect(img?.getAttribute('alt')).toBe('Spacesim logo');
   });
+
+  it('contains Shipview tab button', () => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    render(<Root />, container);
+    const btn = Array.from(container.querySelectorAll('button')).find(b => b.textContent === 'Shipview');
+    expect(btn).not.toBeUndefined();
+  });
 });
