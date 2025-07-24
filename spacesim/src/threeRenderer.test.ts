@@ -16,7 +16,17 @@ vi.mock('three', () => {
   class BufferGeometry { points:any[]=[]; setFromPoints(p:any[]){ this.points=p; return this; } dispose(){} }
   class Mesh { position={x:0,y:0,z:0,set(x:number,y:number,z:number){this.x=x;this.y=y;this.z=z;}}; constructor(public g:any,public m:any){} }
   class Line { geometry:any; material:any; constructor(g:any,m:any){ this.geometry=g; this.material=m; } computeLineDistances(){} }
-  class Vector3 { constructor(public x:number,public y:number,public z:number){} }
+  class Vector3 {
+    constructor(public x:number,public y:number,public z:number){}
+    clone(){ return new Vector3(this.x,this.y,this.z); }
+    add(v:any){ this.x+=v.x; this.y+=v.y; this.z+=v.z; return this; }
+    sub(v:any){ this.x-=v.x; this.y-=v.y; this.z-=v.z; return this; }
+    multiplyScalar(s:number){ this.x*=s; this.y*=s; this.z*=s; return this; }
+    lengthSq(){ return this.x*this.x + this.y*this.y + this.z*this.z; }
+    length(){ return Math.sqrt(this.lengthSq()); }
+    distanceTo(v:any){ return this.clone().sub(v).length(); }
+    dot(v:any){ return this.x*v.x + this.y*v.y + this.z*v.z; }
+  }
   class AmbientLight { constructor(public color:any, public intensity:any){} }
   class PointLight { position={x:0,y:0,z:0,set(x:number,y:number,z:number){this.x=x;this.y=y;this.z=z;}}; constructor(public color:any, public intensity:any){} }
   return { Scene, WebGLRenderer, OrthographicCamera, SphereGeometry, MeshBasicMaterial, Mesh, LineBasicMaterial, LineDashedMaterial, BufferGeometry, Line, Vector3, AmbientLight, PointLight };
@@ -90,7 +100,7 @@ describe('ThreeRenderer', () => {
     const canvas = { width: 200, height: 200 } as HTMLCanvasElement;
     const bus = createEventBus<any>();
     const renderer = new ThreeRenderer(canvas, bus);
-    bus.emit('render', { bodies: [], view: { center: Vec2(), zoom: 1, rotation: Math.PI / 4 } });
+    bus.emit('render', { bodies: [], view: { center: Vec3(), zoom: 1, rotation: Math.PI / 4 } });
     const cam = (renderer as any).camera;
     expect(cam.rotation.z).toBeCloseTo(Math.PI / 4);
   });

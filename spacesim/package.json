@@ -1,7 +1,7 @@
 {
   "name": "spacesim",
   "version": "0.1.0",
-  "description": "2D orbital mechanics sandbox",
+  "description": "3D orbital mechanics sandbox",
   "scripts": {
     "dev": "vite",
     "build": "npm test && vite build",
@@ -24,7 +24,6 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "planck-js": "^0.3.0",
     "@preact/preset-vite": "^2.10.2",
     "marked": "^9.1.2",
     "mitt": "^3.0.1",

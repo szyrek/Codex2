@@ -113,11 +113,11 @@ describe('Sandbox gravity', () => {
 
   it('accelerates equally regardless of radius', () => {
     const sb = new PhysicsEngine();
-    const a = sb.addBody(Vec2(0, 0), Vec2(), { mass: 1, radius: 1, color: 'red', label: '' });
-    const b = sb.addBody(Vec2(10, 0), Vec2(), { mass: 1, radius: 3, color: 'blue', label: '' });
+    const a = sb.addBody(Vec3(0, 0), Vec3(), { mass: 1, radius: 1, color: 'red', label: '' });
+    const b = sb.addBody(Vec3(10, 0), Vec3(), { mass: 1, radius: 3, color: 'blue', label: '' });
     sb.step(1 / 60);
-    const va = a.body.getLinearVelocity().x;
-    const vb = b.body.getLinearVelocity().x;
+    const va = a.body.velocity.x;
+    const vb = b.body.velocity.x;
     expect(va).toBeCloseTo(-vb, 5);
   });
 });
