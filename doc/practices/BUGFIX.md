@@ -8,7 +8,7 @@ Follow these steps whenever you address a defect:
      end, as long as it reproduces the issue.
    - Only begin coding the fix once the failure is verified.
 2. **Root Cause Analysis**
-   - Identify why the bug occurred and document the underlying issue in a new folder under `docs/bugfix/`.
+   - Identify why the bug occurred and document the underlying issue in a new folder under `../bugfix/`.
    - Include notes on which parts of the architecture were affected and link to the relevant feature docs or commits.
    - Record any process issues uncovered and propose improvements.
 3. **Implement Safely**

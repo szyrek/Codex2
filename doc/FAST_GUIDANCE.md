@@ -7,8 +7,8 @@ This file distills the core practices for quick reference.
 - Document planned work before coding.
 - Write tests first and aim for at least 60% coverage.
 - Run the available test suites and ensure they pass.
-- Use Conventional Commit style: `feat:`, `fix:`, or `chore:` and reference docs/feature or docs/bugfix folders.
-- Skim docs/bugfix for context when planning new features.
+- Use Conventional Commit style: `feat:`, `fix:`, or `chore:` and reference doc/feature or doc/bugfix folders.
+- Skim doc/bugfix for context when planning new features.
 - Update documentation and tests whenever behavior changes.
 
 ## UI Guidelines

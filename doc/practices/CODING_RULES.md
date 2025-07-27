@@ -6,8 +6,8 @@ This document defines the lifecycle that all contributors must follow. It applie
 - Review the `README.md` and `AGENTS.md` files in the current and parent folders.
 - Understand the goals and constraints of the code you are about to modify.
 - Consult the guides in this [`practices/`](.) folder for testing, features and bug fixes.
- - Skim `docs/bugfix/` for similar issues when planning features or refactors.
- - Review [../../doc/KNOWN_ISSUES.md](../../doc/KNOWN_ISSUES.md) if you run into environment problems.
+ - Skim `../bugfix/` for similar issues when planning features or refactors.
+ - Review [../KNOWN_ISSUES.md](../KNOWN_ISSUES.md) if you run into environment problems.
 
 ## 2. Update Documentation
 - Modify or add Markdown files to describe planned changes before implementation.
@@ -44,7 +44,7 @@ This document defines the lifecycle that all contributors must follow. It applie
 
 ## 10. Finalize Documentation
 - Ensure all affected `README.md` and `AGENTS.md` files are accurate and complete.
- - Record feature or bug fix details in the appropriate folder under `docs/feature` or `docs/bugfix`.
+ - Record feature or bug fix details in the appropriate folder under `doc/feature` or `doc/bugfix`.
 - Verify that documentation and implementation stay in sync.
 
 No change is complete until documentation and tests are comprehensive and current.

@@ -9,14 +9,14 @@ When introducing a new feature, follow these principles:
    - Provide an end-to-end test for each user-facing capability. See the
      [Testing practices](TESTING.md) section on E2E tests.
 2. **Documentation**
-   - Create a new folder under `docs/feature/` named after the feature and include a `README.md` summarising:
+   - Create a new folder under `../feature/` named after the feature and include a `README.md` summarising:
    - purpose and high-level design decisions
    - links to relevant commits and architectural documents
    - changelog entries
    - Update any affected architecture docs and reference this feature folder from them.
    - If the feature changes the UI, review the guidelines in [UI Design Best Practices](UI.md).
 3. **Review Past Bug Fixes**
-   - Browse `docs/bugfix/` for records related to your changes.
+   - Browse `../bugfix/` for records related to your changes.
    - Incorporate regression tests covering those failure cases.
    - Reference the bugfix entries you consulted in your feature `README.md`.
 4. **Quality Gates**
