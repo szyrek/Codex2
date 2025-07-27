@@ -21,4 +21,4 @@ Welcome, coding agent! Follow these instructions whenever you work in this repos
 These practices must not be altered without explicit approval. Raise concerns rather than modifying them silently.
 
 ## Environment Note
-If `npm test` prints `npm warn Unknown env config "http-proxy"`, the environment has `npm_config_http_proxy` or `npm_config_https_proxy` set. Unset these variables (or use the newer `npm_config_proxy` names) to silence the warning.
+Common setup or runtime problems are tracked in [KNOWN_ISSUES.md](KNOWN_ISSUES.md). If you encounter a failure, check that file for troubleshooting steps.
