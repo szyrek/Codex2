@@ -3,3 +3,7 @@ node_modules/
 dist/
 coverage/
 **/coverage/
+spacesim/test-results/
+spacesim/performance/latest.json
+spacesim/performance/results.json
+spacesim/docs/

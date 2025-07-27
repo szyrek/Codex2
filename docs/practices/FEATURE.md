@@ -13,6 +13,7 @@ When introducing a new feature, follow these principles:
    - purpose and high-level design decisions
    - links to relevant commits and architectural documents
    - changelog entries
+   - The helper script [`new-record.js`](new-record.js) can generate this folder automatically: `node docs/practices/new-record.js feature <name>`.
    - Update any affected architecture docs and reference this feature folder from them.
    - If the feature changes the UI, review the guidelines in [UI Design Best Practices](UI.md).
 3. **Review Past Bug Fixes**

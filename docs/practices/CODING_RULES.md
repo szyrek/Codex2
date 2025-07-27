@@ -26,6 +26,7 @@ This document defines the lifecycle that all contributors must follow. It applie
 - If your changes touch the UI, adhere to [UI Design Best Practices](UI.md).
 
 ## 6. Run and Pass All Tests
+- If the project uses Node tooling, run `npm install` to ensure dependencies are present.
 - Execute all available test suites until they succeed.
 - Fix any failing tests before proceeding.
 

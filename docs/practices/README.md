@@ -10,6 +10,7 @@ This folder collects the documentation that defines how we work. For a one-page 
 - [Refactoring](REFACTORING.md)
 - [UI Design Best Practices](UI.md)
 - [Known Issues](../KNOWN_ISSUES.md)
+- [Record Helper](new-record.js)
 
 Past bug fixes contain lessons. Scan the entries under `docs/bugfix` when planning features or refactors.
 

@@ -13,14 +13,19 @@ This file is part of the initial project scaffolding and will evolve as the proj
 
 ## Features
 
-Implemented features are recorded under [docs/feature](docs/feature/).
-Historical bug fixes are kept in [docs/bugfix](docs/bugfix/).
-Architecture decisions live in the [adr](adr/) folder.
+Implemented features are documented under [docs/feature](docs/feature/) where each entry links to the commits and has an accompanying end-to-end test.
+Historical bug fixes are kept in [docs/bugfix](docs/bugfix/); consult them when planning new work.
 
 ## Documentation
 
-All Markdown files can be compiled into a browsable set of docs. The exact build process is left to contributors.
+All Markdown files in the repository can be compiled into a browsable set of docs.
+Run `npm run docs` at the repository root to regenerate them. The output appears
+under `spacesim/docs/<major>` based on the package version.
 
 ## Testing
 
-Run the available test suites and ensure they all succeed before committing changes.
+Run `npm test` to execute every test suite. This runs the Node scripts in
+`test/`, then launches the Spacesim unit tests with coverage, its end-to-end
+browser checks and the performance benchmarks.
+The GitHub Actions workflow calls the same command and merges are blocked if any
+test fails.
