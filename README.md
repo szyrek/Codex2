@@ -15,6 +15,7 @@ This file is part of the initial project scaffolding and will evolve as the proj
 
 Implemented features are recorded under [docs/feature](docs/feature/).
 Historical bug fixes are kept in [docs/bugfix](docs/bugfix/).
+Architecture decisions live in the [adr](adr/) folder.
 
 ## Documentation
 
