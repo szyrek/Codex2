@@ -5,6 +5,7 @@ Refactoring improves internal structure without changing external behaviour. Fol
 1. **Verify Coverage**
    - Ensure automated tests cover the affected code with meaningful assertions.
    - If coverage is lacking, expand tests first so real behaviour is locked in.
+   - Review `docs/bugfix/` for regressions related to this code.
 2. **Review Architecture**
    - Compare proposed refactors against current architecture documentation.
    - If the refactor implies architecture changes, document a proposal rather than editing architecture files directly. Await explicit approval before altering architecture docs.
