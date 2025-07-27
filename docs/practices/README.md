@@ -11,4 +11,6 @@ This folder collects the documentation that defines how we work.
 - [UI Design Best Practices](UI.md)
 - [Record Helper](new-record.js)
 
+Past bug fixes contain lessons. Scan the entries under `docs/bugfix` when planning features or refactors.
+
 Each document links to the others so you can navigate through the workflow. Review them all before contributing.

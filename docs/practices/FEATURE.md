@@ -16,11 +16,15 @@ When introducing a new feature, follow these principles:
    - The helper script [`new-record.js`](new-record.js) can generate this folder automatically: `node docs/practices/new-record.js feature <name>`.
    - Update any affected architecture docs and reference this feature folder from them.
    - If the feature changes the UI, review the guidelines in [UI Design Best Practices](UI.md).
-3. **Quality Gates**
+3. **Review Past Bug Fixes**
+   - Browse `docs/bugfix/` for records related to your changes.
+   - Incorporate regression tests covering those failure cases.
+   - Reference the bugfix entries you consulted in your feature `README.md`.
+4. **Quality Gates**
    - The build must pass with required coverage before merging.
-4. **Commit Messages**
+5. **Commit Messages**
    - Follow [COMMIT_MESSAGE.md](COMMIT_MESSAGE.md) when creating commits so changes are easy to trace.
-5. **Link Everything**
+6. **Link Everything**
    - Cross-reference this guide, [Bug Fix Guide](BUGFIX.md) and any other practice documents so future contributors can trace history easily.
 
 > Agents must always comply with these practices. If a situation requires deviating, raise it for discussion rather than changing the rules silently.
