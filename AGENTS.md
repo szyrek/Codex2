@@ -22,4 +22,4 @@ Welcome, coding agent! Follow these instructions whenever you work in this repos
 These practices must not be altered without explicit approval. Raise concerns rather than modifying them silently.
 
 ## Environment Note
-Common setup or runtime problems are tracked in [KNOWN_ISSUES.md](KNOWN_ISSUES.md) (proxy warnings, Node memory settings, etc.). Check that file if tests fail unexpectedly.
+Common setup or runtime problems are tracked in [KNOWN_ISSUES.md](KNOWN_ISSUES.md). Check that file if anything fails unexpectedly.
