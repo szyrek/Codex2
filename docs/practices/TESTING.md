@@ -15,8 +15,7 @@ This repository follows a test-driven approach. Every feature begins with tests 
 - Playwright is used for E2E testing in web projects.
 
 ## Performance Tests
-- Benchmarks use Vitest's `bench` runner.
-- Run `npm run test:perf` inside `spacesim` to measure simulation and rendering speed.
+- Benchmarks use a `bench` runner.
 - These tests are manual and not part of automated builds.
 
 Read [CODING_RULES.md](CODING_RULES.md) for the full workflow.
