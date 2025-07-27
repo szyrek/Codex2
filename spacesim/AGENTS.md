@@ -6,3 +6,4 @@ Additional notes:
 - Keep the simulation minimal and well-documented.
 - Use Three.js vectors for physics calculations in 3D.
 - Provide unit tests for logic in `src/`.
+- See [../KNOWN_ISSUES.md](../KNOWN_ISSUES.md) if tests fail due to environment problems.

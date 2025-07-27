@@ -6,7 +6,7 @@ This document defines the lifecycle that all contributors must follow. It applie
 - Review the `README.md` and `AGENTS.md` files in the current and parent folders.
 - Understand the goals and constraints of the code you are about to modify.
 - Consult the guides in this [`practices/`](.) folder for testing, features and bug fixes.
-- Skim `docs/bugfix/` for similar issues when designing a new feature.
+ - Skim `docs/bugfix/` for similar issues when planning features or refactors.
 - Review [KNOWN_ISSUES.md](../KNOWN_ISSUES.md) if you run into environment problems.
 
 ## 2. Update Documentation

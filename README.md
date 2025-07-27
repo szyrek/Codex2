@@ -14,7 +14,7 @@ This file is part of the initial project scaffolding and will evolve as the proj
 ## Features
 
 Implemented features are documented under [docs/feature](docs/feature/) where each entry links to the commits and has an accompanying end-to-end test.
-Historical bug fixes live under [docs/bugfix](docs/bugfix/); read them for context when adding or changing behaviour.
+Historical bug fixes are kept in [docs/bugfix](docs/bugfix/); consult them when planning new work.
 
 ## Documentation
 
