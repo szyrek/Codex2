@@ -1,14 +1,14 @@
 # Guidance for AI Coding Agents
 
 ## Quick Reference
-The condensed rules are stored in `FAST_GUIDANCE.md`. Use that file when asked to
+The condensed rules are stored in `doc/FAST_GUIDANCE.md`. Use that file when asked to
 "be brief". It summarizes the workflow so you can recall it quickly. Review the
 full documentation if anything is unclear or when the docs change.
 
 Welcome, coding agent! Follow these instructions whenever you work in this repository:
 
 1. **Read Documentation**
-   - Review the local `README.md` and `AGENTS.md` and then those in parent folders.
+   - Review the local `CODEX.md` (or `README.md`) and `AGENTS.md` and then those in parent folders.
    - Consult [`docs/practices`](docs/practices/) for guides on testing, features, bug fixes and refactoring.
    - Skim `docs/bugfix/` for context when planning new work.
    - For UI tasks read [`docs/practices/UI.md`](docs/practices/UI.md).
@@ -22,4 +22,4 @@ Welcome, coding agent! Follow these instructions whenever you work in this repos
 These practices must not be altered without explicit approval. Raise concerns rather than modifying them silently.
 
 ## Environment Note
-Common setup or runtime problems are tracked in [KNOWN_ISSUES.md](KNOWN_ISSUES.md) (proxy warnings, Node memory settings, etc.). Check that file if tests fail unexpectedly.
+Common setup or runtime problems are tracked in [doc/KNOWN_ISSUES.md](doc/KNOWN_ISSUES.md). Check that file if anything fails unexpectedly.
